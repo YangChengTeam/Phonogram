@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="33dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -31,23 +31,50 @@
                 <View
                     android:layout_width="34dp"
                     android:layout_height="34dp"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_ph_video_cover"/>
+                <LinearLayout
+                    android:layout_width="230dp"
+                    android:layout_height="160dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/ph_goods_bg">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:textSize="18sp"
+                            android:text="自然拼读法"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="单词能力提高必选的12节课"
+                            android:textColor="@color/ph_common_title2"
+                            android:textSize="16sp"
+                            android:padding="5dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="迎新年特价69元"
+                            android:padding="5dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:text="原价60元"
+                            android:padding="5dp"/>
+                </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
-                android:layout_width="250dp"
+                android:layout_width="251dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginLeft="47dp"
-                android:layout_marginTop="9dp">
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="8dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:src="@mipmap/main_share"/>
+                    android:src="@mipmap/main_bg_left"/>
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -56,7 +83,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_ph_num_bg"
+                        android:background="@mipmap/main_bg_index"
                         android:layout_centerInParent="true"
                         android:text="16/24"
                         android:textColor="@color/white"
@@ -68,7 +95,7 @@
                     android:layout_weight="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/main_share"/>
+                    android:src="@mipmap/main_bg_right"/>
             </LinearLayout>
         </LinearLayout>
     </com.yc.phonogram.ui.views.MainBgView>

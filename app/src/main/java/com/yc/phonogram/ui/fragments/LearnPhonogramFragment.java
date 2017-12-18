@@ -5,9 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPFragmentPagerAdapter;
+import com.yc.phonogram.listener.OnItemClickListener;
+import com.yc.phonogram.ui.views.MainBgView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,14 @@ import java.util.List;
  * 学音标
  */
 
-public class LearnPhonogramFragment extends BaseFragment {
+
+public class LearnPhonogramFragment extends BaseFragment implements OnItemClickListener  {
+
+    private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
+    private MainBgView mMainBgView;
+    private ViewPager mView_pager;
+    private boolean isScorring=false;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_learn;
@@ -24,7 +32,7 @@ public class LearnPhonogramFragment extends BaseFragment {
 
     @Override
     public void init() {
-
+        mMainBgView= (MainBgView) getView(R.id.mainBgView);
     }
 
     @Override
@@ -35,15 +43,14 @@ public class LearnPhonogramFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ViewPager view_pager = (ViewPager) getView(R.id.view_pager);
+        mView_pager = (ViewPager) getView(R.id.view_pager);
         List<Fragment> fragmentList=new ArrayList<>();
         for (int i = 0; i < 48; i++) {
             fragmentList.add(LearnPhonogramChildContentFragment.newInstance("english"+i));
         }
         LPFragmentPagerAdapter LPFragmentPagerAdapter =new LPFragmentPagerAdapter(getChildFragmentManager(),fragmentList);
-        view_pager.setAdapter(LPFragmentPagerAdapter);
-        view_pager.setOffscreenPageLimit(1);
-        view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mView_pager.setOffscreenPageLimit(1);
+        mView_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -51,13 +58,32 @@ public class LearnPhonogramFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                LogUtil.msg(position+"");
+                if(!isScorring){
+                    mMainBgView.setIndex(position);
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                isScorring=false;
             }
         });
+
+        mView_pager.setAdapter(LPFragmentPagerAdapter);
+        mMainBgView.setChangerListener(this);//注册角标监听
+        mMainBgView.showIndex(fragmentList.size());
+        mMainBgView.setIndex(0);
+    }
+
+    /**
+     * 当角标发生了变化
+     * @param poistion
+     */
+    @Override
+    public void onItemClick(int poistion) {
+        if(null!=mView_pager){
+            isScorring=true;
+            mView_pager.setCurrentItem(poistion);
+        }
     }
 }

@@ -5,12 +5,14 @@
     android:layout_height="match_parent">
 
     <com.yc.phonogram.ui.views.MainBgView
+        android:id="@+id/mainBgView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="560dp"
-            android:layout_height="260dp"
+            android:layout_height="270dp"
             android:layout_gravity="center">
         </android.support.v4.view.ViewPager>
     </com.yc.phonogram.ui.views.MainBgView>
