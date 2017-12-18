@@ -4,11 +4,6 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.TaskUtil;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 
@@ -23,7 +18,6 @@ import rx.functions.Action1;
  */
 
 public class SplashActivity extends BaseActivity {
-
 
     @Override
     public int getLayoutId() {
@@ -45,8 +39,8 @@ public class SplashActivity extends BaseActivity {
 
                                 @Override
                                 public void run() {
-                                    finish();
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                    finish();
                                 }
                             });
                         }

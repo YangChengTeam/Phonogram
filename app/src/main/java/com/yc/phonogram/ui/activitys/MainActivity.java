@@ -12,6 +12,8 @@ import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
+import com.yc.phonogram.ui.views.MainBgView;
+
 import java.util.concurrent.TimeUnit;
 import rx.functions.Action1;
 
@@ -27,6 +29,7 @@ public class MainActivity extends BaseActivity {
     private ImageView mReadTomeBtn;
     private ImageView mPhonicsBtn;
     private ImageView mShareBtn;
+
 
     private FragmentAdapter mFragmentAdapter;
     private int mCurrentIndex = -1;
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity {
         mReadTomeBtn = findViewById(R.id.iv_read_to_me);
         mPhonicsBtn = findViewById(R.id.iv_phonics);
         mShareBtn = findViewById(R.id.iv_share);
+
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
