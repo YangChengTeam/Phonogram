@@ -61,6 +61,7 @@ public abstract class BasePopupWindow extends PopupWindow {
 
 
 
+
     }
 
 
@@ -106,6 +107,10 @@ public abstract class BasePopupWindow extends PopupWindow {
                 }
             });
         }
+    }
+
+    public void show() {
+        show(mContext.getWindow().getDecorView().getRootView(), Gravity.CENTER);
     }
 
     public void show(View view) {

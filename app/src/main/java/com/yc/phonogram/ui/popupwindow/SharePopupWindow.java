@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.yc.phonogram.R;
 
+import dxtx.dj.pay.pay_util.bean.PuFaPayBean;
+
 /**
  * Created by zhangkai on 2017/12/15.
  */
@@ -11,11 +13,16 @@ import com.yc.phonogram.R;
 public class SharePopupWindow extends BasePopupWindow {
     public SharePopupWindow(Activity context) {
         super(context);
+        init();
     }
 
     @Override
     public int getLayoutID() {
 
         return R.layout.popwindow_share_view;
+    }
+
+    public void init(){
+
     }
 }
