@@ -18,6 +18,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        debug {
+            storeFile file('Phonogram.jks')
+            storePassword "123456"
+            keyAlias "Phonogram"
+            keyPassword "123456"
+        }
+
+        release {
+            storeFile file('Phonogram.jks')
+            storePassword "123456"
+            keyAlias "Phonogram"
+            keyPassword "123456"
+        }
+    }
 }
 
 dependencies {

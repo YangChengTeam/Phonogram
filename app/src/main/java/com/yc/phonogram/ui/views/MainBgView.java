@@ -3,27 +3,29 @@ package com.yc.phonogram.ui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.jakewharton.rxbinding.view.RxView;
 import com.yc.phonogram.R;
-import com.yc.phonogram.listener.OnItemClickListener;
-import com.yc.phonogram.listener.PerfectClickListener;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/12/18.
  */
 
 public class MainBgView extends BaseView {
-
-    private static final String TAG = MainBgView.class.getSimpleName();
     private ImageView mInnerBgImageView;
     private RelativeLayout mIndexRelativeLayout;
     private ImageView mLeftImageView;
     private ImageView mRightImageView;
     private TextView mIndexTextView;
-    public int mCurrenIndex;
-    private OnItemClickListener onItemClickListener;
+    private FrameLayout mContextFrameLayout;
 
     public MainBgView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,7 +40,6 @@ public class MainBgView extends BaseView {
         return R.layout.view_main_bg;
     }
 
-
     @Override
     public void init() {
         mIndexRelativeLayout = (RelativeLayout) getView(R.id.rl_index);
@@ -46,22 +47,22 @@ public class MainBgView extends BaseView {
         mLeftImageView = (ImageView) getView(R.id.iv_left);
         mRightImageView = (ImageView) getView(R.id.iv_right);
         mIndexTextView = (TextView) getView(R.id.tv_index);
-        //不允许用户疯狂点击
-        mLeftImageView.setOnClickListener(new PerfectClickListener() {
+        mContextFrameLayout = (FrameLayout) getView(R.id.fl_content);
+
+        RxView.clicks(mLeftImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
-            protected void onClickView(View v) {
-                setIndex(mCurrenIndex-1);
-                if(null!=onItemClickListener){
-                    onItemClickListener.onItemClick(mCurrenIndex);
+            public void call(Void aVoid) {
+                if (indexListener != null) {
+                    indexListener.leftClick(mLeftImageView);
                 }
             }
         });
-        mRightImageView.setOnClickListener(new PerfectClickListener() {
+
+        RxView.clicks(mRightImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
-            protected void onClickView(View v) {
-                setIndex(mCurrenIndex+1);
-                if(null!=onItemClickListener){
-                    onItemClickListener.onItemClick(mCurrenIndex);
+            public void call(Void aVoid) {
+                if (indexListener != null) {
+                    indexListener.rightClcik(mRightImageView);
                 }
             }
         });
@@ -91,32 +92,21 @@ public class MainBgView extends BaseView {
     }
 
     public void setIndex(int index) {
-        if(index<0){
-            index=0;
-        }else if(index>count){
-            index=count;
-        }
-        if(0==index){
-            if(null!=mLeftImageView)mLeftImageView.setVisibility(View.GONE);
-        }else if(index==count-1){
-            if(null!=mRightImageView)mRightImageView.setVisibility(View.GONE);
-        }else{
-            if(null!=mRightImageView&&mRightImageView.getVisibility()!=View.VISIBLE){
-                mRightImageView.setVisibility(View.VISIBLE);
-            }
-            if(null!=mLeftImageView&&mLeftImageView.getVisibility()!=View.VISIBLE){
-                mLeftImageView.setVisibility(View.VISIBLE);
-            }
-        }
-        mIndexTextView.setText((index+ 1)+"/" + count);
-        this.mCurrenIndex=index;
+        mIndexTextView.setText(index + "/" + count);
     }
 
     public void showInnerBg() {
         mInnerBgImageView.setVisibility(View.VISIBLE);
     }
 
-    public void setChangerListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener=onItemClickListener;
+    private IndexListener indexListener;
+
+    public void setIndexListener(IndexListener indexListener) {
+        this.indexListener = indexListener;
+    }
+
+    public interface IndexListener {
+        void leftClick(View view);
+        void rightClcik(View view);
     }
 }

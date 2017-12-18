@@ -70,7 +70,18 @@ public class LearnPhonogramFragment extends BaseFragment implements OnItemClickL
         });
 
         mView_pager.setAdapter(LPFragmentPagerAdapter);
-        mMainBgView.setChangerListener(this);//注册角标监听
+        mMainBgView.setIndexListener(new MainBgView.IndexListener() {
+            @Override
+            public void leftClick(View view) {
+
+            }
+
+            @Override
+            public void rightClcik(View view) {
+
+            }
+        });
+
         mMainBgView.showIndex(fragmentList.size());
         mMainBgView.setIndex(0);
     }
