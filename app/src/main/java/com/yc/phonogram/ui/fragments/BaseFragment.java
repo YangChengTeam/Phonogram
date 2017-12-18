@@ -1,6 +1,7 @@
 package com.yc.phonogram.ui.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,14 +22,26 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        if (mRootView == null) {
+            mRootView = View.inflate(getActivity(), getLayoutId(), null);
+        }
         return mRootView;
+    }
+
+    public abstract int getLayoutId();
+
+    public abstract void init();
+
+    public void loadData() {
+    }
+
+    public View getView(@IdRes int id) {
+        return mRootView.findViewById(id);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
 
@@ -48,7 +61,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
     }
 
 

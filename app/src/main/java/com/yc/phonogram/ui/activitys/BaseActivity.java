@@ -2,7 +2,10 @@ package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 /**
  * Created by zhangkai on 2017/10/31.
@@ -10,12 +13,27 @@ import android.support.v4.app.FragmentActivity;
 
 public abstract class BaseActivity extends FragmentActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             // Activity was brought to front and not created,
             // Thus finishing this will get us to the last viewed activity
             finish();
+            return;
         }
+
+        QMUIStatusBarHelper.translucent(this);
+
+        setContentView(getLayoutId());
+        init();
+        loadData();
+    }
+
+    public abstract int getLayoutId();
+
+    public abstract void init();
+
+    public void loadData() {
     }
 }
