@@ -3,14 +3,22 @@ package com.yc.phonogram.ui.activitys;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import android.view.Gravity;
+import android.view.View;
+
+import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.ScreenUtil;
+import com.yc.phonogram.R;
+import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
-import com.jakewharton.rxbinding.view.RxView;
-import com.yc.phonogram.R;
+
 import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
@@ -42,7 +50,6 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    @Override
     public void init() {
         mViewPager = findViewById(R.id.viewpager);
         mCenterBtn = findViewById(R.id.iv_center);
@@ -184,10 +191,12 @@ public class MainActivity extends BaseActivity {
             return null;
         }
 
+
         @Override
         public int getCount() {
             return 4;
         }
     }
+
 
 }
