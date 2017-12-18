@@ -93,8 +93,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview_lp"
                     android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+                    android:layout_height="wrap_content">
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
         </RelativeLayout>
