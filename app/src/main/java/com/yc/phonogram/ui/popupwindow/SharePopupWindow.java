@@ -12,7 +12,12 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
     @Override
-    public int getLayoutID() {
+    public int getLayoutId() {
         return 0;
+    }
+
+    @Override
+    public void init() {
+
     }
 }

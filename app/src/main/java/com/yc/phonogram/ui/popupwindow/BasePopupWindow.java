@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
+import com.yc.phonogram.ui.IView;
 import com.yc.phonogram.utils.NavgationBarUtils;
 
 
@@ -21,7 +22,7 @@ import com.yc.phonogram.utils.NavgationBarUtils;
  * Created by zhangkai on 2017/10/24.
  */
 
-public abstract class BasePopupWindow extends PopupWindow {
+public abstract class BasePopupWindow extends PopupWindow implements IView {
     protected Activity mContext;
 
     public Activity getContext() {
@@ -36,7 +37,7 @@ public abstract class BasePopupWindow extends PopupWindow {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View contextView = inflater.inflate(getLayoutID(), null);
+        View contextView = inflater.inflate(getLayoutId(), null);
 
         try {
             contextView.setSystemUiVisibility (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -54,20 +55,15 @@ public abstract class BasePopupWindow extends PopupWindow {
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
 
-        preSetContentView();
         setWindowAlpha(0.5f);
         setContentView(contextView);
         setOutsideTouchable(false);
 
-
+        init();
 
     }
 
 
-    public void preSetContentView(){}
-
-
-    public abstract int getLayoutID();
 
     @Override
     public void dismiss() {
