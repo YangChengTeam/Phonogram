@@ -9,5 +9,7 @@
     <color name="lp_tips_bg">#FFD391</color>
     <color name="black">#000000</color>
 
+    <color name="gray_ddd">#DDDDDD</color>
     <color name="transparent">#00000000</color>
+
 </resources>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.yc.phonogram.R;
+import com.yc.phonogram.bean.LPContntInfo;
 import java.util.List;
 
 /**
@@ -17,9 +18,9 @@ import java.util.List;
 public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final Context mContext;
-    private final List<String> mData;
+    private final List<LPContntInfo> mData;
 
-    public LPContentListAdapter(Context context, List<String> list) {
+    public LPContentListAdapter(Context context, List<LPContntInfo> list) {
         this.mContext=context;
         this.mData=list;
     }
@@ -32,7 +33,9 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
-        viewHolder.tv_item_content.setText(mData.get(position));
+        LPContntInfo lpContntInfo = mData.get(position);
+        viewHolder.tv_item_content.setText(lpContntInfo.getLpName());
+        viewHolder.tv_item_content_lp.setText(lpContntInfo.getLpContent());
     }
 
     @Override
@@ -44,10 +47,12 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_item_content;
+        private TextView tv_item_content_lp;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_item_content=itemView.findViewById(R.id.tv_item_content);
+            tv_item_content_lp=itemView.findViewById(R.id.tv_item_content_lp);
         }
     }
 }

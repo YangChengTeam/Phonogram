@@ -1,14 +1,10 @@
 package com.yc.phonogram.ui.activitys;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
-
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.ui.fragments.IndexFragment;
@@ -16,9 +12,7 @@ import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
-
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 
