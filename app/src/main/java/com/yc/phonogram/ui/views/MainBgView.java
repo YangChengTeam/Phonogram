@@ -74,8 +74,14 @@ public class MainBgView extends BaseView {
     }
 
     private int count;
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
 
     public void showIndex(int count) {
+        index = 0;
         this.count = count;
         mIndexRelativeLayout.setVisibility(View.VISIBLE);
     }
@@ -97,7 +103,8 @@ public class MainBgView extends BaseView {
     }
 
     public void setIndex(int index) {
-        mIndexTextView.setText(index + "/" + count);
+        this.index = index;
+        mIndexTextView.setText((index+1) + "/" + count);
     }
 
     public void showInnerBg() {
@@ -105,6 +112,8 @@ public class MainBgView extends BaseView {
     }
 
     private IndexListener indexListener;
+
+
 
     public void setIndexListener(IndexListener indexListener) {
         this.indexListener = indexListener;

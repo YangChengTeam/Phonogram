@@ -42,7 +42,7 @@
             android:name=".ui.activitys.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateVisible|adjustResize"></activity>
     </application>
