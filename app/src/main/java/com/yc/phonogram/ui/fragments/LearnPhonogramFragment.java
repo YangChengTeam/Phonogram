@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPFragmentPagerAdapter;
-import com.yc.phonogram.listener.OnItemClickListener;
 import com.yc.phonogram.ui.views.MainBgView;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 
 
-public class LearnPhonogramFragment extends BaseFragment implements OnItemClickListener  {
+public class LearnPhonogramFragment extends BaseFragment  {
 
     private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
     private MainBgView mMainBgView;
@@ -61,7 +60,7 @@ public class LearnPhonogramFragment extends BaseFragment implements OnItemClickL
                 if(!isScorring){
                     mMainBgView.setIndex(position);
                 }
-            }
+            }git
 
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -73,28 +72,17 @@ public class LearnPhonogramFragment extends BaseFragment implements OnItemClickL
         mMainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
             public void leftClick(View view) {
-
+                isScorring=true;
+                mView_pager.setCurrentItem(mMainBgView.getIndex()-1);
             }
 
             @Override
             public void rightClcik(View view) {
-
+                isScorring=true;
+                mView_pager.setCurrentItem(mMainBgView.getIndex()+1);
             }
         });
-
         mMainBgView.showIndex(fragmentList.size());
         mMainBgView.setIndex(0);
-    }
-
-    /**
-     * 当角标发生了变化
-     * @param poistion
-     */
-    @Override
-    public void onItemClick(int poistion) {
-        if(null!=mView_pager){
-            isScorring=true;
-            mView_pager.setCurrentItem(poistion);
-        }
     }
 }

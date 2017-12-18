@@ -14,14 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="288dp"
-<<<<<<< HEAD
             android:background="@mipmap/main_view_bg">
 
         </LinearLayout>
-=======
-            android:background="@mipmap/main_view_bg"
-            ></LinearLayout>
->>>>>>> 389c18bad2468c3750419867b637f798a583da13
 
         <ImageView
             android:id="@+id/iv_inner_bg"
