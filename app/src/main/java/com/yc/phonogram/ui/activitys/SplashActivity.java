@@ -10,6 +10,7 @@ import com.yc.phonogram.R;
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -18,6 +19,7 @@ import rx.functions.Action1;
  */
 
 public class SplashActivity extends BaseActivity {
+    private Subscription subscription = null;
 
     @Override
     public int getLayoutId() {
@@ -29,7 +31,9 @@ public class SplashActivity extends BaseActivity {
         final ImageView logoImageView = findViewById(R.id.iv_logo);
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
-        Observable.from(bgIDs).interval(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+        subscription = Observable.from(bgIDs).interval(300, TimeUnit.MILLISECONDS).observeOn
+                (AndroidSchedulers
+                        .mainThread())
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
@@ -39,6 +43,9 @@ public class SplashActivity extends BaseActivity {
 
                                 @Override
                                 public void run() {
+                                    if (subscription != null && subscription.isUnsubscribed()) {
+                                        subscription.unsubscribe();
+                                    }
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                                     finish();
                                 }
