@@ -2,7 +2,6 @@ package com.yc.phonogram.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -67,6 +66,8 @@ public class LearnPhonogramChildContentFragment extends BaseFragment {
             LPContntInfo lpContntInfo=new LPContntInfo();
             lpContntInfo.setLpName("English"+i);
             lpContntInfo.setLpContent("/bir/");
+            lpContntInfo.setLpStart(2);
+            lpContntInfo.setLpEnd(lpContntInfo.getLpName().length()-1);
             lpContntInfos.add(lpContntInfo);
         }
         LPContentListAdapter lpContentListAdapter=new LPContentListAdapter(getActivity(),lpContntInfos);

@@ -8,6 +8,7 @@ import com.yc.phonogram.R;
  */
 
 public class PhonicsFragments extends BaseFragment {
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_phonics;

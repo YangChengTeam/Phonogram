@@ -1,7 +1,11 @@
 package com.yc.phonogram.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,8 +38,13 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
         LPContntInfo lpContntInfo = mData.get(position);
-        viewHolder.tv_item_content.setText(lpContntInfo.getLpName());
+        SpannableString spannableString = new SpannableString(lpContntInfo.getLpName());
+
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFE0100")), lpContntInfo.getLpStart(),lpContntInfo.getLpEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        viewHolder.tv_item_content.setText(spannableString);
+
         viewHolder.tv_item_content_lp.setText(lpContntInfo.getLpContent());
+
     }
 
     @Override
