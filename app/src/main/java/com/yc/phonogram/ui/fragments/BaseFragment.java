@@ -16,6 +16,7 @@ import com.umeng.analytics.MobclickAgent;
  */
 
 public abstract class BaseFragment extends Fragment {
+
     protected View mRootView;
 
     @Override
