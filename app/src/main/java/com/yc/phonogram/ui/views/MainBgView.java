@@ -57,8 +57,13 @@ public class MainBgView extends BaseView {
         RxView.clicks(mLeftImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (indexListener != null) {
-                    indexListener.leftClick(mLeftImageView);
+                if (indexListener != null && index > 0) {
+                    index = index - 1;
+                    indexListener.leftClick(index);
+                    if (index == 0) {
+                        hideLeft();
+                    }
+
                 }
             }
         });
@@ -66,8 +71,12 @@ public class MainBgView extends BaseView {
         RxView.clicks(mRightImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (indexListener != null) {
-                    indexListener.rightClcik(mRightImageView);
+                if (indexListener != null && index < count) {
+                    index = index + 1;
+                    indexListener.rightClcik(index);
+                    if (index == count) {
+                        hideRight();
+                    }
                 }
             }
         });
@@ -104,7 +113,7 @@ public class MainBgView extends BaseView {
 
     public void setIndex(int index) {
         this.index = index;
-        mIndexTextView.setText((index+1) + "/" + count);
+        mIndexTextView.setText((index + 1) + "/" + count);
     }
 
     public void showInnerBg() {
@@ -114,14 +123,13 @@ public class MainBgView extends BaseView {
     private IndexListener indexListener;
 
 
-
     public void setIndexListener(IndexListener indexListener) {
         this.indexListener = indexListener;
     }
 
     public interface IndexListener {
-        void leftClick(View view);
+        void leftClick(int position);
 
-        void rightClcik(View view);
+        void rightClcik(int position);
     }
 }
