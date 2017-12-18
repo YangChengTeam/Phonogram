@@ -10,27 +10,26 @@ import android.view.ViewGroup;
 
 
 import com.umeng.analytics.MobclickAgent;
+import com.yc.phonogram.ui.IView;
 
 
 /**
  * Created by zhangkai on 2017/7/21.
  */
 
-public abstract class BaseFragment extends Fragment {
-
+public abstract class BaseFragment extends Fragment implements IView {
     protected View mRootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = View.inflate(getActivity(), getLayoutId(), null);
+            init();
+            loadData();
         }
         return mRootView;
     }
 
-    public abstract int getLayoutId();
-
-    public abstract void init();
 
     public void loadData() {
     }

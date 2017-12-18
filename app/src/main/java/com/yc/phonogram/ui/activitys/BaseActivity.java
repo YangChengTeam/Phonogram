@@ -6,12 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.yc.phonogram.ui.IView;
 
 /**
  * Created by zhangkai on 2017/10/31.
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity implements IView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +30,6 @@ public abstract class BaseActivity extends FragmentActivity {
         init();
         loadData();
     }
-
-    public abstract int getLayoutId();
-
-    public abstract void init();
 
     public void loadData() {
     }

@@ -17,8 +17,7 @@ public class SharePopupWindow extends BasePopupWindow {
     }
 
     @Override
-    public int getLayoutID() {
-
+    public int getLayoutId() {
         return R.layout.popwindow_share_view;
     }
 

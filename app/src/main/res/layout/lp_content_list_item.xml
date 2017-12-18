@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="5dp">
     <TextView
         android:id="@+id/tv_item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Engish"
-        android:textStyle="bold"
-        android:padding="10dp"
-        />
+        android:text="Engish"/>
     <TextView
         android:id="@+id/tv_item_content_lp"
         android:layout_width="wrap_content"
@@ -20,4 +19,7 @@
         android:layout_gravity="center_horizontal"
         android:text="/bi/"
         android:textColor="@color/common_title3"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"/>
 </LinearLayout>

@@ -3,17 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <RelativeLayout
+
+    <com.yc.phonogram.ui.views.MainBgView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_lp_bg"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_height="wrap_content">
         <android.support.v4.view.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/view_pager">
+            android:id="@+id/view_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp">
         </android.support.v4.view.ViewPager>
-    </RelativeLayout>
+    </com.yc.phonogram.ui.views.MainBgView>
 </RelativeLayout>
