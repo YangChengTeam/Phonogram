@@ -44,15 +44,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':pay')
-
     compile 'com.qmuiteam:qmui:1.0.4'
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
-
     compile 'com.android.support:cardview-v7:26.+'
-
-
     implementation 'com.qmuiteam:qmui:1.0.4'
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
@@ -60,7 +56,6 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'
-
     implementation files('libs/glide-full-4.3.1.jar')
-
+    implementation project(':jiaozivideoplayer')
 }

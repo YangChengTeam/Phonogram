@@ -7,33 +7,69 @@
 
     <com.yc.phonogram.ui.views.MainBgView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="560dp"
+            android:layout_height="270dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="33dp">
+                android:layout_marginTop="18dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_video_bg"
-                    android:padding="5dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="250.3dp"
+                        android:layout_height="187.3dp"
+                        android:background="@mipmap/ic_video_bg"
+                        android:padding="5dp">
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_ph_video_cover"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="9dp">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:src="@mipmap/main_bg_left"/>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/main_bg_index"
+                                android:layout_centerInParent="true"
+                                android:text="16/24"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:layout_weight="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/main_bg_right"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <View
                     android:layout_width="34dp"
                     android:layout_height="34dp"/>
                 <LinearLayout
                     android:layout_width="230dp"
-                    android:layout_height="160dp"
+                    android:layout_height="163dp"
                     android:orientation="vertical"
                     android:gravity="center_vertical"
                     android:background="@drawable/ph_goods_bg">
@@ -63,39 +99,6 @@
                             android:text="原价60元"
                             android:padding="5dp"/>
                 </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="251dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="8dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:src="@mipmap/main_bg_left"/>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@mipmap/main_bg_index"
-                        android:layout_centerInParent="true"
-                        android:text="16/24"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_weight="0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/main_bg_right"/>
             </LinearLayout>
         </LinearLayout>
     </com.yc.phonogram.ui.views.MainBgView>

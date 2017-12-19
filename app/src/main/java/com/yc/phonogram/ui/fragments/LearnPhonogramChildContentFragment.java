@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPContentListAdapter;
@@ -25,7 +24,19 @@ public class LearnPhonogramChildContentFragment extends BaseFragment {
 
     @Override
     public void init() {
-
+        RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        List<LPContntInfo> lpContntInfos=new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            LPContntInfo lpContntInfo=new LPContntInfo();
+            lpContntInfo.setLpName("English"+i);
+            lpContntInfo.setLpContent("/bir/");
+            lpContntInfo.setLpStart(2);
+            lpContntInfo.setLpEnd(lpContntInfo.getLpName().length()-1);
+            lpContntInfos.add(lpContntInfo);
+        }
+        LPContentListAdapter lpContentListAdapter=new LPContentListAdapter(getActivity(),lpContntInfos);
+        recyclerView.setAdapter(lpContentListAdapter);
     }
 
     /**
@@ -53,24 +64,5 @@ public class LearnPhonogramChildContentFragment extends BaseFragment {
             String lpId = arguments.getString("lp_id");
             LogUtil.msg(lpId);
         }
-    }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        List<LPContntInfo> lpContntInfos=new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            LPContntInfo lpContntInfo=new LPContntInfo();
-            lpContntInfo.setLpName("English"+i);
-            lpContntInfo.setLpContent("/bir/");
-            lpContntInfo.setLpStart(2);
-            lpContntInfo.setLpEnd(lpContntInfo.getLpName().length()-1);
-            lpContntInfos.add(lpContntInfo);
-        }
-        LPContentListAdapter lpContentListAdapter=new LPContentListAdapter(getActivity(),lpContntInfos);
-        recyclerView.setAdapter(lpContentListAdapter);
     }
 }

@@ -10,9 +10,7 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.phonogram.R;
-
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 /**
