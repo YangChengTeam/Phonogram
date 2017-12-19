@@ -10,6 +10,7 @@ import java.util.List;
 
 public class PhonogramInfo {
     private int id;
+    private String voice;
     private String video;
     private String cover;
     private String img;
@@ -73,5 +74,13 @@ public class PhonogramInfo {
 
     public void setExampleInfos(List<ExampleInfo> exampleInfos) {
         this.exampleInfos = exampleInfos;
+    }
+
+    public String getVoice() {
+        return voice;
+    }
+
+    public void setVoice(String voice) {
+        this.voice = voice;
     }
 }
