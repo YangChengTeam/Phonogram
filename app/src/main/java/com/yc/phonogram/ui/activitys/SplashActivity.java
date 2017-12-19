@@ -4,17 +4,13 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.TaskUtil;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -23,7 +19,7 @@ import rx.functions.Action1;
  */
 
 public class SplashActivity extends BaseActivity {
-
+    private Subscription subscription = null;
 
     @Override
     public int getLayoutId() {
@@ -35,7 +31,9 @@ public class SplashActivity extends BaseActivity {
         final ImageView logoImageView = findViewById(R.id.iv_logo);
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
-        Observable.from(bgIDs).interval(300, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+        subscription = Observable.from(bgIDs).interval(300, TimeUnit.MILLISECONDS).observeOn
+                (AndroidSchedulers
+                        .mainThread())
                 .subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
@@ -45,8 +43,11 @@ public class SplashActivity extends BaseActivity {
 
                                 @Override
                                 public void run() {
-                                    finish();
+                                    if (subscription != null && subscription.isUnsubscribed()) {
+                                        subscription.unsubscribe();
+                                    }
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                                    finish();
                                 }
                             });
                         }

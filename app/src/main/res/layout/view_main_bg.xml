@@ -5,16 +5,74 @@
     >
 
     <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="608dp"
-        android:layout_height="288dp"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@mipmap/main_view_bg"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="288dp"
+            android:background="@mipmap/main_view_bg"
+            ></LinearLayout>
+
         <ImageView
+            android:id="@+id/iv_inner_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/main_view_bg2"/>
+            android:src="@mipmap/main_view_bg2"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_index"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="257dp"
+                android:src="@mipmap/main_bg_left"
+                android:visibility="gone"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="274dp">
+
+                <ImageView
+                    android:id="@+id/iv_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/main_bg_index"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="1/48"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"/>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="257dp"
+                android:src="@mipmap/main_bg_right"/>
+        </RelativeLayout>
     </FrameLayout>
+
 
 </RelativeLayout>
