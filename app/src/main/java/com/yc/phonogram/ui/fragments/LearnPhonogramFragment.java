@@ -60,7 +60,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 if(!isScorring){
                     mMainBgView.setIndex(position);
                 }
-            }git
+            }
 
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -71,15 +71,15 @@ public class LearnPhonogramFragment extends BaseFragment  {
         mView_pager.setAdapter(LPFragmentPagerAdapter);
         mMainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
-            public void leftClick(View view) {
+            public void leftClick(int position) {
                 isScorring=true;
-                mView_pager.setCurrentItem(mMainBgView.getIndex()-1);
+                mView_pager.setCurrentItem(position);
             }
 
             @Override
-            public void rightClcik(View view) {
+            public void rightClcik(int position) {
                 isScorring=true;
-                mView_pager.setCurrentItem(mMainBgView.getIndex()+1);
+                mView_pager.setCurrentItem(position);
             }
         });
         mMainBgView.showIndex(fragmentList.size());
