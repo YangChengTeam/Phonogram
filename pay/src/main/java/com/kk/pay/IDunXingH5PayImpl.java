@@ -26,8 +26,7 @@ public class IDunXingH5PayImpl extends IPayImpl {
         super(context);
         loadingDialog = new LoadingDialog(context);
     }
-
-
+    
     public IDunXingH5PayImpl(Activity context, String type) {
         super(context);
         loadingDialog = new LoadingDialog(context);
@@ -58,17 +57,24 @@ public class IDunXingH5PayImpl extends IPayImpl {
                 url = stringBuilder.toString();
             }
 
-            if(!checkAliPayInstalled(mContext)){
+            if (!checkAliPayInstalled(mContext)) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 mContext.startActivity(intent);
                 return;
             }
-
-            WebPopupWindow webPopupWindow = new WebPopupWindow(mContext, payInfo.getPayurl(), orderInfo.getPayInfo()
-                    .getIsOverrideUrl() == 1);
-            webPopupWindow.show(mContext.getWindow().getDecorView().getRootView());
+            if (orderInfo.getPayInfo()
+                    .getIsOverrideUrl() > 1) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                mContext.startActivity(intent);
+            } else {
+                WebPopupWindow webPopupWindow = new WebPopupWindow(mContext, url, orderInfo.getPayInfo()
+                        .getIsOverrideUrl() == 1);
+                webPopupWindow.show(mContext.getWindow().getDecorView().getRootView());
+            }
             IPayImpl.uiPayCallback = iPayCallback;
             IPayImpl.uOrderInfo = orderInfo;
             isGen = true;
