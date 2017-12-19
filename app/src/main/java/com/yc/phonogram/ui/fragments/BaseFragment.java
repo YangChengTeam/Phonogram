@@ -24,8 +24,6 @@ public abstract class BaseFragment extends Fragment implements IView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mRootView == null) {
             mRootView = View.inflate(getActivity(), getLayoutId(), null);
-            init();
-            loadData();
         }
         return mRootView;
     }
@@ -41,6 +39,8 @@ public abstract class BaseFragment extends Fragment implements IView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init();
+        loadData();
     }
 
 
