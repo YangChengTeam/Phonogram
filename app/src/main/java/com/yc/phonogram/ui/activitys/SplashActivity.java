@@ -31,7 +31,7 @@ public class SplashActivity extends BaseActivity {
         final ImageView logoImageView = findViewById(R.id.iv_logo);
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
-        subscription = Observable.from(bgIDs).interval(300, TimeUnit.MILLISECONDS).observeOn
+        subscription = Observable.interval(300, TimeUnit.MILLISECONDS).observeOn
                 (AndroidSchedulers
                         .mainThread())
                 .subscribe(new Action1<Long>() {

@@ -10,10 +10,22 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.utils.LogUtil;
+import com.kk.utils.PreferenceUtil;
+import com.kk.utils.TaskUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.Config;
+import com.yc.phonogram.domain.LoginDataInfo;
+import com.yc.phonogram.domain.PhonogramListInfo;
+import com.yc.phonogram.engin.PhonogramEngin;
 import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
@@ -30,16 +42,18 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
     private ViewPager mViewPager;
-    private ImageView mCenterBtn;
     private ImageView mIndexBtn;
     private ImageView mLearnBtn;
     private ImageView mReadTomeBtn;
     private ImageView mPhonicsBtn;
-    private ImageView mShareBtn;
 
+    private static MainActivity INSTANSE;
 
-    private FragmentAdapter mFragmentAdapter;
     private int mCurrentIndex = -1;
+
+    public static MainActivity getMainActivity() {
+        return INSTANSE;
+    }
 
     @Override
     public int getLayoutId() {
@@ -48,16 +62,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        INSTANSE = this;
+
         mViewPager = findViewById(R.id.viewpager);
-        mCenterBtn = findViewById(R.id.iv_center);
+        ImageView mCenterBtn = findViewById(R.id.iv_center);
         mIndexBtn = findViewById(R.id.iv_index);
         mLearnBtn = findViewById(R.id.iv_learn);
         mReadTomeBtn = findViewById(R.id.iv_read_to_me);
         mPhonicsBtn = findViewById(R.id.iv_phonics);
-        mShareBtn = findViewById(R.id.iv_share);
+        ImageView mShareBtn = findViewById(R.id.iv_share);
 
-
-        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setCurrentItem(0);
@@ -195,6 +210,62 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private PhonogramListInfo phonogramListInfo;
+
+    public PhonogramListInfo getPhonogramListInfo() {
+        return phonogramListInfo;
+    }
+
+    @Override
+    public void loadData() {
+        super.loadData();
+
+        TaskUtil.getImpl().runTask(new Runnable() {
+            @Override
+            public void run() {
+                String data = PreferenceUtil.getImpl(getApplicationContext()).getString(Config.INIT_URL, "");
+                if (!data.isEmpty()) {
+                    try {
+                        final PhonogramListInfo resultInfo = JSON.parseObject(data, new TypeReference<PhonogramListInfo>() {
+                        }.getType());
+                        if (resultInfo != null) {
+                            MainActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showInfo(resultInfo);
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        LogUtil.msg("getPhonogramList本地缓存" + e);
+                    }
+                }
+            }
+        });
+        new PhonogramEngin(this).getPhonogramList().subscribe(new Action1<ResultInfo<PhonogramListInfo>>() {
+            @Override
+            public void call(final ResultInfo<PhonogramListInfo> phonogramListInfoResultInfo) {
+                if (phonogramListInfoResultInfo.code == HttpConfig.STATUS_OK && phonogramListInfoResultInfo.data !=
+                        null && phonogramListInfoResultInfo.data.getPhonogramInfos() != null &&
+                        phonogramListInfoResultInfo.data.getPhonogramInfos().size() > 0) {
+                    showInfo(phonogramListInfoResultInfo.data);
+                    TaskUtil.getImpl().runTask(new Runnable() {
+                        @Override
+                        public void run() {
+                            PreferenceUtil.getImpl(getApplicationContext()).putString(Config.PHONOGRAM_LIST_URL, JSON.toJSONString
+                                    (phonogramListInfoResultInfo.data));
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void showInfo(PhonogramListInfo phonogramListInfo) {
+        this.phonogramListInfo = phonogramListInfo;
+        mLearnPhonogramFragment.loadData();
+        mReadToMeFragment.loadData();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
