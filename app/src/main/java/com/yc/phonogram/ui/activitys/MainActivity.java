@@ -219,7 +219,7 @@ public class MainActivity extends BaseActivity {
         TaskUtil.getImpl().runTask(new Runnable() {
             @Override
             public void run() {
-                String data = PreferenceUtil.getImpl(getApplicationContext()).getString(Config.INIT_URL, "");
+                String data = PreferenceUtil.getImpl(getApplicationContext()).getString(Config.PHONOGRAM_LIST_URL, "");
                 if (!data.isEmpty()) {
                     try {
                         final PhonogramListInfo resultInfo = JSON.parseObject(data, new TypeReference<PhonogramListInfo>() {
@@ -259,8 +259,10 @@ public class MainActivity extends BaseActivity {
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
         this.phonogramListInfo = phonogramListInfo;
-       // mLearnPhonogramFragment.loadData();
-       // mReadToMeFragment.loadData();
+        if(mLearnPhonogramFragment != null && mReadToMeFragment != null) {
+            mLearnPhonogramFragment.loadData();
+            mReadToMeFragment.loadData();
+        }
     }
 
     @Override
