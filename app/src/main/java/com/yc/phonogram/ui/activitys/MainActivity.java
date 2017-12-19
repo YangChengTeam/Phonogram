@@ -1,13 +1,11 @@
 package com.yc.phonogram.ui.activitys;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -20,10 +18,8 @@ import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
-import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
-import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.engin.PhonogramEngin;
 import com.yc.phonogram.ui.fragments.IndexFragment;
@@ -263,8 +259,8 @@ public class MainActivity extends BaseActivity {
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
         this.phonogramListInfo = phonogramListInfo;
-        mLearnPhonogramFragment.loadData();
-        mReadToMeFragment.loadData();
+       // mLearnPhonogramFragment.loadData();
+       // mReadToMeFragment.loadData();
     }
 
     @Override

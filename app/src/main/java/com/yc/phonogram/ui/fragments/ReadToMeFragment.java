@@ -21,7 +21,6 @@ public class ReadToMeFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_read_to_me;
-
     }
 
     @Override
@@ -40,7 +39,7 @@ public class ReadToMeFragment extends BaseFragment {
         ViewPager view_pager = (ViewPager) getView(R.id.view_pager);
         List<Fragment> fragmentList=new ArrayList<>();
         for (int i = 0; i < 48; i++) {
-            fragmentList.add(ReadItemFragment.newInstance());
+            fragmentList.add(ReadItemFragment.newInstance(i));
         }
         ReadItemPagerAdapter readItemPagerAdapter =new ReadItemPagerAdapter(getChildFragmentManager(),fragmentList);
         view_pager.setAdapter(readItemPagerAdapter);
