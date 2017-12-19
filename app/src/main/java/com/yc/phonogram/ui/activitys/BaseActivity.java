@@ -23,9 +23,6 @@ public abstract class BaseActivity extends FragmentActivity implements IView {
             finish();
             return;
         }
-
-        QMUIStatusBarHelper.translucent(this);
-
         setContentView(getLayoutId());
         init();
         loadData();
