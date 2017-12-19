@@ -2,9 +2,6 @@ package com.yc.phonogram;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.media.MediaPlayer;
 import android.os.Build;
 
 import com.alibaba.fastjson.JSON;
@@ -16,14 +13,12 @@ import com.kk.utils.FileUtil;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
-import com.kk.utils.VUiKit;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
-import com.yc.phonogram.ui.activitys.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;

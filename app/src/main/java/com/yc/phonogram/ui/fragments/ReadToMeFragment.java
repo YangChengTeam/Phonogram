@@ -1,16 +1,15 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.ReadItemPagerAdapter;
+import com.yc.phonogram.domain.PhonogramInfo;
+import com.yc.phonogram.domain.PhonogramListInfo;
+import com.yc.phonogram.ui.activitys.MainActivity;
+import com.yc.phonogram.ui.views.MainBgView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +17,13 @@ import java.util.List;
  */
 
 public class ReadToMeFragment extends BaseFragment {
+
+    private MainBgView mainBgView;
+    
+    private ReadItemPagerAdapter readItemPagerAdapter;
+    
+    private ViewPager viewPager;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_read_to_me;
@@ -25,26 +31,13 @@ public class ReadToMeFragment extends BaseFragment {
 
     @Override
     public void init() {
+        mainBgView = (MainBgView) getView(R.id.mainBgView);
+        viewPager = (ViewPager) getView(R.id.view_pager);
 
-    }
-
-    @Override
-    public void loadData() {
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ViewPager view_pager = (ViewPager) getView(R.id.view_pager);
-        List<Fragment> fragmentList=new ArrayList<>();
-        for (int i = 0; i < 48; i++) {
-            fragmentList.add(ReadItemFragment.newInstance(i));
-        }
-        ReadItemPagerAdapter readItemPagerAdapter =new ReadItemPagerAdapter(getChildFragmentManager(),fragmentList);
-        view_pager.setAdapter(readItemPagerAdapter);
-        view_pager.setOffscreenPageLimit(1);
-        view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(readItemPagerAdapter);
+        viewPager.setOffscreenPageLimit(1);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -52,12 +45,37 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                LogUtil.msg(position+"");
+                LogUtil.msg(position + "");
+                mainBgView.setIndex(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+    }
+
+    @Override
+    public void loadData() {
+        PhonogramListInfo phonogramListInfo = MainActivity.getMainActivity().getPhonogramListInfo();
+        if (phonogramListInfo == null || phonogramListInfo.getPhonogramInfos() == null || phonogramListInfo.getPhonogramInfos().size() == 0) {
+            return;
+        }
+        List<PhonogramInfo> phonogramInfos = phonogramListInfo.getPhonogramInfos();
+        readItemPagerAdapter.setDatas(phonogramInfos);
+        readItemPagerAdapter.notifyDataSetChanged();
+        mainBgView.showIndex(phonogramInfos.size());
+        mainBgView.setIndex(0);
+        mainBgView.setIndexListener(new MainBgView.IndexListener() {
+            @Override
+            public void leftClick(int position) {
+                viewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void rightClcik(int position) {
+                viewPager.setCurrentItem(position);
             }
         });
     }

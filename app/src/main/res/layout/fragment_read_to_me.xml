@@ -3,6 +3,7 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
     <com.yc.phonogram.ui.views.MainBgView
+        android:id="@+id/mainBgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.v4.view.ViewPager
