@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="read_progress_text">跟读进度：</string>
+    <string name="count_down_text">倒计时：</string>
+</resources>
