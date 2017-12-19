@@ -1,5 +1,9 @@
 package com.yc.phonogram.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import java.util.List;
+
 /**
  * Created by zhangkai on 2017/12/19.
  */
@@ -11,7 +15,9 @@ public class PhonogramInfo {
     private String img;
     private String name;
     private String desp;
-    private ExampleInfo exampleInfo;
+
+    @JSONField(name = "example")
+    private List<ExampleInfo> exampleInfos;
 
     public int getId() {
         return id;
@@ -61,11 +67,11 @@ public class PhonogramInfo {
         this.desp = desp;
     }
 
-    public ExampleInfo getExampleInfo() {
-        return exampleInfo;
+    public List<ExampleInfo> getExampleInfos() {
+        return exampleInfos;
     }
 
-    public void setExampleInfo(ExampleInfo exampleInfo) {
-        this.exampleInfo = exampleInfo;
+    public void setExampleInfos(List<ExampleInfo> exampleInfos) {
+        this.exampleInfos = exampleInfos;
     }
 }
