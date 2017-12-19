@@ -19,6 +19,12 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file('Phonogram.jks')
@@ -56,5 +62,5 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'
     implementation files('libs/glide-full-4.3.1.jar')
-    implementation project(':jiaozivideoplayer')
+    implementation project(':xinqu-video-player')
 }

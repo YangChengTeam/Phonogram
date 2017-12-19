@@ -3,6 +3,7 @@ package com.yc.phonogram.ui.fragments;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPFragmentPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
@@ -44,6 +45,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
+                XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
             }
 
