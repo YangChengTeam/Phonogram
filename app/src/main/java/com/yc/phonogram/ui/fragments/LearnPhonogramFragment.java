@@ -2,6 +2,7 @@ package com.yc.phonogram.ui.fragments;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPFragmentPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
@@ -73,14 +74,17 @@ public class LearnPhonogramFragment extends BaseFragment  {
     @Override
     public void loadData() {
         PhonogramListInfo phonogramListInfo = MainActivity.getMainActivity().getPhonogramListInfo();
-        if(null!=phonogramListInfo||null==phonogramListInfo.getPhonogramInfos()||phonogramListInfo.getPhonogramInfos().size()<=0) return;
+        if(null==phonogramListInfo||null==phonogramListInfo.getPhonogramInfos()) return;
         List<PhonogramInfo> phonogramInfos = phonogramListInfo.getPhonogramInfos();
-        List<Fragment> fragmentList=new ArrayList<>();
-        for (int i = 0; i < phonogramInfos.size(); i++) {
-            fragmentList.add(LearnPhonogramChildContentFragment.newInstance(phonogramInfos.get(i)));
+        if(null!=phonogramInfos&&phonogramInfos.size()>0){
+            Log.d(TAG,"loadData"+phonogramInfos.size());
+            List<Fragment> fragmentList=new ArrayList<>();
+            for (int i = 0; i < phonogramInfos.size(); i++) {
+                fragmentList.add(LearnPhonogramChildContentFragment.newInstance(phonogramInfos.get(i)));
+            }
+            mLPFragmentPagerAdapter.setNewFragments(fragmentList,null);
+            mMainBgView.showIndex(fragmentList.size());
+            mMainBgView.setIndex(0);
         }
-        mLPFragmentPagerAdapter.setNewFragments(fragmentList,null);
-        mMainBgView.showIndex(phonogramListInfo.getPhonogramInfos().size());
-        mMainBgView.setIndex(0);
     }
 }

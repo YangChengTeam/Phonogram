@@ -30,6 +30,7 @@ import java.util.Map;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by zhangkai on 2017/10/17.

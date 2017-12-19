@@ -39,9 +39,9 @@
 
                 <ImageView
                     android:id="@+id/iv_lp_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
+                    android:layout_width="232dp"
+                    android:layout_height="132dp"
+                    android:scaleType="fitCenter"
                     android:src="@mipmap/ic_lp_content_bg"/>
             </LinearLayout>
         </RelativeLayout>

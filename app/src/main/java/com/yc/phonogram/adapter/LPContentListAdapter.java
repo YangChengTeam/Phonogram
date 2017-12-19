@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.yc.phonogram.R;
-import com.yc.phonogram.bean.LPContntInfo;
+import com.yc.phonogram.domain.ExampleInfo;
 import java.util.List;
 
 /**
@@ -22,9 +22,9 @@ import java.util.List;
 public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final Context mContext;
-    private final List<LPContntInfo> mData;
+    private List<ExampleInfo> mData;
 
-    public LPContentListAdapter(Context context, List<LPContntInfo> list) {
+    public LPContentListAdapter(Context context, List<ExampleInfo> list) {
         this.mContext=context;
         this.mData=list;
     }
@@ -37,19 +37,25 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder= (ViewHolder) holder;
-        LPContntInfo lpContntInfo = mData.get(position);
-        SpannableString spannableString = new SpannableString(lpContntInfo.getLpName());
+        ExampleInfo data = mData.get(position);
+        if(null==data) return;
+        SpannableString spannableString = new SpannableString(data.getWord());
 
-        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFE0100")), lpContntInfo.getLpStart(),lpContntInfo.getLpEnd(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFE0100")),0,data.getWord().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.tv_item_content.setText(spannableString);
 
-        viewHolder.tv_item_content_lp.setText(lpContntInfo.getLpContent());
+        viewHolder.tv_item_content_lp.setText(data.getPhonetic());
 
     }
 
     @Override
     public int getItemCount() {
         return null==mData?0:mData.size();
+    }
+
+    public void setNewData(List<ExampleInfo> data) {
+        this.mData=data;
+        this.notifyDataSetChanged();
     }
 
 
