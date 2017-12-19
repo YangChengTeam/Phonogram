@@ -37,7 +37,7 @@ public class StrokeTextView extends AppCompatTextView {
 
     public void init() {
         TextPaint paint = outlineTextView.getPaint();
-        paint.setStrokeWidth(10);// 描边宽度
+        paint.setStrokeWidth(5);// 描边宽度
         paint.setStyle(Paint.Style.STROKE);
         outlineTextView.setTextColor(Color.parseColor("#c64b01"));// 描边颜色
         outlineTextView.setGravity(getGravity());
