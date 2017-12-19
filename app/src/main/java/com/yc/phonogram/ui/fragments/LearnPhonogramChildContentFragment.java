@@ -1,15 +1,14 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import com.kk.utils.LogUtil;
+import android.widget.ImageView;
+
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPContentListAdapter;
-import com.yc.phonogram.bean.LPContntInfo;
-import java.util.ArrayList;
-import java.util.List;
+import com.yc.phonogram.domain.PhonogramInfo;
+
+import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * TinyHung@Outlook.com
@@ -17,6 +16,10 @@ import java.util.List;
  */
 
 public class LearnPhonogramChildContentFragment extends BaseFragment {
+
+    private PhonogramInfo data;
+    private LPContentListAdapter mLpContentListAdapter;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_learn_child_content;
@@ -24,45 +27,29 @@ public class LearnPhonogramChildContentFragment extends BaseFragment {
 
     @Override
     public void init() {
+        ImageView iv_lp_logo = (ImageView) getView(R.id.iv_lp_logo);
+        JZVideoPlayerStandard videoPlayerStandard = (JZVideoPlayerStandard) getView(R.id.video_player);
         RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        List<LPContntInfo> lpContntInfos=new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            LPContntInfo lpContntInfo=new LPContntInfo();
-            lpContntInfo.setLpName("English"+i);
-            lpContntInfo.setLpContent("/bir/");
-            lpContntInfo.setLpStart(2);
-            lpContntInfo.setLpEnd(lpContntInfo.getLpName().length()-1);
-            lpContntInfos.add(lpContntInfo);
-        }
-        LPContentListAdapter lpContentListAdapter=new LPContentListAdapter(getActivity(),lpContntInfos);
-        recyclerView.setAdapter(lpContentListAdapter);
+        mLpContentListAdapter = new LPContentListAdapter(getActivity(),null);
+        recyclerView.setAdapter(mLpContentListAdapter);
     }
 
     /**
      * 入参
-     * @param lpId
+     * @param data
      * @return
      */
-    public static LearnPhonogramChildContentFragment newInstance(String lpId) {
+    public static LearnPhonogramChildContentFragment newInstance(PhonogramInfo data) {
         LearnPhonogramChildContentFragment childContentFragment=new LearnPhonogramChildContentFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString("lp_id",lpId);
-        childContentFragment.setArguments(bundle);
+        childContentFragment.data = data;
         return childContentFragment;
     }
 
-    /**
-     * 取参
-     * @param savedInstanceState
-     */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle arguments = getArguments();
-        if(null!=arguments){
-            String lpId = arguments.getString("lp_id");
-            LogUtil.msg(lpId);
-        }
+    public void loadData() {
+        super.loadData();
+        if(null==data)return;
+
     }
 }
