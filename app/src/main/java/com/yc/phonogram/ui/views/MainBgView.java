@@ -30,7 +30,6 @@ public class MainBgView extends BaseView {
     private ImageView mLeftImageView;
     private ImageView mRightImageView;
     private TextView mIndexTextView;
-    private FrameLayout mContextFrameLayout;
 
     public MainBgView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,31 +51,23 @@ public class MainBgView extends BaseView {
         mLeftImageView = (ImageView) getView(R.id.iv_left);
         mRightImageView = (ImageView) getView(R.id.iv_right);
         mIndexTextView = (TextView) getView(R.id.tv_index);
-        mContextFrameLayout = (FrameLayout) getView(R.id.fl_content);
 
-        RxView.clicks(mLeftImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mLeftImageView).throttleFirst(300, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (indexListener != null && index > 0) {
+                if (indexListener != null && index >= 0) {
                     index = index - 1;
                     indexListener.leftClick(index);
-                    if (index == 0) {
-                        hideLeft();
-                    }
-
                 }
             }
         });
 
-        RxView.clicks(mRightImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+        RxView.clicks(mRightImageView).throttleFirst(300, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (indexListener != null && index < count) {
+                if (indexListener != null && index < count - 1) {
                     index = index + 1;
                     indexListener.rightClcik(index);
-                    if (index == count) {
-                        hideRight();
-                    }
                 }
             }
         });
@@ -84,6 +75,24 @@ public class MainBgView extends BaseView {
 
     private int count;
     private int index;
+
+    private void hideLeft() {
+        mLeftImageView.setVisibility(View.GONE);
+    }
+
+    private void showLeft() {
+        if (mLeftImageView.getVisibility() != View.VISIBLE)
+            mLeftImageView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideRight() {
+        mRightImageView.setVisibility(View.GONE);
+    }
+
+    private void showRight() {
+        if (mRightImageView.getVisibility() != View.VISIBLE)
+            mRightImageView.setVisibility(View.VISIBLE);
+    }
 
     public int getIndex() {
         return index;
@@ -95,23 +104,15 @@ public class MainBgView extends BaseView {
         mIndexRelativeLayout.setVisibility(View.VISIBLE);
     }
 
-    public void hideLeft() {
-        mLeftImageView.setVisibility(View.GONE);
-    }
-
-    public void showLeft() {
-        mLeftImageView.setVisibility(View.VISIBLE);
-    }
-
-    public void hideRight() {
-        mRightImageView.setVisibility(View.GONE);
-    }
-
-    public void showRight() {
-        mRightImageView.setVisibility(View.VISIBLE);
-    }
-
     public void setIndex(int index) {
+        if (index == 0) {
+            hideLeft();
+        } else if (index == count - 1) {
+            hideRight();
+        } else {
+            showLeft();
+            showRight();
+        }
         this.index = index;
         mIndexTextView.setText((index + 1) + "/" + count);
     }
@@ -121,15 +122,11 @@ public class MainBgView extends BaseView {
     }
 
     private IndexListener indexListener;
-
-
     public void setIndexListener(IndexListener indexListener) {
         this.indexListener = indexListener;
     }
-
     public interface IndexListener {
         void leftClick(int position);
-
         void rightClcik(int position);
     }
 }
