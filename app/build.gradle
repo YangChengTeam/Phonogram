@@ -38,5 +38,6 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'
     implementation files('libs/glide-full-4.3.1.jar')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.3'
 
 }

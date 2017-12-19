@@ -29,7 +29,7 @@ public class Config {
     public final static int VIP = 0;
     public final static int GOODS = 2;
     public final static int REWARD = 1;
-    
+
     public static final String APPID = "?app_id=4";
 
     public static final String INIT_URL = getBaseUrl() + "index/init" + APPID;
@@ -42,6 +42,7 @@ public class Config {
     public static final String VIP_LIST2_URL = getBaseUrl() + "index/vip_list2" + APPID;
     public static final String GET_USER_INFO_URL = getBaseUrl() + "index/get_user_info" + APPID;
     public static final String UPADTE_USER_INFO_URL = getBaseUrl() + "index/upd_user_info" + APPID;
+
 
     public static String getBaseUrl() {
         String baseUrl = "http://u.wk990.com/api/";

@@ -2,4 +2,8 @@
     <string name="app_name">Phonogram</string>
     <string name="umeng_id">5a332ce6a40fa3151800009f</string>
     <string name="bugly_id">6762001ca5</string>
+
+    <string name="current_price">¥ %1$s</string>
+    <string name="origin_price">原价 ¥%1$s 元</string>
+
 </resources>
