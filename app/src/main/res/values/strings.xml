@@ -4,6 +4,6 @@
     <string name="bugly_id">6762001ca5</string>
 
     <string name="current_price">¥ %1$s</string>
-    <string name="origin_price">原价 ¥%1$s 元</string>
+    <string name="origin_price">原价 ¥ %1$s元</string>
 
 </resources>
