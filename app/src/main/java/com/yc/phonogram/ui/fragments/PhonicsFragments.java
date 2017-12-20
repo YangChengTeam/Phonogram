@@ -12,6 +12,7 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.orhanobut.logger.Logger;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.MClassInfo;
 import com.yc.phonogram.domain.MClassListInfo;
 import com.yc.phonogram.engin.MClassEngin;
@@ -42,6 +43,7 @@ public class PhonicsFragments extends BaseFragment {
     private TextView mTvNewPrice;
     private TextView mTvPhDesp;
     private StrokeTextView mStrokeTitle;
+    private GoodInfo mGoodInfo;
 
     @Override
     public int getLayoutId() {
@@ -59,7 +61,6 @@ public class PhonicsFragments extends BaseFragment {
         mTvPhDesp = (TextView) getView(R.id.tv_ph_desp);
         mStrokeTitle = (StrokeTextView) getView(R.id.stroke_title);
     }
-
 
     private void initPagerAdapter() {
         mPlayerPagerAdapter = new PhoniceVideoPlayerPagerAdapter();
@@ -102,11 +103,11 @@ public class PhonicsFragments extends BaseFragment {
     private void updataPhoniceContent(int position) {
         if(null!=mMClassInfos&&mMClassInfos.size()>0){
             MClassInfo mClassInfo = mMClassInfos.get(position);
-            if(null!=mClassInfo){
+            if(null!=mClassInfo&&null!=mGoodInfo){
                 mStrokeTitle.setText(mClassInfo.getTitle());
-                mTvOriPrice.setText("原价69元");
+                mTvOriPrice.setText("原价"+mGoodInfo.getPrice()+"元");
                 mTvOriPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
-                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+29+"</big></big></font>元"));
+                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+mGoodInfo.getReal_price()+"</big></big></font>元"));
                 mTvPhDesp.setText(mClassInfo.getDesp());
             }
         }
@@ -116,10 +117,12 @@ public class PhonicsFragments extends BaseFragment {
     public void loadData() {
        MClassEngin mClassEngin=new MClassEngin(getActivity());
        mClassEngin.getMClassList().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResultInfo<MClassListInfo>>() {
+
            @Override
            public void call(ResultInfo<MClassListInfo> mClassListInfoResultInfo) {
                if(null!=mClassListInfoResultInfo&&1==mClassListInfoResultInfo.code&&null!=mClassListInfoResultInfo.data&&null!=mClassListInfoResultInfo.data.getMClassInfos()){
                    mMClassInfos = mClassListInfoResultInfo.data.getMClassInfos();
+                   mGoodInfo = mClassListInfoResultInfo.data.getInfo();
                    if(null!=mPlayerPagerAdapter){
                        mPlayerPagerAdapter.notifyDataSetChanged();
                    }else{
