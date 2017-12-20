@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -44,5 +44,4 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/pay_sdk_al_wx2.0.4.jar')
     compile 'com.afollestad.material-dialogs:core:0.9.0.2@aar'
-
 }

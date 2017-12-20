@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <solid android:color="@color/play_bg"></solid>
+    <!-- 圆角  radius圆角的弧度 -->
+    <corners android:radius="6dp"></corners>
+</shape>

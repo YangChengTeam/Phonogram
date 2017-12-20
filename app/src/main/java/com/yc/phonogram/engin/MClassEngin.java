@@ -7,7 +7,6 @@ import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.engin.BaseEngin;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.MClassListInfo;
-import com.yc.phonogram.domain.PaywayListInfo;
 
 import rx.Observable;
 
@@ -16,6 +15,7 @@ import rx.Observable;
  */
 
 public class MClassEngin extends BaseEngin {
+
     public MClassEngin(Context context) {
         super(context);
     }
@@ -27,6 +27,7 @@ public class MClassEngin extends BaseEngin {
 
     public Observable<ResultInfo<MClassListInfo>> getMClassList() {
         return rxpost(new TypeReference<ResultInfo<MClassListInfo>>() {
+
         }.getType(), null, true, true, true);
     }
 }
