@@ -30,6 +30,7 @@ public class GoodInfo {
     private boolean is_free;
     private boolean is_download;
     private String sub_title;
+    private boolean isSelected;
 
     public boolean is_download() {
         return is_download;
@@ -171,5 +172,13 @@ public class GoodInfo {
 
     public void setSub_title(String sub_title) {
         this.sub_title = sub_title;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

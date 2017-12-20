@@ -27,5 +27,15 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
                 .setText(R.id.tv_current_price, String.format(mContext.getString(R.string.current_price), item.getReal_price()))
                 .setVisible(R.id.tv_sub_title, !TextUtils.isEmpty(item.getSub_title()));
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
+        ImageView imageView = helper.getView(R.id.iv_select);
+
+        int position = helper.getAdapterPosition();
+        if (position == 0) {
+            item.setSelected(true);
+        } else {
+            item.setSelected(false);
+        }
+        imageView.setTag(item.isSelected());
+        imageView.setImageResource(imageView.getTag() helper.get)
     }
 }

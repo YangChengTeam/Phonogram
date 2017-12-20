@@ -82,9 +82,11 @@ public class PayPopupWindow extends BasePopupWindow {
 
         iPayAbs = new I1PayAbs(mContext);
 
+
     }
 
     private void initData() {
+
         TaskUtil.getImpl().runTask(new Runnable() {
             @Override
             public void run() {
@@ -94,10 +96,16 @@ public class PayPopupWindow extends BasePopupWindow {
                         final GoodListInfo goodListInfo = JSON.parseObject(str, GoodListInfo.class);
                         if (goodListInfo != null) {
                             mContext.runOnUiThread(new Runnable() {
+
+
                                 @Override
+
                                 public void run() {
-                                    if (goodListInfo.getGoodInfoList() != null)
+                                    if (goodListInfo.getGoodInfoList() != null) {
                                         payWayInfoAdapter.setNewData(goodListInfo.getGoodInfoList());
+                                        goodInfo = goodListInfo.getGoodInfoList().get(0);
+                                    }
+
                                 }
                             });
                         }
@@ -112,8 +120,10 @@ public class PayPopupWindow extends BasePopupWindow {
             @Override
             public void call(final ResultInfo<GoodListInfo> goodListInfoResultInfo) {
                 if (goodListInfoResultInfo != null && goodListInfoResultInfo.code == HttpConfig.STATUS_OK
-                        && goodListInfoResultInfo.data != null && goodListInfoResultInfo.data.getGoodInfoList() != null)
+                        && goodListInfoResultInfo.data != null && goodListInfoResultInfo.data.getGoodInfoList() != null) {
                     payWayInfoAdapter.setNewData(goodListInfoResultInfo.data.getGoodInfoList());
+                    goodInfo = goodListInfoResultInfo.data.getGoodInfoList().get(0);
+                }
                 TaskUtil.getImpl().runTask(new Runnable() {
                     @Override
                     public void run() {
@@ -172,7 +182,10 @@ public class PayPopupWindow extends BasePopupWindow {
         payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                 ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
+                boolean isSected = (boolean) mIvSelect.getTag();
+
                 if (preImagView != null) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);
                 }

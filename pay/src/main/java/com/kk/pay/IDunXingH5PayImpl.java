@@ -24,7 +24,7 @@ public class IDunXingH5PayImpl extends IPayImpl {
         super(context);
         loadingDialog = new LoadingDialog(context);
     }
-    
+
     public IDunXingH5PayImpl(Activity context, String type) {
         super(context);
         loadingDialog = new LoadingDialog(context);
