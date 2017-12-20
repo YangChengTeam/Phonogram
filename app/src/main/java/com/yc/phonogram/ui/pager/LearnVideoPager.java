@@ -30,7 +30,7 @@ public class LearnVideoPager  extends BasePager{
     private ImageView mIvLpLogo;
     private TextView mTvLpTipsContent;
     private XinQuVideoPlayerStandard mVidepPlayer;
-    private XinQuVideoPlayerStandard mVideoPlayerStandard;
+
 
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
         super(context);
@@ -46,6 +46,8 @@ public class LearnVideoPager  extends BasePager{
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
+        mVidepPlayer.widthRatio=16;
+        mVidepPlayer.heightRatio=9;
         RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
         mLpContentListAdapter = new LPContentListAdapter(mContext,null);
@@ -55,14 +57,13 @@ public class LearnVideoPager  extends BasePager{
     @Override
     protected void loadData() {
         if(null==mData) return;
-        mVideoPlayerStandard = mRootView.findViewById(R.id.video_player);
-        mVideoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
+        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,mData.getName());
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.main_bg);
         options.error(R.mipmap.main_bg);
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
-        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVideoPlayerStandard.thumbImageView);
+        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
         //http://voice.wk2.com/video/2017112405.mp4
         mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
         Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标

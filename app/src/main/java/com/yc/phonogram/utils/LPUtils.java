@@ -1,13 +1,10 @@
 package com.yc.phonogram.utils;
 
-
 import android.text.TextUtils;
-import android.util.Log;
-import java.util.regex.Pattern;
 
 /**
  * TinyHung@Outlook.com
- * 2017/12/20.
+ * 2017/12/20.W
  */
 
 public class LPUtils {
@@ -24,7 +21,7 @@ public class LPUtils {
         if(TextUtils.isEmpty(word))return word;
         if(TextUtils.isEmpty(letter))return word;
         if(word.contains(letter)){
-            return word.replace(letter,"<font color='#FD0000'>"+letter);
+            return word.replace(letter,"<font color='#FD0000'>"+letter+"</font>");
         }
         return word;
     }
@@ -36,26 +33,12 @@ public class LPUtils {
      * @return
      */
     public static String addWordPhoneticLetterColor(String phonetic, String letter) {
-
         if(TextUtils.isEmpty(phonetic))return phonetic;
         if(TextUtils.isEmpty(letter))return phonetic;
-
-        if(null==phonetic) return phonetic;
-        Pattern pattern = Pattern.compile("/");
-        String[] strs = pattern.split(phonetic);
-        if(null!=strs&&strs.length>0){
-            StringBuffer stringBuffer=new StringBuffer();
-            for (String str : strs) {
-                Log.d(TAG,"str="+str);
-                if(!TextUtils.equals("/",str)){
-                    stringBuffer.append(str);
-                }
+        String replace = letter.replace("/", "");
+            if(phonetic.contains(replace)){
+                return phonetic.replace(replace,"<font color='#FD0000'>"+replace+"</font>");
             }
-            Log.d(TAG,"stringBuffer="+stringBuffer);
-            if(phonetic.contains(stringBuffer.toString())){
-                return phonetic.replace(stringBuffer.toString(),"<font color='#FD0000'>"+stringBuffer.toString());
-            }
-        }
         return phonetic;
     }
 }

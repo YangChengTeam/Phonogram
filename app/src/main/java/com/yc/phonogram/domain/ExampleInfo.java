@@ -16,6 +16,8 @@ public class ExampleInfo {
     @JSONField(name = "word_phonetic")
     private String wordPhonetic;
 
+    private String letter;
+
     public int getId() {
         return id;
     }
@@ -54,5 +56,13 @@ public class ExampleInfo {
 
     public void setWordPhonetic(String wordPhonetic) {
         this.wordPhonetic = wordPhonetic;
+    }
+
+    public String getLetter() {
+        return letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
     }
 }
