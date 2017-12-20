@@ -12,6 +12,4 @@ public abstract class PayPopupWindow extends BasePopupWindow  {
     public PayPopupWindow(Activity context) {
         super(context);
     }
-
-
 }

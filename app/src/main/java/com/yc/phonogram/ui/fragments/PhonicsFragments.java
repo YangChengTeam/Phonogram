@@ -1,11 +1,16 @@
 package com.yc.phonogram.ui.fragments;
 
+import android.graphics.Paint;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.orhanobut.logger.Logger;
+import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.MClassInfo;
 import com.yc.phonogram.domain.MClassListInfo;
@@ -42,6 +47,18 @@ public class PhonicsFragments extends BaseFragment {
         playerViews=new HashMap<>();
         mView_pager = (ViewPager) getView(R.id.view_pager);
         mPhonice_view = (PhoniceSeekBarView) getView(R.id.phonice_view);
+        initPagerAdapter();
+        TextView tvOriPrice = (TextView) getView(R.id.tv_ori_price);
+        TextView tvNewPrice = (TextView) getView(R.id.tv_new_price);
+        TextView tvPhDesp = (TextView) getView(R.id.tv_ph_desp);
+        tvOriPrice.setText("原价69元");
+        tvOriPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+        tvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+29+"</big></big></font>元"));
+        tvPhDesp.setText("单词能力提高必选的12节课");
+    }
+
+
+    private void initPagerAdapter() {
         mPlayerPagerAdapter = new PhoniceVideoPlayerPagerAdapter();
         mView_pager.setAdapter(mPlayerPagerAdapter);
         mView_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -52,6 +69,7 @@ public class PhonicsFragments extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
+                XinQuVideoPlayer.releaseAllVideos();
                 mPhonice_view.setIndex(position);
             }
 
@@ -60,6 +78,7 @@ public class PhonicsFragments extends BaseFragment {
 
             }
         });
+
         mPhonice_view.setIndexListener(new PhoniceSeekBarView.IndexListener() {
             @Override
             public void leftClick(int position) {
@@ -71,7 +90,6 @@ public class PhonicsFragments extends BaseFragment {
                 mView_pager.setCurrentItem(position);
             }
         });
-
     }
 
     @Override
@@ -84,9 +102,12 @@ public class PhonicsFragments extends BaseFragment {
                    mMClassInfos = mClassListInfoResultInfo.data.getMClassInfos();
                    if(null!=mPlayerPagerAdapter){
                        mPlayerPagerAdapter.notifyDataSetChanged();
+                   }else{
+                       initPagerAdapter();
                    }
                    mPhonice_view.showIndex(mMClassInfos.size());
                    mPhonice_view.setIndex(0);
+
                }else{
 
                }
@@ -94,8 +115,14 @@ public class PhonicsFragments extends BaseFragment {
        });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        XinQuVideoPlayer.goOnPlayOnPause();
+    }
+
     /**
-     * 垂直列表适配器
+     * 视频播放列表
      */
     private class PhoniceVideoPlayerPagerAdapter extends PagerAdapter {
 
@@ -114,9 +141,9 @@ public class PhonicsFragments extends BaseFragment {
             MClassInfo data=mMClassInfos.get(position);
             if(null!=data){
                 PhonicsVideoPager videoPager = new PhonicsVideoPager(getActivity(),data);
-                View view = videoPager.getView();
+                View view = videoPager.getItemView();
                 view.setId(position);
-                Logger.d(TAG,"添加了："+position);
+                Log.d(TAG,"添加了："+position);
                 playerViews.put(position, videoPager);
                 container.addView(view);
                 return view;
@@ -127,7 +154,7 @@ public class PhonicsFragments extends BaseFragment {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(container.findViewById(position));
-            Logger.d(TAG,"移除了："+position);
+            Log.d(TAG,"移除了："+position);
             playerViews.remove(position);
         }
     }

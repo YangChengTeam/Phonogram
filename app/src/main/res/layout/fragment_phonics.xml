@@ -57,35 +57,40 @@
                     android:layout_height="34dp"/>
                 <LinearLayout
                     android:layout_width="230dp"
-                    android:layout_height="163dp"
+                    android:layout_height="150dp"
                     android:orientation="vertical"
                     android:gravity="center_vertical"
                     android:background="@drawable/ph_goods_bg">
+
+                    <com.yc.phonogram.ui.widget.StrokeTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自然拼读法"
+                        android:textColor="@color/white"
+                        android:textSize="19sp"/>
                         <TextView
+                            android:id="@+id/tv_ph_desp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:textSize="18sp"
-                            android:text="自然拼读法"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="单词能力提高必选的12节课"
+                            android:text="--"
                             android:textColor="@color/ph_common_title2"
-                            android:textSize="16sp"
-                            android:padding="5dp"/>
+                            android:layout_marginTop="7dp"
+                            android:textSize="16sp"/>
                         <TextView
+                            android:id="@+id/tv_new_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="17sp"
+                            android:text="--"
+                            android:layout_marginTop="3dp"/>
+                        <TextView
+                            android:id="@+id/tv_ori_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
-                            android:text="迎新年特价69元"
-                            android:padding="5dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="原价60元"
-                            android:padding="5dp"/>
+                            android:text="--"
+                            android:textStyle="bold"
+                            android:layout_marginTop="5dp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -1,13 +1,13 @@
 package com.yc.phonogram.ui.pager;
 
-import android.content.Context;
-import android.view.View;
+import android.app.Activity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.R;
+import com.yc.phonogram.base.BasePager;
 import com.yc.phonogram.domain.MClassInfo;
 
 /**
@@ -16,21 +16,20 @@ import com.yc.phonogram.domain.MClassInfo;
  * 首页拼读视频播放View
  */
 
-public class PhonicsVideoPager  {
+public class PhonicsVideoPager extends BasePager {
 
     private final MClassInfo mData;
-    private final Context mContext;
-    private View mRootView;
 
-    public PhonicsVideoPager(Context context, MClassInfo data) {
-        this.mContext=context;
+    public PhonicsVideoPager(Activity context, MClassInfo data) {
+        super(context);
         this.mData=data;
-        initViews();
+        setContentView(R.layout.pager_phonics_video_player_layout);
     }
 
-    private void initViews() {
-        mRootView = View.inflate(mContext, R.layout.pager_phonics_video_player_layout, null);
-        XinQuVideoPlayerStandard videoPlayerStandard = (XinQuVideoPlayerStandard) mRootView.findViewById(R.id.video_player);
+
+    @Override
+    protected void initViews() {
+        XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
         videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.main_bg);
@@ -40,7 +39,8 @@ public class PhonicsVideoPager  {
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(videoPlayerStandard.thumbImageView);
     }
 
-    public View getView() {
-        return mRootView;
+    @Override
+    protected void loadData() {
+
     }
 }
