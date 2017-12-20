@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide;
 import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.PhonogramInfo;
+import com.yc.phonogram.utils.EmptyUtils;
+import com.yc.phonogram.utils.RxUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 public class ReadItemFragment extends BaseFragment {
@@ -53,7 +56,7 @@ public class ReadItemFragment extends BaseFragment {
         if (phonogramInfo != null) {
             Glide.with(this).load(phonogramInfo.getImg()).into(piImageView);
 
-            /*if (!EmptyUtils.isEmpty(phonogramInfo.getVoice())) {
+            if (!EmptyUtils.isEmpty(phonogramInfo.getVoice())) {
                 RxUtils.getFile(getActivity(), phonogramInfo.getVoice()).observeOn
                         (AndroidSchedulers.mainThread()).subscribe(new Action1<File>() {
                     @Override
@@ -62,7 +65,7 @@ public class ReadItemFragment extends BaseFragment {
                         play();
                     }
                 });
-            }*/
+            }
         }
 
         countDownRead();
@@ -79,6 +82,11 @@ public class ReadItemFragment extends BaseFragment {
             mMediaPlayer.reset();
             try {
                 mMediaPlayer.setDataSource(getActivity(), Uri.parse(currentFile.getAbsolutePath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                mMediaPlayer.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
