@@ -19,13 +19,10 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-
 /**
  * Created by zhangkai on 2017/10/17.
  */
