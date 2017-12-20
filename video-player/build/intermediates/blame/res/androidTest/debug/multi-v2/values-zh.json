@@ -1,10 +1,17 @@
 {
     "logs": [
         {
+<<<<<<< HEAD
             "outputFile": "D:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-zh\\values-zh.xml",
             "map": [
                 {
                     "source": "D:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\values-zh\\values-zh.xml",
+=======
+            "outputFile": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-zh\\values-zh.xml",
+            "map": [
+                {
+                    "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\values-zh\\values-zh.xml",
+>>>>>>> 271ae24fa33ea8a1aa592cf340b0ff4993cd96ba
                     "from": {
                         "startLines": "2,3,4,5,6",
                         "startColumns": "4,4,4,4,4",

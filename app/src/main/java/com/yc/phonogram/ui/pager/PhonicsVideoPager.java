@@ -36,6 +36,8 @@ public class PhonicsVideoPager extends BasePager {
     protected void loadData() {
         if(null==mData) return;
         XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
+        videoPlayerStandard.widthRatio=16;
+        videoPlayerStandard.heightRatio=9;
         videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.main_bg);

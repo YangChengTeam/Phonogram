@@ -60,7 +60,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
                 //如果用户没有购买章节
-                if(position>=3){
+                if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(2);
                     mView_pager.setCurrentItem(2);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
@@ -73,9 +73,9 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             }
         });
+
         mView_pager.setOffscreenPageLimit(1);
         mView_pager.setAdapter(mLearnPagerAdapter);
-
         mMainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
             public void leftClick(int position) {
