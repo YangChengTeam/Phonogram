@@ -1,11 +1,13 @@
 package com.yc.phonogram.ui.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.GoodInfo;
 
@@ -16,6 +18,8 @@ import java.util.List;
  */
 
 public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder> {
+
+
     public PayWayInfoAdapter(List<GoodInfo> data) {
         super(R.layout.popwindow_good_info_item, data);
     }
@@ -27,15 +31,16 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
                 .setText(R.id.tv_current_price, String.format(mContext.getString(R.string.current_price), item.getReal_price()))
                 .setVisible(R.id.tv_sub_title, !TextUtils.isEmpty(item.getSub_title()));
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
-        ImageView imageView = helper.getView(R.id.iv_select);
 
+        ImageView imageView = helper.getView(R.id.iv_select);
         int position = helper.getAdapterPosition();
         if (position == 0) {
-            item.setSelected(true);
+            imageView.setImageResource(R.mipmap.pay_select_press);
         } else {
-            item.setSelected(false);
+            imageView.setImageResource(R.mipmap.pay_select_normal);
         }
-        imageView.setTag(item.isSelected());
-        imageView.setImageResource(imageView.getTag() helper.get)
+
+        LogUtil.msg("convert");
+
     }
 }

@@ -182,11 +182,11 @@ public class PayPopupWindow extends BasePopupWindow {
         payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (preImagView == null)
+                    preImagView = (ImageView) payWayInfoAdapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
 
                 ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
-                boolean isSected = (boolean) mIvSelect.getTag();
-
-                if (preImagView != null) {
+                if (preImagView != mIvSelect) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);
                 }
                 mIvSelect.setImageResource(R.mipmap.pay_select_press);
