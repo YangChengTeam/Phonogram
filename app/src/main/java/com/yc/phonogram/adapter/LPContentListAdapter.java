@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * TinyHung@Outlook.com
  * 2017/12/18.
- * 音标适配器
+ * 学音标音标适配器
  */
 
 public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -43,9 +43,7 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFE0100")),0,data.getWord().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.tv_item_content.setText(spannableString);
-
-        viewHolder.tv_item_content_lp.setText(data.getPhonetic());
-
+        viewHolder.tv_item_content_lp.setText(data.getWordPhonetic());
     }
 
     @Override

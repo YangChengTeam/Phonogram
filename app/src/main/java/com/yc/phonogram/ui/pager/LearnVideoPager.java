@@ -27,9 +27,10 @@ public class LearnVideoPager  extends BasePager{
     private static final String TAG = LearnVideoPager.class.getSimpleName();
     private final PhonogramInfo mData;
     private LPContentListAdapter mLpContentListAdapter;
-    private ImageView mIv_lp_logo;
-    private TextView mTv_lp_tips_content;
+    private ImageView mIvLpLogo;
+    private TextView mTvLpTipsContent;
     private XinQuVideoPlayerStandard mVidepPlayer;
+    private XinQuVideoPlayerStandard mVideoPlayerStandard;
 
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
         super(context);
@@ -42,37 +43,33 @@ public class LearnVideoPager  extends BasePager{
     protected void initViews() {
         if(null==mContext) return;
         //封面
-        mIv_lp_logo = (ImageView) getView(R.id.iv_lp_logo);
-        mTv_lp_tips_content = (TextView) getView(R.id.tv_lp_tips_content);
+        mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
+        mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
         mLpContentListAdapter = new LPContentListAdapter(mContext,null);
         recyclerView.setAdapter(mLpContentListAdapter);
-
-        XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
-        videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
-        RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.main_bg);
-        options.error(R.mipmap.main_bg);
-        options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
-        options.skipMemoryCache(true);//跳过内存缓存
-        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(videoPlayerStandard.thumbImageView);
     }
 
     @Override
     protected void loadData() {
         if(null==mData) return;
-        mVidepPlayer.setUp("http://voice.wk2.com/video/2017112405.mp4", XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
+        mVideoPlayerStandard = mRootView.findViewById(R.id.video_player);
+        mVideoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.main_bg);
         options.error(R.mipmap.main_bg);
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
-        Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIv_lp_logo);
-        Glide.with(mContext).load("http://wk2-voice.oss-cn-shenzhen.aliyuncs.com/mp3/2017-11-28/5a1d2677de6d5.jpg").apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
-        mTv_lp_tips_content.setText(mData.getDesp());
-        if(null!=mLpContentListAdapter&&null!=mData&&null!=mData.getExampleInfos()){
+        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVideoPlayerStandard.thumbImageView);
+        //http://voice.wk2.com/video/2017112405.mp4
+        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
+        Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标
+        //http://wk2-voice.oss-cn-shenzhen.aliyuncs.com/mp3/2017-11-28/5a1d2677de6d5.jpg
+        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);//视频播放器封面
+        mTvLpTipsContent.setText(mData.getDesp());
+        if(null!=mLpContentListAdapter&&null!=mData.getExampleInfos()){
             mLpContentListAdapter.setNewData(mData.getExampleInfos());
         }
     }

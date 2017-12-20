@@ -13,8 +13,6 @@ import com.kk.utils.ToastUtil;
 
 import java.net.URLEncoder;
 
-import dxtx.dj.pay.pay_util.enums.PayType;
-
 
 /**
  * Created by wanglin  on 2017/8/30 10:45.

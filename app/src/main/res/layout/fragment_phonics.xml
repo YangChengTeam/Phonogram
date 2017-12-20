@@ -63,6 +63,7 @@
                     android:background="@drawable/ph_goods_bg">
 
                     <com.yc.phonogram.ui.widget.StrokeTextView
+                        android:id="@+id/stroke_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="自然拼读法"

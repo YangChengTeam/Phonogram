@@ -22,6 +22,7 @@ public abstract class BasePager  {
     private AnimationDrawable mAnimationDrawable;
     private View mLlLoadingView;
     private View mLlLoadingError;
+    private RelativeLayout mGroupContentView;
 
     public BasePager(Activity context){
         this.mContext=context;
@@ -32,10 +33,10 @@ public abstract class BasePager  {
         if(null==mContext) return;
         mRootView= mContext.getLayoutInflater().inflate(R.layout.base_pager,null);//父View
         View childRootView = View.inflate(mContext, layoutID, (ViewGroup) mRootView.getParent());//子View
-        RelativeLayout groupContentView = (RelativeLayout) mRootView.findViewById(R.id.view_content);
+        mGroupContentView = (RelativeLayout) mRootView.findViewById(R.id.view_content);
         RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         childRootView.setLayoutParams(layoutParams);
-        groupContentView.addView(childRootView);//将子View添加到自身
+        mGroupContentView.addView(childRootView);//将子View添加到自身
         mLlLoadingView = mRootView.findViewById(R.id.ll_loading_view);
         mLlLoadingError = mRootView.findViewById(R.id.ll_loading_error);
         ImageView iv_loading_icon = mRootView.findViewById(R.id.iv_loading_icon);
@@ -91,8 +92,8 @@ public abstract class BasePager  {
      * 显示加载状态
      */
     protected void showLoadingView() {
-        if(mRootView.getVisibility()!=View.GONE){
-            mRootView.setVisibility(View.GONE);
+        if(mGroupContentView.getVisibility()!=View.GONE){
+            mGroupContentView.setVisibility(View.GONE);
         }
         if(mLlLoadingError.getVisibility()!=View.GONE){
             mLlLoadingError.setVisibility(View.GONE);
@@ -116,8 +117,8 @@ public abstract class BasePager  {
             mLlLoadingView.setVisibility(View.GONE);
         }
 
-        if(mRootView.getVisibility()!=View.VISIBLE){
-            mRootView.setVisibility(View.VISIBLE);
+        if(mGroupContentView.getVisibility()!=View.VISIBLE){
+            mGroupContentView.setVisibility(View.VISIBLE);
         }
 
         if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
@@ -133,8 +134,8 @@ public abstract class BasePager  {
         if(mLlLoadingView.getVisibility()!=View.GONE){
             mLlLoadingView.setVisibility(View.GONE);
         }
-        if(mRootView.getVisibility()!=View.GONE){
-            mRootView.setVisibility(View.GONE);
+        if(mGroupContentView.getVisibility()!=View.GONE){
+            mGroupContentView.setVisibility(View.GONE);
         }
 
         if(mLlLoadingError.getVisibility()!=View.VISIBLE){

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Phonogram.iml" filepath="$PROJECT_DIR$/Phonogram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Phonogram.iml" filepath="$PROJECT_DIR$/.idea/Phonogram.iml" />
+      <module fileurl="file://D:\AndroidStudioProjects\Phonogram\Phonogram.iml" filepath="D:\AndroidStudioProjects\Phonogram\Phonogram.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/pay/pay.iml" filepath="$PROJECT_DIR$/pay/pay.iml" />
       <module fileurl="file://$PROJECT_DIR$/video-player/video-player.iml" filepath="$PROJECT_DIR$/video-player/video-player.iml" />

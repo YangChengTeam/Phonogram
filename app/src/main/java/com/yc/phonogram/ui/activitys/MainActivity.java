@@ -1,6 +1,20 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
+
+import android.os.Build;
+import android.os.Bundle;
+
+import android.view.Gravity;
+import android.view.View;
+
+import com.jakewharton.rxbinding.view.RxView;
+import com.kk.utils.ScreenUtil;
+import com.yc.phonogram.R;
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
+import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
+
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -60,7 +74,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void init() {
         INSTANSE = this;
-
         mViewPager = findViewById(R.id.viewpager);
         ImageView mCenterBtn = findViewById(R.id.iv_center);
         mIndexBtn = findViewById(R.id.iv_index);
@@ -134,7 +147,8 @@ public class MainActivity extends BaseActivity {
         RxView.clicks(mCenterBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-
+                PayPopupWindow payPopupWindow =new PayPopupWindow(MainActivity.this);
+                payPopupWindow.show();
             }
         });
     }

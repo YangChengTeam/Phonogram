@@ -15,13 +15,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:textStyle="bold"
-        android:text="Engish"/>
+        android:text="--"/>
     <TextView
         android:id="@+id/tv_item_content_lp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="/bi/"
+        android:text="--"
         android:layout_marginTop="5dp"
         android:textColor="@color/common_title3"/>
 </LinearLayout>

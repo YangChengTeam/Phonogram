@@ -17,6 +17,8 @@ import com.yc.phonogram.domain.MClassListInfo;
 import com.yc.phonogram.engin.MClassEngin;
 import com.yc.phonogram.ui.pager.PhonicsVideoPager;
 import com.yc.phonogram.ui.views.PhoniceSeekBarView;
+import com.yc.phonogram.ui.widget.StrokeTextView;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,10 @@ public class PhonicsFragments extends BaseFragment {
     private PhoniceVideoPlayerPagerAdapter mPlayerPagerAdapter;
     private PhoniceSeekBarView mPhonice_view;
     private ViewPager mView_pager;
+    private TextView mTvOriPrice;
+    private TextView mTvNewPrice;
+    private TextView mTvPhDesp;
+    private StrokeTextView mStrokeTitle;
 
     @Override
     public int getLayoutId() {
@@ -48,13 +54,10 @@ public class PhonicsFragments extends BaseFragment {
         mView_pager = (ViewPager) getView(R.id.view_pager);
         mPhonice_view = (PhoniceSeekBarView) getView(R.id.phonice_view);
         initPagerAdapter();
-        TextView tvOriPrice = (TextView) getView(R.id.tv_ori_price);
-        TextView tvNewPrice = (TextView) getView(R.id.tv_new_price);
-        TextView tvPhDesp = (TextView) getView(R.id.tv_ph_desp);
-        tvOriPrice.setText("原价69元");
-        tvOriPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
-        tvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+29+"</big></big></font>元"));
-        tvPhDesp.setText("单词能力提高必选的12节课");
+        mTvOriPrice = (TextView) getView(R.id.tv_ori_price);
+        mTvNewPrice = (TextView) getView(R.id.tv_new_price);
+        mTvPhDesp = (TextView) getView(R.id.tv_ph_desp);
+        mStrokeTitle = (StrokeTextView) getView(R.id.stroke_title);
     }
 
 
@@ -71,6 +74,7 @@ public class PhonicsFragments extends BaseFragment {
             public void onPageSelected(int position) {
                 XinQuVideoPlayer.releaseAllVideos();
                 mPhonice_view.setIndex(position);
+                updataPhoniceContent(position);
             }
 
             @Override
@@ -78,7 +82,6 @@ public class PhonicsFragments extends BaseFragment {
 
             }
         });
-
         mPhonice_view.setIndexListener(new PhoniceSeekBarView.IndexListener() {
             @Override
             public void leftClick(int position) {
@@ -90,6 +93,23 @@ public class PhonicsFragments extends BaseFragment {
                 mView_pager.setCurrentItem(position);
             }
         });
+    }
+
+    /**
+     * 刷新右边的拼读介绍
+     * @param position
+     */
+    private void updataPhoniceContent(int position) {
+        if(null!=mMClassInfos&&mMClassInfos.size()>0){
+            MClassInfo mClassInfo = mMClassInfos.get(position);
+            if(null!=mClassInfo){
+                mStrokeTitle.setText(mClassInfo.getTitle());
+                mTvOriPrice.setText("原价69元");
+                mTvOriPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+29+"</big></big></font>元"));
+                mTvPhDesp.setText(mClassInfo.getDesp());
+            }
+        }
     }
 
     @Override
@@ -105,9 +125,9 @@ public class PhonicsFragments extends BaseFragment {
                    }else{
                        initPagerAdapter();
                    }
+                   updataPhoniceContent(0);
                    mPhonice_view.showIndex(mMClassInfos.size());
                    mPhonice_view.setIndex(0);
-
                }else{
 
                }

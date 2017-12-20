@@ -29,6 +29,12 @@ public class PhonicsVideoPager extends BasePager {
 
     @Override
     protected void initViews() {
+
+    }
+
+    @Override
+    protected void loadData() {
+        if(null==mData) return;
         XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
         videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
         RequestOptions options = new RequestOptions();
@@ -37,10 +43,6 @@ public class PhonicsVideoPager extends BasePager {
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(videoPlayerStandard.thumbImageView);
-    }
-
-    @Override
-    protected void loadData() {
 
     }
 }

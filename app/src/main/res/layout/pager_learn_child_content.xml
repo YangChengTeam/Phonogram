@@ -95,7 +95,7 @@
                                 android:layout_centerVertical="true"
                                 android:lineSpacingMultiplier="1.1"
                                 android:padding="5dp"
-                                android:text="我是说明文字我是说明文说明文字我是说明文字我是说明文字我是说明文字我是说明文字"
+                                android:text="--"
                                 android:textColor="@color/black"/>
                         </ScrollView>
                     </RelativeLayout>

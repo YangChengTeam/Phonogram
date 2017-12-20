@@ -20,13 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/progress_anim"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            android:text="加载中，请稍后..."
-            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="11sp"
-            android:textColor="@color/white"
+            android:textColor="@color/lp_tips_bg"
             android:text="加载失败，轻触重试"
             android:layout_marginTop="10dp"/>
     </LinearLayout>
