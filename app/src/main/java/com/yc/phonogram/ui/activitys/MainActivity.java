@@ -304,5 +304,24 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public void saveVip(String vip){
+
+    }
+
+    public boolean isPhonogramVip(){
+        return true;
+    }
+
+    public boolean isPhonicsVip(){
+        return true;
+    }
+
+    public boolean isPhonogramOrPhonicsVip(){
+        return true;
+    }
+
+    public boolean isSuperVip(){
+        return true;
+    }
 
 }

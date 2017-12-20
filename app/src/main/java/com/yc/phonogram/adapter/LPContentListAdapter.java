@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ExampleInfo;
+import com.yc.phonogram.utils.LPUtils;
+
 import java.util.List;
 
 /**
@@ -40,7 +42,7 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
         ExampleInfo data = mData.get(position);
         if(null==data) return;
         SpannableString spannableString = new SpannableString(data.getWord());
-
+//        LPUtils.letter
         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FFFE0100")),0,data.getWord().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.tv_item_content.setText(spannableString);
         viewHolder.tv_item_content_lp.setText(data.getWordPhonetic());
