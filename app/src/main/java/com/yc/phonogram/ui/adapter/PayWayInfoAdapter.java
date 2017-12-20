@@ -36,6 +36,5 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
             item.setSelected(false);
         }
         imageView.setTag(item.isSelected());
-        imageView.setImageResource(imageView.getTag() helper.get)
     }
 }
