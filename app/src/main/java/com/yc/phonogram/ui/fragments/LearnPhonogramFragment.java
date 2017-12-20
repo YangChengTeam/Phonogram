@@ -5,7 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.kk.utils.ToastUtil;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
@@ -13,7 +12,6 @@ import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.pager.LearnVideoPager;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,8 +22,6 @@ import java.util.Map;
  * Created by zhangkai on 2017/12/15.
  * 学音标
  */
-
-
 public class LearnPhonogramFragment extends BaseFragment  {
 
     private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
@@ -62,11 +58,6 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 cureenIndex=position;
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
-                if(position>=3){
-                    ToastUtil.toast2(getActivity(),"需要支付啦--！");
-                    mMainBgView.setIndex(2);
-                    mView_pager.setCurrentItem(2);
-                }
             }
 
             @Override
