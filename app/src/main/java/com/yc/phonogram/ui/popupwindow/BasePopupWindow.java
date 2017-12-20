@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.yc.phonogram.ui.IView;
+import com.yc.phonogram.utils.Mp3Utils;
 import com.yc.phonogram.utils.NavgationBarUtils;
 
 
@@ -63,8 +64,6 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
         setOutsideTouchable(false);
 
         init();
-
-
     }
 
     public View getView(@IdRes int id) {
