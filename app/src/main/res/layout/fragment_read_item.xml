@@ -24,9 +24,11 @@
                 android:textSize="20sp"/>
 
             <com.yc.phonogram.ui.widget.StrokeTextView
+                android:id="@+id/tv_current_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="0"
+                android:layout_marginLeft="4dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"/>
 
@@ -46,11 +48,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="40dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="invisible">
 
             <com.yc.phonogram.ui.widget.StrokeTextView
                 android:layout_width="wrap_content"
@@ -65,13 +69,13 @@
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="124dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
                 android:background="@null"
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
                 android:minHeight="14dp"
-                android:progress="50"
+                android:progress="100"
                 android:progressDrawable="@drawable/progressbar"/>
         </LinearLayout>
     </LinearLayout>
@@ -86,14 +90,29 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="30dp"
             android:src="@mipmap/splash_bg1"/>
 
-        <ImageView
-            android:id="@+id/iv_phonetic"
-            android:layout_width="232dp"
-            android:layout_height="132dp"
-            android:layout_marginLeft="40dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_phonetic"
+                android:layout_width="232dp"
+                android:layout_height="132dp"/>
+
+            <ImageView
+                android:id="@+id/iv_read_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                android:src="@mipmap/read_stop_icon"/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

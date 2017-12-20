@@ -29,7 +29,6 @@ import rx.functions.Action1;
 
 public class App extends Application {
     private static App INSTANSE;
-
     @Override
     public void onCreate() {
         super.onCreate();
