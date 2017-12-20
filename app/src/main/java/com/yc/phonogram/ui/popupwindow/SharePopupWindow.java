@@ -1,6 +1,7 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -62,4 +63,6 @@ public class SharePopupWindow extends BasePopupWindow {
             }
         });
     }
+
+
 }
