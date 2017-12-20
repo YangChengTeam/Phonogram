@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
@@ -28,9 +27,7 @@ import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.GoodListInfo;
 import com.yc.phonogram.engin.GoodEngin;
 import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
-
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 /**
@@ -210,5 +207,4 @@ public class PayPopupWindow extends BasePopupWindow {
             outRect.set(0, 0, 0, ScreenUtil.dip2px(mContext, 9));
         }
     }
-
 }

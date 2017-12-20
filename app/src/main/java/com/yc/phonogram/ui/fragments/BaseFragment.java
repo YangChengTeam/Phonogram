@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.ui.IView;
 
@@ -42,7 +40,6 @@ public abstract class BaseFragment extends Fragment implements IView {
         init();
         loadData();
     }
-
 
     @Override
     public void onResume() {

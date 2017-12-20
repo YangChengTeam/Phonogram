@@ -32,6 +32,7 @@ import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
+import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.PhonogramListInfo;
@@ -73,7 +74,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void init() {
         INSTANSE = this;
-
         mViewPager = findViewById(R.id.viewpager);
         ImageView mCenterBtn = findViewById(R.id.iv_center);
         mIndexBtn = findViewById(R.id.iv_index);
@@ -283,6 +283,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(XinQuVideoPlayer.backPress()){
+                XinQuVideoPlayer.releaseAllVideos();
+                return true;
+            }
             new QMUIDialog.MessageDialogBuilder(MainActivity.this)
                     .setMessage("确定要退出吗？")
                     .addAction("确定", new QMUIDialogAction.ActionListener() {
@@ -300,5 +304,24 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public void saveVip(String vip){
+
+    }
+
+    public boolean isPhonogramVip(){
+        return true;
+    }
+
+    public boolean isPhonicsVip(){
+        return true;
+    }
+
+    public boolean isPhonogramOrPhonicsVip(){
+        return true;
+    }
+
+    public boolean isSuperVip(){
+        return true;
+    }
 
 }

@@ -160,6 +160,9 @@ public class ReadItemFragment extends BaseFragment implements EasyPermissions.Pe
         super.onResume();
         isPlay = false;
         readNum = 0;
+        mProgressBar.setProgress(100);
+        mProgressLayout.setVisibility(View.INVISIBLE);
+
         if (phonogramInfo != null) {
             Glide.with(this).load(phonogramInfo.getImg()).into(piImageView);
         }
@@ -190,10 +193,6 @@ public class ReadItemFragment extends BaseFragment implements EasyPermissions.Pe
             mMediaPlayer.reset();
             try {
                 mMediaPlayer.setDataSource(getActivity(), Uri.parse(currentFile.getAbsolutePath()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
                 mMediaPlayer.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -205,11 +204,14 @@ public class ReadItemFragment extends BaseFragment implements EasyPermissions.Pe
     }
 
     public void stop() {
+        isPlay = false;
+        readNum = 3;
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
         }
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
+            subscription = null;
         }
     }
 
@@ -265,7 +267,6 @@ public class ReadItemFragment extends BaseFragment implements EasyPermissions.Pe
                     }
                 });
     }
-
 
     @Override
     public void onDestroy() {

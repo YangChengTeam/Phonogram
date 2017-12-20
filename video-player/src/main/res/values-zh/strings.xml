@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tips_not_wifi">您当前未连接WIFI网络，使用流量播放可能会消耗一定流量，（播放过的视频且缓存未删除再次播放无需消耗流量） 是否继续播放？</string>
+    <string name="tips_not_wifi_confirm">确定</string>
+    <string name="tips_not_wifi_cancel">取消</string>
+    <string name="no_url">播放地址无效</string>
+    <string name="replay">重播</string>
+</resources>

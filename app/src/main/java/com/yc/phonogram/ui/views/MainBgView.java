@@ -1,23 +1,16 @@
 package com.yc.phonogram.ui.views;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.ScreenUtil;
 import com.yc.phonogram.R;
-
-import org.w3c.dom.Text;
-
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 /**

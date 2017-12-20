@@ -16,6 +16,7 @@ public abstract class BaseView extends FrameLayout implements IView {
 
     protected View mRootView;
 
+
     public BaseView(Context context) {
         super(context);
         mRootView = inflate(context, getLayoutId(), this);
