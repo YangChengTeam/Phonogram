@@ -62,5 +62,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'
 
     implementation files('libs/glide-full-4.3.1.jar')
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+
 
 }
