@@ -304,7 +304,7 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void saveVip(){
+    public void saveVip(String vip){
 
     }
 
