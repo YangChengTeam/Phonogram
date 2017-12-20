@@ -23,15 +23,22 @@
 
                 <RelativeLayout
                     android:layout_width="250.3dp"
-                    android:layout_height="140dp"
-                    android:layout_centerInParent="true"
-                    android:background="@mipmap/ic_video_bg"
-                    android:padding="5dp">
+                    android:layout_height="140dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:padding="5dp">
                         <com.xinqu.videoplayer.XinQuVideoPlayerStandard
                             android:id="@+id/video_player"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
                         </com.xinqu.videoplayer.XinQuVideoPlayerStandard>
+                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/ic_video_bg"/>
                 </RelativeLayout>
                 <View
                     android:layout_width="40dp"
@@ -65,7 +72,7 @@
                     android:layout_height="wrap_content">
 
                     <RelativeLayout
-                        android:layout_width="250.6dp"
+                        android:layout_width="245.6dp"
                         android:layout_height="73.6dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/lp_tips_bg">

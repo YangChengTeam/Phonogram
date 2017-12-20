@@ -38,10 +38,10 @@ public class PhonicsVideoPager extends BasePager {
         XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
         videoPlayerStandard.widthRatio=16;
         videoPlayerStandard.heightRatio=9;
-        videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,"测试");
+        videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.main_bg);
-        options.error(R.mipmap.main_bg);
+        options.placeholder(R.mipmap.ic_player_error);
+        options.error(R.mipmap.ic_player_error);
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(videoPlayerStandard.thumbImageView);

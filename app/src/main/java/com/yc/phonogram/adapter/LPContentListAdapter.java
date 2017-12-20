@@ -1,20 +1,14 @@
 package com.yc.phonogram.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.utils.LPUtils;
-
 import java.util.List;
 
 /**

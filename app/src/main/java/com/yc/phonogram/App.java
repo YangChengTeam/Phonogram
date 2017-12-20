@@ -13,6 +13,7 @@ import com.kk.utils.FileUtil;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
+import com.ksyun.media.player.KSYHardwareDecodeWhiteList;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
@@ -29,11 +30,12 @@ import rx.functions.Action1;
 
 public class App extends Application {
     private static App INSTANSE;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        initGoagal(getApplicationContext());
         INSTANSE = this;
+        initGoagal(getApplicationContext());
     }
 
     public static App getApp() {
@@ -75,7 +77,7 @@ public class App extends Application {
         UMGameAgent.init(context);
         UMGameAgent.setPlayerLevel(1);
         MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
-
+        KSYHardwareDecodeWhiteList.getInstance().init(INSTANSE);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);
     }

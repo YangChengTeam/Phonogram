@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.kk.securityhttp.domain.ResultInfo;
-import com.orhanobut.logger.Logger;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.GoodInfo;
@@ -19,7 +18,6 @@ import com.yc.phonogram.engin.MClassEngin;
 import com.yc.phonogram.ui.pager.PhonicsVideoPager;
 import com.yc.phonogram.ui.views.PhoniceSeekBarView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,7 @@ import static android.content.ContentValues.TAG;
 
 /**
  * Created by zhangkai on 2017/12/15.
- * 自然拼读
+ * 首页自然拼读
  */
 
 public class PhonicsFragments extends BaseFragment {
@@ -166,7 +164,6 @@ public class PhonicsFragments extends BaseFragment {
                 PhonicsVideoPager videoPager = new PhonicsVideoPager(getActivity(),data);
                 View view = videoPager.getItemView();
                 view.setId(position);
-                Log.d(TAG,"添加了："+position);
                 playerViews.put(position, videoPager);
                 container.addView(view);
                 return view;
@@ -177,7 +174,6 @@ public class PhonicsFragments extends BaseFragment {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(container.findViewById(position));
-            Log.d(TAG,"移除了："+position);
             playerViews.remove(position);
         }
     }

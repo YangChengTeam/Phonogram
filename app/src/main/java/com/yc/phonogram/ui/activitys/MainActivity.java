@@ -1,30 +1,18 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
-
-import android.os.Build;
-import android.os.Bundle;
-
-import android.view.Gravity;
-import android.view.View;
-
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.ScreenUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
-
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.widget.ImageView;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
@@ -33,7 +21,6 @@ import com.kk.utils.TaskUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
-import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.engin.PhonogramEngin;
@@ -41,10 +28,7 @@ import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
-import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
-
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 
