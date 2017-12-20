@@ -1,13 +1,11 @@
 package com.yc.phonogram.ui.adapter;
 
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.kk.utils.LogUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.GoodInfo;
 
@@ -39,8 +37,6 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         } else {
             imageView.setImageResource(R.mipmap.pay_select_normal);
         }
-
-        LogUtil.msg("convert");
 
     }
 }

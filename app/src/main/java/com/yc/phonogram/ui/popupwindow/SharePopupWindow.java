@@ -27,6 +27,7 @@ public class SharePopupWindow extends BasePopupWindow {
 
     @Override
     public void init() {
+        setAnimationStyle(R.style.popwindow_style);
         TextView mTvWx = (TextView) getView(R.id.tv_wx);
         TextView mTvQq = (TextView) getView(R.id.tv_qq);
         TextView mTvCircle = (TextView) getView(R.id.tv_circle);
@@ -62,6 +63,7 @@ public class SharePopupWindow extends BasePopupWindow {
                 dismiss();
             }
         });
+
     }
 
 

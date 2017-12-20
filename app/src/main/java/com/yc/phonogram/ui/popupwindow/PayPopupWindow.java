@@ -47,8 +47,8 @@ public class PayPopupWindow extends BasePopupWindow {
     private RecyclerView recyclerView;
 
     private IPayAbs iPayAbs;
-    private String WX_PAY = "wxpay";
-    private String ALI_PAY = "alipay";
+    private final String WX_PAY = "wxpay";
+    private final String ALI_PAY = "alipay";
     private String payway = ALI_PAY;
     private GoodEngin goodEngin;
     private GoodInfo goodInfo;
@@ -66,6 +66,7 @@ public class PayPopupWindow extends BasePopupWindow {
     @Override
     public void init() {
         goodEngin = new GoodEngin(mContext);
+        setAnimationStyle(R.style.popwindow_style);
         initData();
         mIvPayCharge = (ImageView) getView(R.id.iv_pay_charge);
         mIvWxPay = (ImageView) getView(R.id.iv_wx_pay);
@@ -183,7 +184,7 @@ public class PayPopupWindow extends BasePopupWindow {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (preImagView == null)
-                    preImagView = (ImageView) payWayInfoAdapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
+                    preImagView = (ImageView) adapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
 
                 ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
                 if (preImagView != mIvSelect) {
