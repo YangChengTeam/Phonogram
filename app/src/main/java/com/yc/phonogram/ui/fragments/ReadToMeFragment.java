@@ -65,6 +65,7 @@ public class ReadToMeFragment extends BaseFragment {
         List<PhonogramInfo> phonogramInfos = phonogramListInfo.getPhonogramInfos();
         readItemPagerAdapter.setDatas(phonogramInfos);
         readItemPagerAdapter.notifyDataSetChanged();
+
         mainBgView.showIndex(phonogramInfos.size());
         mainBgView.setIndex(0);
         mainBgView.setIndexListener(new MainBgView.IndexListener() {
