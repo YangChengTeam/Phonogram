@@ -36,7 +36,7 @@ public class ReadToMeFragment extends BaseFragment {
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         viewPager = (ViewPager) getView(R.id.view_pager);
 
-        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager());
+        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager(),viewPager);
         viewPager.setAdapter(readItemPagerAdapter);
         viewPager.setOffscreenPageLimit(1);
 
