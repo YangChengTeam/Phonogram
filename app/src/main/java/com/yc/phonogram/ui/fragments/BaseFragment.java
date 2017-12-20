@@ -41,7 +41,6 @@ public abstract class BaseFragment extends Fragment implements IView {
         loadData();
     }
 
-
     @Override
     public void onResume() {
         super.onResume();

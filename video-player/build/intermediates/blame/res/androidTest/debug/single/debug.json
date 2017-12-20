@@ -808,10 +808,6 @@
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-xhdpi-v4\\abc_popup_background_mtrl_mult.9.png"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_player_failed.png.flat",
-        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\player_failed.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\color-v23_abc_tint_seek_thumb.xml.flat",
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\color-v23\\abc_tint_seek_thumb.xml"
     },
@@ -1212,10 +1208,6 @@
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_jz_restart_pressed.png.flat",
-        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\jz_restart_pressed.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_loading_9.png.flat",
         "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\loading_9.png"
     },
@@ -1608,10 +1600,6 @@
         "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\layout\\jz_layout_clarity.xml"
     },
     {
-        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_jz_share_normal.png.flat",
-        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\jz_share_normal.png"
-    },
-    {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
@@ -1814,14 +1802,6 @@
     {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
-    },
-    {
-        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4_jz_share_pressed.png.flat",
-        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\jz_share_pressed.png"
-    },
-    {
-        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_jz_click_share_selector.xml.flat",
-        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable\\jz_click_share_selector.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_textfield_default_mtrl_alpha.9.png.flat",

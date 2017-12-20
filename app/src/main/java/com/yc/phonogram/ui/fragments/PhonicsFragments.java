@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by zhangkai on 2017/12/15.
@@ -129,8 +127,6 @@ public class PhonicsFragments extends BaseFragment {
                    updataPhoniceContent(0);
                    mPhonice_view.showIndex(mMClassInfos.size());
                    mPhonice_view.setIndex(0);
-               }else{
-
                }
            }
        });
