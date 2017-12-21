@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.yc.phonogram.R;
 import com.yc.phonogram.listener.PerfectClickListener;
+import java.security.InvalidParameterException;
 
 /**
  * TinyHung@Outlook.com
@@ -26,6 +27,10 @@ public abstract class BasePager  {
 
     public BasePager(Activity context){
         this.mContext=context;
+        boolean flag=context instanceof Activity;
+        if(!flag){
+            throw new InvalidParameterException("音标：The context for the Activity type must be passed!");
+        }
     }
 
 
