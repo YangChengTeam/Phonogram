@@ -2,6 +2,7 @@ package com.yc.phonogram.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 
 import com.yc.phonogram.domain.PhonogramInfo;
@@ -21,8 +22,11 @@ public class ReadItemPagerAdapter extends android.support.v4.app.FragmentStatePa
 
     private List<PhonogramInfo> datas;
 
-    public ReadItemPagerAdapter(FragmentManager fm) {
+    private ViewPager mViewPager;
+
+    public ReadItemPagerAdapter(FragmentManager fm,ViewPager viewPager) {
         super(fm);
+        mViewPager = viewPager;
     }
 
     public void setDatas(List<PhonogramInfo> list) {
@@ -38,6 +42,7 @@ public class ReadItemPagerAdapter extends android.support.v4.app.FragmentStatePa
     @Override
     public Fragment getItem(int position) {
         return mFragment.get(position);
+        //return (ReadItemFragment) this.instantiateItem(mViewPager, mViewPager.getCurrentItem());
     }
 
     @Override
