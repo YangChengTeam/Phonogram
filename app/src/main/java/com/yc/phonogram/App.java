@@ -3,6 +3,7 @@ package com.yc.phonogram;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.GoagalInfo;
@@ -20,10 +21,13 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+
 /**
  * Created by zhangkai on 2017/10/17.
  */
@@ -93,7 +97,6 @@ public class App extends Application {
     public static String getSV() {
         return Build.MODEL.contains(Build.BRAND) ? Build.MODEL + " " + Build.VERSION.RELEASE : Build.BRAND + " " + Build.MODEL + " " + Build.VERSION.RELEASE;
     }
-
 
     private LoginDataInfo loginDataInfo;
 

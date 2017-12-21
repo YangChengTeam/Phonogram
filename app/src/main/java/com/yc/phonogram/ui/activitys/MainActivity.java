@@ -93,9 +93,9 @@ public class MainActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 tab(position);
                 if (position == 1 || position == 2) {
-                    mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_phonogram_view));
+                    mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_view_selector));
                 } else {
-                    mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_share));
+                    mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_share_selector));
                 }
                 stop();
             }
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    private void stop(){
+    private void stop() {
         mReadToMeFragment.stop();
         XinQuVideoPlayer.releaseAllVideos();
     }
