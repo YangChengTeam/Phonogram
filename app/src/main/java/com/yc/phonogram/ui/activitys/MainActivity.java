@@ -283,7 +283,7 @@ public class MainActivity extends BaseActivity {
         if (mCurrentIndex == 1) {
 
         } else if (mCurrentIndex == 2) {
-            
+
         }
     }
 
