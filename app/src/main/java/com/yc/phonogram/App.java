@@ -3,7 +3,6 @@ package com.yc.phonogram;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.GoagalInfo;
@@ -34,8 +33,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        INSTANSE = this;
         initGoagal(getApplicationContext());
+        INSTANSE = this;
     }
 
     public static App getApp() {
@@ -77,7 +76,7 @@ public class App extends Application {
         UMGameAgent.init(context);
         UMGameAgent.setPlayerLevel(1);
         MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
-        KSYHardwareDecodeWhiteList.getInstance().init(INSTANSE);
+        KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);
     }

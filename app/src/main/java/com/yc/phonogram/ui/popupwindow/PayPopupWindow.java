@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
@@ -21,13 +22,17 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.TaskUtil;
+import com.kk.utils.ToastUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.GoodListInfo;
 import com.yc.phonogram.engin.GoodEngin;
+import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
+
 import java.util.concurrent.TimeUnit;
+
 import rx.functions.Action1;
 
 /**
@@ -44,8 +49,8 @@ public class PayPopupWindow extends BasePopupWindow {
     private RecyclerView recyclerView;
 
     private IPayAbs iPayAbs;
-    private String WX_PAY = "wxpay";
-    private String ALI_PAY = "alipay";
+    private final String WX_PAY = "wxpay";
+    private final String ALI_PAY = "alipay";
     private String payway = ALI_PAY;
     private GoodEngin goodEngin;
     private GoodInfo goodInfo;
@@ -63,6 +68,7 @@ public class PayPopupWindow extends BasePopupWindow {
     @Override
     public void init() {
         goodEngin = new GoodEngin(mContext);
+        setAnimationStyle(R.style.popwindow_style);
         initData();
         mIvPayCharge = (ImageView) getView(R.id.iv_pay_charge);
         mIvWxPay = (ImageView) getView(R.id.iv_wx_pay);
@@ -159,13 +165,18 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                if (MainActivity.getMainActivity().isVip(goodInfo.getId() + "")) {
+                    ToastUtil.toast(mContext, "你已经购买了该项目，请选择其他项目");
+                    return;
+                }
+
                 OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
                 orderParamsInfo.setPayway_name(payway);
 
                 iPayAbs.pay(orderParamsInfo, new IPayCallback() {
                     @Override
                     public void onSuccess(OrderInfo orderInfo) {
-
+                        MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
                     }
 
                     @Override
@@ -179,11 +190,16 @@ public class PayPopupWindow extends BasePopupWindow {
         payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
                 ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
-                boolean isSected = (boolean) mIvSelect.getTag();
+                boolean isBuy = (boolean) mIvSelect.getTag();
+                if (isBuy) {
+                    return;
+                }
 
-                if (preImagView != null) {
+                if (preImagView == null)
+                    preImagView = (ImageView) adapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
+
+                if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);
                 }
                 mIvSelect.setImageResource(R.mipmap.pay_select_press);

@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <RelativeLayout
             android:layout_width="530dp"
@@ -20,7 +21,8 @@
                 android:layout_centerHorizontal="true"
                 android:background="@mipmap/pay_main_bg"
                 android:paddingLeft="24dp"
-                android:paddingRight="24dp">
+                android:paddingRight="24dp"
+                >
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"

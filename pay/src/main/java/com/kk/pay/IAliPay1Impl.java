@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.alipay.sdk.app.PayTask;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.utils.SignUtils;
+import com.kk.utils.ToastUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -110,6 +111,7 @@ public class IAliPay1Impl extends IPayImpl {
                 mContext.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        ToastUtil.toast(mContext, "支付成功");
                         checkOrder(orderInfo, iPayCallback, Config.CHECK_URL);
                     }
                 });
@@ -117,12 +119,19 @@ public class IAliPay1Impl extends IPayImpl {
             } else if (TextUtils.equals(resultStatus, "6001")) {
                 orderInfo.setMessage("支付取消");
                 iPayCallback.onFailure(orderInfo);
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.toast(mContext, "支付取消");
+                    }
+                });
             } else {
                 orderInfo.setMessage("支付失败");
                 iPayCallback.onFailure(orderInfo);
                 mContext.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        ToastUtil.toast(mContext, "支付失败");
                         checkOrder(orderInfo, iPayCallback, Config.CHECK_URL);
                     }
                 });
