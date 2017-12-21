@@ -177,6 +177,7 @@ public class PayPopupWindow extends BasePopupWindow {
                     @Override
                     public void onSuccess(OrderInfo orderInfo) {
                         MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
+                        dismiss();
                     }
 
                     @Override
