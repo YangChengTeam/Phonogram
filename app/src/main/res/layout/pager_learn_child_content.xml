@@ -101,6 +101,7 @@
                                 android:gravity="center_vertical"
                                 android:layout_centerVertical="true"
                                 android:lineSpacingMultiplier="1.1"
+                                android:textSize="14sp"
                                 android:padding="5dp"
                                 android:text="--"
                                 android:textColor="@color/black"/>

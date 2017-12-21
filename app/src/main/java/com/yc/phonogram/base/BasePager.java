@@ -33,7 +33,6 @@ public abstract class BasePager  {
         }
     }
 
-
     public void setContentView(int layoutID){
         if(null==mContext) return;
         mRootView= mContext.getLayoutInflater().inflate(R.layout.base_pager,null);//父View
@@ -90,7 +89,10 @@ public abstract class BasePager  {
     }
 
     public void onDestroyView(){
-
+        if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
+            mAnimationDrawable.stop();
+        }
+        mAnimationDrawable=null;
     }
 
     /**
@@ -151,4 +153,5 @@ public abstract class BasePager  {
             mAnimationDrawable.stop();
         }
     }
+
 }
