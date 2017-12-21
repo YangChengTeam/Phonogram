@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.GoodInfo;
+import com.yc.phonogram.ui.activitys.MainActivity;
 
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
 
         ImageView imageView = helper.getView(R.id.iv_select);
+//        MainActivity.getMainActivity().
+
         int position = helper.getAdapterPosition();
         if (position == 0) {
             imageView.setImageResource(R.mipmap.pay_select_press);
