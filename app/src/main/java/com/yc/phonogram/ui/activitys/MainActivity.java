@@ -279,6 +279,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    public void goToPage(int position) {
+        if (mCurrentIndex == 1) {
+
+        } else if (mCurrentIndex == 2) {
+            
+        }
+    }
+
     private void showInfo(PhonogramListInfo phonogramListInfo) {
         this.phonogramListInfo = phonogramListInfo;
         if (mLearnPhonogramFragment != null && mReadToMeFragment != null) {
