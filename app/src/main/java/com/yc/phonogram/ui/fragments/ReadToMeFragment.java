@@ -1,8 +1,6 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.Manifest;
 import android.media.AudioManager;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -31,8 +29,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.EasyPermissions;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
@@ -46,7 +42,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by zhangkai on 2017/12/15.
  */
 
-public class ReadToMeFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
+public class ReadToMeFragment extends BaseFragment {
 
     private static final int WRITE = 100;
 
@@ -143,7 +139,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         RxView.clicks(mReadPlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                requestPermission();
+                requestPlay();
             }
         });
 
@@ -151,7 +147,6 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
             @Override
             public void onPrepared(IMediaPlayer mp) {
                 mReadPlayImageView.setImageResource(R.drawable.read_play_selector);
-
                 play();
                 playAnimation();
             }
@@ -168,74 +163,45 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
             @Override
             public boolean onError(IMediaPlayer mp, int what, int extra) {
                 ToastUtil.toast(getActivity(), "播放错误，请稍后重试");
+                MainActivity.getMainActivity().requestPermission();
                 return false;
             }
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // EasyPermissions handles the request result.
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @AfterPermissionGranted(WRITE)
-    private void requestPermission() {
-        if (EasyPermissions.hasPermissions(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            LogUtil.msg("readitem has --->");
-
-            if (phonogramInfo != null) {
-                if (!EmptyUtils.isEmpty(phonogramInfo.getVoice())) {
-                    try {
-                        isPlay = !isPlay;
-                        if (isPlay) {
-                            if (ksyMediaPlayer != null) {
-                                if (ksyMediaPlayer.isPlaying()) {
-                                    ksyMediaPlayer.stop();
-                                }
-                                ksyMediaPlayer.reset();
+    private void requestPlay() {
+        if (phonogramInfo != null) {
+            if (!EmptyUtils.isEmpty(phonogramInfo.getVoice())) {
+                try {
+                    isPlay = !isPlay;
+                    if (isPlay) {
+                        if (ksyMediaPlayer != null) {
+                            if (ksyMediaPlayer.isPlaying()) {
+                                ksyMediaPlayer.stop();
                             }
-
-                            mReadPlayImageView.setImageResource(R.mipmap.reading_icon);
-
-                            String proxyUrl = phonogramInfo.getVoice();
-                            HttpProxyCacheServer proxy = App.getProxy();
-                            if(null != proxy){
-                                proxyUrl= proxy.getProxyUrl(phonogramInfo.getVoice());
-                            }
-                            ksyMediaPlayer.setDataSource(proxyUrl);
-                            ksyMediaPlayer.prepareAsync();
-
-                        } else {
-                            mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
-                            stop();
+                            ksyMediaPlayer.reset();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                        mReadPlayImageView.setImageResource(R.mipmap.reading_icon);
+
+                        String proxyUrl = phonogramInfo.getVoice();
+                        HttpProxyCacheServer proxy = App.getProxy();
+                        if (null != proxy) {
+                            proxyUrl = proxy.getProxyUrl(phonogramInfo.getVoice());
+                        }
+                        ksyMediaPlayer.setDataSource(proxyUrl);
+                        ksyMediaPlayer.prepareAsync();
+
+                    } else {
+                        mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
+                        stop();
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-        } else {
-            LogUtil.msg("readitem request one --->");
-            // Request one permission
-            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
     }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        LogUtil.msg("readitem onPermissionsGranted --->");
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        LogUtil.msg("readitem onPermissionsDenied --->");
-    }
-
 
     @Override
     public void loadData() {
