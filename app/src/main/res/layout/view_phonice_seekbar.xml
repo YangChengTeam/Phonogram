@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:src="@mipmap/main_bg_left"/>
+        android:src="@drawable/main_bg_left_selector"/>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,5 +33,5 @@
         android:layout_weight="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/main_bg_right"/>
+        android:src="@drawable/main_bg_right_selector"/>
 </LinearLayout>

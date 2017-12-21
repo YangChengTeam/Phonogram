@@ -22,13 +22,8 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
-<<<<<<< HEAD
-
-=======
 import com.yc.phonogram.utils.LPUtils;
-
 import java.io.File;
->>>>>>> faf8405548d93610bf0ff8ed8a25bcf0b9e555a4
 import java.util.HashMap;
 import java.util.Map;
 
@@ -180,13 +175,13 @@ public class App extends Application {
      * @return
      */
     private HttpProxyCacheServer newProxy() {
-        //SD卡已挂载并且可读写
         int cacheSize = 100 * 1024 * 1024;
         String videoCacheDir = LPUtils.getInstance().getVideoCacheDir(getApplicationContext());
+        //如果SD卡已挂载并且可读写
         if(null==videoCacheDir){
             return null;
         }
-        //线使用内部缓存
+        //优先使用内部缓存
         return new HttpProxyCacheServer.Builder(this)
                 .cacheDirectory(new File(videoCacheDir))
                 .maxCacheSize(cacheSize)//1BG缓存大小上限

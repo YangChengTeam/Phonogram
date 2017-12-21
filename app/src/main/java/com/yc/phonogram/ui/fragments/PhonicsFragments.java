@@ -152,6 +152,14 @@ public class PhonicsFragments extends BaseFragment {
         XinQuVideoPlayer.goOnPlayOnPause();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(null!=playerViews){
+            playerViews.clear();
+        }
+    }
+
     /**
      * 视频播放列表
      */

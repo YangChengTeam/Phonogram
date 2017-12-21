@@ -38,7 +38,7 @@ public abstract class BasePager  {
         if(null==mContext) return;
         mRootView= mContext.getLayoutInflater().inflate(R.layout.base_pager,null);//父View
         View childRootView = View.inflate(mContext, layoutID, (ViewGroup) mRootView.getParent());//子View
-        mGroupContentView = (RelativeLayout) mRootView.findViewById(R.id.view_content);
+        mGroupContentView = mRootView.findViewById(R.id.view_content);
         RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         childRootView.setLayoutParams(layoutParams);
         mGroupContentView.addView(childRootView);//将子View添加到自身
@@ -128,15 +128,12 @@ public abstract class BasePager  {
         if(mLlLoadingView.getVisibility()!=View.GONE){
             mLlLoadingView.setVisibility(View.GONE);
         }
-
         if(mGroupContentView.getVisibility()!=View.VISIBLE){
             mGroupContentView.setVisibility(View.VISIBLE);
         }
-
         if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
             mAnimationDrawable.stop();
         }
-
     }
 
     /**
@@ -149,14 +146,11 @@ public abstract class BasePager  {
         if(mGroupContentView.getVisibility()!=View.GONE){
             mGroupContentView.setVisibility(View.GONE);
         }
-
         if(mLlLoadingError.getVisibility()!=View.VISIBLE){
             mLlLoadingError.setVisibility(View.VISIBLE);
         }
-
         if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
             mAnimationDrawable.stop();
         }
     }
-
 }
