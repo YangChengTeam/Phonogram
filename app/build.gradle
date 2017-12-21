@@ -53,7 +53,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'com.umeng.analytics:analytics:latest.integration'
-    implementation 'com.qmuiteam:qmui:1.0.4'
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
     implementation 'com.umeng.analytics:analytics:latest.integration'
@@ -65,4 +64,5 @@ dependencies {
     implementation 'pub.devrel:easypermissions:1.1.1'
     implementation 'com.danikula:videocache:2.7.0'
     implementation project(':video-player')
+    implementation project(':share')
 }
