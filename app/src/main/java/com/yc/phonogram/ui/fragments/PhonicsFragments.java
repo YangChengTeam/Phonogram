@@ -76,7 +76,7 @@ public class PhonicsFragments extends BaseFragment {
                 mPhoniceView.setIndex(position);
                 if(position>=1&&!MainActivity.getMainActivity().isPhonicsVip()){
                     mPhoniceView.setIndex(0);
-                    mViewPager.setCurrentItem(0);
+                    mViewPager.setCurrentItem(0,false);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
