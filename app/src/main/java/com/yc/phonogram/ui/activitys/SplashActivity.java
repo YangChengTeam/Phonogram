@@ -21,6 +21,8 @@ import rx.functions.Action1;
 public class SplashActivity extends BaseActivity {
     private Subscription subscription = null;
 
+    public static SplashActivity INSTANCE;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash;
@@ -28,6 +30,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void init() {
+        INSTANCE = this;
         final ImageView logoImageView = findViewById(R.id.iv_logo);
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
@@ -48,7 +51,6 @@ public class SplashActivity extends BaseActivity {
                                         subscription = null;
                                     }
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                                    finish();
                                 }
                             });
                         }
@@ -56,5 +58,13 @@ public class SplashActivity extends BaseActivity {
                 });
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        INSTANCE = null;
+    }
 
+    public static SplashActivity getApp() {
+        return INSTANCE;
+    }
 }

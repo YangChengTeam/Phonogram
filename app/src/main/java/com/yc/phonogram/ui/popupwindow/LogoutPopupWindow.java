@@ -46,7 +46,7 @@ public class LogoutPopupWindow extends BasePopupWindow {
 
     private LogoutListener logoutListener;
 
-    public void setLogoutListener(LogoutListener indexListener) {
+    public void setLogoutListener(LogoutListener logoutListener) {
         this.logoutListener = logoutListener;
     }
 
