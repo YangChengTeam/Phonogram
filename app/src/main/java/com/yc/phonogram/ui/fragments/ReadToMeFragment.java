@@ -19,10 +19,12 @@ import java.util.List;
 public class ReadToMeFragment extends BaseFragment {
 
     private MainBgView mainBgView;
-    
+
     private ReadItemPagerAdapter readItemPagerAdapter;
-    
+
     private ViewPager viewPager;
+
+    private int lastCurrentPosition = 0;
 
     @Override
     public int getLayoutId() {
@@ -37,6 +39,7 @@ public class ReadToMeFragment extends BaseFragment {
         readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(readItemPagerAdapter);
         viewPager.setOffscreenPageLimit(1);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -47,6 +50,11 @@ public class ReadToMeFragment extends BaseFragment {
             public void onPageSelected(int position) {
                 LogUtil.msg(position + "");
                 mainBgView.setIndex(position);
+
+                if (lastCurrentPosition > -1 && lastCurrentPosition != position) {
+                    ((ReadItemFragment)readItemPagerAdapter.getItem(lastCurrentPosition)).stop();
+                }
+                lastCurrentPosition = position;
             }
 
             @Override
@@ -63,6 +71,7 @@ public class ReadToMeFragment extends BaseFragment {
             return;
         }
         List<PhonogramInfo> phonogramInfos = phonogramListInfo.getPhonogramInfos();
+
         readItemPagerAdapter.setDatas(phonogramInfos);
         readItemPagerAdapter.notifyDataSetChanged();
 

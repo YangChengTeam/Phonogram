@@ -15,7 +15,7 @@ import java.util.List;
  * FragmentPager适配器
  */
 
-public class ReadItemPagerAdapter extends android.support.v4.app.FragmentPagerAdapter {
+public class ReadItemPagerAdapter extends android.support.v4.app.FragmentStatePagerAdapter {
 
     private List<ReadItemFragment> mFragment;
 

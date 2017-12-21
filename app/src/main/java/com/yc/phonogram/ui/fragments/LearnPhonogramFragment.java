@@ -2,7 +2,6 @@ package com.yc.phonogram.ui.fragments;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.Map;
 
 /**
  * Created by zhangkai on 2017/12/15.
- * 学音标
+ * 首页学音标
  */
 public class LearnPhonogramFragment extends BaseFragment  {
 
@@ -60,7 +59,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
                 //如果用户没有购买章节
-                if(position>=3){
+                if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(2);
                     mView_pager.setCurrentItem(2);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
@@ -73,9 +72,9 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             }
         });
+
         mView_pager.setOffscreenPageLimit(1);
         mView_pager.setAdapter(mLearnPagerAdapter);
-
         mMainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
             public void leftClick(int position) {
@@ -131,7 +130,6 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 LearnVideoPager videoPager = new LearnVideoPager(getActivity(),phonogramInfo);
                 View view = videoPager.getItemView();
                 view.setId(position);
-                Log.d(TAG,"添加了："+position);
                 mPagerMap.put(position, videoPager);
                 container.addView(view);
                 return view;
@@ -142,7 +140,6 @@ public class LearnPhonogramFragment extends BaseFragment  {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView(container.findViewById(position));
-            Log.d(TAG,"移除了："+position);
             mPagerMap.remove(position);
         }
     }
