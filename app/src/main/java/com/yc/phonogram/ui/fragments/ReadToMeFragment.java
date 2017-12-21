@@ -16,7 +16,7 @@ import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.yc.phonogram.R;
-import com.yc.phonogram.adapter.ReadItemPagerAdapter1;
+import com.yc.phonogram.adapter.ReadItemPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.ui.activitys.MainActivity;
@@ -50,7 +50,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
 
     private MainBgView mainBgView;
 
-    private ReadItemPagerAdapter1 readItemPagerAdapter1;
+    private ReadItemPagerAdapter readItemPagerAdapter1;
 
     private ViewPager viewPager;
 
@@ -91,7 +91,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         viewPager = (ViewPager) getView(R.id.view_pager);
 
-        readItemPagerAdapter1 = new ReadItemPagerAdapter1(getActivity(), null);
+        readItemPagerAdapter1 = new ReadItemPagerAdapter(getActivity(), null);
         viewPager.setAdapter(readItemPagerAdapter1);
         viewPager.setOffscreenPageLimit(1);
 
@@ -103,14 +103,17 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
 
             @Override
             public void onPageSelected(int position) {
+
                 if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+                    mainBgView.setIndex(2);
+                    viewPager.setCurrentItem(2, false);
                     PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
                     payPopupWindow.show();
                     return;
                 }
 
                 stop();
-                LogUtil.msg(position + "");
+                LogUtil.msg("position--->" + position);
                 mainBgView.setIndex(position);
                 currentPosition = mainBgView.getIndex();
                 if (phonogramInfos != null && phonogramInfos.size() > 0) {
@@ -240,6 +243,15 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         mainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
             public void leftClick(int position) {
+
+                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+                    mainBgView.setIndex(2);
+                    viewPager.setCurrentItem(2, false);
+                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+                    payPopupWindow.show();
+                    return;
+                }
+
                 stop();
                 viewPager.setCurrentItem(position);
                 currentPosition = mainBgView.getIndex();
@@ -250,6 +262,15 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
 
             @Override
             public void rightClcik(int position) {
+
+                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+                    mainBgView.setIndex(2);
+                    viewPager.setCurrentItem(2, false);
+                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+                    payPopupWindow.show();
+                    return;
+                }
+
                 stop();
                 viewPager.setCurrentItem(position);
                 currentPosition = mainBgView.getIndex();
@@ -375,5 +396,11 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setReadCurrentPosition(int position) {
+        currentPosition = position;
+        mainBgView.setIndex(currentPosition);
+        viewPager.setCurrentItem(currentPosition);
     }
 }
