@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,7 +15,9 @@ import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.MClassInfo;
 import com.yc.phonogram.domain.MClassListInfo;
 import com.yc.phonogram.engin.MClassEngin;
+import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.pager.PhonicsVideoPager;
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.PhoniceSeekBarView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
 import java.util.HashMap;
@@ -33,8 +36,8 @@ public class PhonicsFragments extends BaseFragment {
     private Map<Integer,PhonicsVideoPager> playerViews;
     private List<MClassInfo> mMClassInfos;
     private PhoniceVideoPlayerPagerAdapter mPlayerPagerAdapter;
-    private PhoniceSeekBarView mPhonice_view;
-    private ViewPager mView_pager;
+    private PhoniceSeekBarView mPhoniceView;
+    private ViewPager mViewPager;
     private TextView mTvOriPrice;
     private TextView mTvNewPrice;
     private TextView mTvPhDesp;
@@ -49,8 +52,8 @@ public class PhonicsFragments extends BaseFragment {
     @Override
     public void init() {
         playerViews=new HashMap<>();
-        mView_pager = (ViewPager) getView(R.id.view_pager);
-        mPhonice_view = (PhoniceSeekBarView) getView(R.id.phonice_view);
+        mViewPager = (ViewPager) getView(R.id.view_pager);
+        mPhoniceView = (PhoniceSeekBarView) getView(R.id.phonice_view);
         initPagerAdapter();
         mTvOriPrice = (TextView) getView(R.id.tv_ori_price);
         mTvNewPrice = (TextView) getView(R.id.tv_new_price);
@@ -60,8 +63,8 @@ public class PhonicsFragments extends BaseFragment {
 
     private void initPagerAdapter() {
         mPlayerPagerAdapter = new PhoniceVideoPlayerPagerAdapter();
-        mView_pager.setAdapter(mPlayerPagerAdapter);
-        mView_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.setAdapter(mPlayerPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -70,7 +73,14 @@ public class PhonicsFragments extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 XinQuVideoPlayer.releaseAllVideos();
-                mPhonice_view.setIndex(position);
+                mPhoniceView.setIndex(position);
+                if(position>=1&&!MainActivity.getMainActivity().isPhonicsVip()){
+                    mPhoniceView.setIndex(0);
+                    mViewPager.setCurrentItem(0);
+                    PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
+                    payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
+                    return;
+                }
                 updataPhoniceContent(position);
             }
 
@@ -79,15 +89,19 @@ public class PhonicsFragments extends BaseFragment {
 
             }
         });
-        mPhonice_view.setIndexListener(new PhoniceSeekBarView.IndexListener() {
+        mPhoniceView.setIndexListener(new PhoniceSeekBarView.IndexListener() {
             @Override
             public void leftClick(int position) {
-                mView_pager.setCurrentItem(position);
+                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                    mViewPager.setCurrentItem(position);
+                }
             }
 
             @Override
             public void rightClcik(int position) {
-                mView_pager.setCurrentItem(position);
+                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                    mViewPager.setCurrentItem(position);
+                }
             }
         });
     }
@@ -125,8 +139,8 @@ public class PhonicsFragments extends BaseFragment {
                        initPagerAdapter();
                    }
                    updataPhoniceContent(0);
-                   mPhonice_view.showIndex(mMClassInfos.size());
-                   mPhonice_view.setIndex(0);
+                   mPhoniceView.showIndex(mMClassInfos.size());
+                   mPhoniceView.setIndex(0);
                }
            }
        });
