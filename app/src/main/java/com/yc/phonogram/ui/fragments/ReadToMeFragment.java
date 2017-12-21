@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.ReadItemPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
@@ -148,7 +150,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         ksyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(IMediaPlayer mp) {
-                mReadPlayImageView.setImageResource(R.mipmap.read_play_icon);
+                mReadPlayImageView.setImageResource(R.drawable.read_play_selector);
 
                 play();
                 playAnimation();
@@ -196,11 +198,19 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
                                 }
                                 ksyMediaPlayer.reset();
                             }
-                            ksyMediaPlayer.setDataSource(phonogramInfo.getVoice());
+
+                            mReadPlayImageView.setImageResource(R.mipmap.reading_icon);
+
+                            String proxyUrl = phonogramInfo.getVoice();
+                            HttpProxyCacheServer proxy = App.getProxy();
+                            if(null != proxy){
+                                proxyUrl= proxy.getProxyUrl(phonogramInfo.getVoice());
+                            }
+                            ksyMediaPlayer.setDataSource(proxyUrl);
                             ksyMediaPlayer.prepareAsync();
 
                         } else {
-                            mReadPlayImageView.setImageResource(R.mipmap.read_stop_icon);
+                            mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
                             stop();
                         }
                     } catch (IOException e) {
@@ -318,7 +328,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
     public void stop() {
         isPlay = false;
         readNum = 0;
-        mReadPlayImageView.setImageResource(R.mipmap.read_stop_icon);
+        mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
         mCurrentNumberTextView.setText(readNum + "");
         mProgressBar.setProgress(100);
         mProgressLayout.setVisibility(View.INVISIBLE);
