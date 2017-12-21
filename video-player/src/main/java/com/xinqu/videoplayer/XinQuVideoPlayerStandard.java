@@ -63,7 +63,6 @@ public class XinQuVideoPlayerStandard extends XinQuVideoPlayer {
     @Override
     public void init(Context context) {
         super.init(context);
-
         bottomProgressBar = findViewById(R.id.bottom_progress);
         titleTextView = findViewById(R.id.title);
         backButton = findViewById(R.id.back);

@@ -24,22 +24,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
                     <RelativeLayout
                         android:layout_width="250.3dp"
-                        android:layout_height="140dp"
-                        android:layout_weight="0"
-                        android:layout_centerInParent="true"
-                        android:background="@mipmap/ic_video_bg"
-                        android:padding="5dp">
-                        <android.support.v4.view.ViewPager
+                        android:layout_height="140dp">
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/view_pager">
-                        </android.support.v4.view.ViewPager>
-
-                        <!--                 android:background="@drawable/ph_video_pager_bg"-->
-
+                            android:layout_centerInParent="true"
+                            android:padding="5dp">
+                            <android.support.v4.view.ViewPager
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/view_pager">
+                            </android.support.v4.view.ViewPager>
+                        </RelativeLayout>
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/ic_video_bg"/>
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -66,6 +71,7 @@
                         android:id="@+id/stroke_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
                         android:text="自然拼读法"
                         android:textColor="@color/white"
                         android:textSize="19sp"/>
@@ -73,6 +79,7 @@
                             android:id="@+id/tv_ph_desp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
                             android:text="--"
                             android:textColor="@color/ph_common_title2"
                             android:layout_marginTop="7dp"
@@ -81,6 +88,7 @@
                             android:id="@+id/tv_new_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
                             android:textSize="17sp"
                             android:text="--"
                             android:layout_marginTop="3dp"/>
@@ -88,6 +96,7 @@
                             android:id="@+id/tv_ori_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
                             android:textSize="16sp"
                             android:text="--"
                             android:textStyle="bold"

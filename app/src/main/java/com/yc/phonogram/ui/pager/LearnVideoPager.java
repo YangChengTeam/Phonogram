@@ -57,12 +57,13 @@ public class LearnVideoPager  extends BasePager{
     @Override
     protected void loadData() {
         if(null==mData) return;
-        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,true,mData.getName());
+        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,mData.getName());
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.main_bg);
-        options.error(R.mipmap.main_bg);
+        options.placeholder(R.mipmap.ic_player_error);
+        options.error(R.mipmap.ic_player_error);
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
+
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
         //http://voice.wk2.com/video/2017112405.mp4
         mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
