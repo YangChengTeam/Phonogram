@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content">
 
                     <RelativeLayout
-                        android:layout_width="245.6dp"
+                        android:layout_width="245.3dp"
                         android:layout_height="73.6dp"
                         android:layout_marginLeft="10dp"
                         android:background="@drawable/lp_tips_bg">

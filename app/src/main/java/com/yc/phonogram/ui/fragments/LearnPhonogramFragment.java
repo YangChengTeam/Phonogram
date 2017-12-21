@@ -26,7 +26,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
     private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
     private MainBgView mMainBgView;
-    private ViewPager mView_pager;
+    private ViewPager mViewPager;
     private LearnPagerAdapter mLearnPagerAdapter=null;
     private List<PhonogramInfo> mPhonogramInfos=null;
     private Map<Integer,LearnVideoPager> mPagerMap=null;//方便调用View的伪生命周期方法
@@ -41,13 +41,13 @@ public class LearnPhonogramFragment extends BaseFragment  {
     public void init() {
         mPagerMap=new HashMap<>();
         mMainBgView= (MainBgView) getView(R.id.mainBgView);
-        mView_pager = (ViewPager) getView(R.id.view_pager);
+        mViewPager = (ViewPager) getView(R.id.view_pager);
         initPagerAdapter();
     }
 
     private void initPagerAdapter() {
         mLearnPagerAdapter = new LearnPagerAdapter();
-        mView_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -61,7 +61,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 //如果用户没有购买章节
                 if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(2);
-                    mView_pager.setCurrentItem(2);
+                    mViewPager.setCurrentItem(2);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                 }
@@ -73,20 +73,20 @@ public class LearnPhonogramFragment extends BaseFragment  {
             }
         });
 
-        mView_pager.setOffscreenPageLimit(1);
-        mView_pager.setAdapter(mLearnPagerAdapter);
+        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setAdapter(mLearnPagerAdapter);
         mMainBgView.setIndexListener(new MainBgView.IndexListener() {
             @Override
             public void leftClick(int position) {
-                if(null!=mView_pager&&mView_pager.getChildCount()>0){
-                    mView_pager.setCurrentItem(position);
+                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                    mViewPager.setCurrentItem(position);
                 }
             }
 
             @Override
             public void rightClcik(int position) {
-                if(null!=mView_pager&&mView_pager.getChildCount()>0){
-                    mView_pager.setCurrentItem(position);
+                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                    mViewPager.setCurrentItem(position);
                 }
             }
         });
@@ -108,9 +108,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
         }
     }
 
-    /**
-     * 垂直列表适配器
-     */
+
     private class LearnPagerAdapter extends PagerAdapter {
 
         @Override

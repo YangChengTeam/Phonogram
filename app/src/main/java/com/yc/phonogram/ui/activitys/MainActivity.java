@@ -244,6 +244,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+
         new PhonogramEngin(this).getPhonogramList().subscribe(new Action1<ResultInfo<PhonogramListInfo>>() {
             @Override
             public void call(final ResultInfo<PhonogramListInfo> phonogramListInfoResultInfo) {
