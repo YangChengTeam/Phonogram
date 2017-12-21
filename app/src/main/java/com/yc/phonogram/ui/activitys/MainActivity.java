@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
 import com.yc.phonogram.ui.popupwindow.LogoutPopupWindow;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
+import com.yc.phonogram.ui.popupwindow.PhonogramPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class MainActivity extends BaseActivity {
     private ImageView mLearnBtn;
     private ImageView mReadTomeBtn;
     private ImageView mPhonicsBtn;
-
+    private ImageView mShareBtn;
     private static MainActivity INSTANSE;
 
     private int mCurrentIndex = -1;
@@ -63,6 +65,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        SplashActivity.getApp().finish();
+
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);
         ImageView mCenterBtn = findViewById(R.id.iv_center);
@@ -70,7 +74,7 @@ public class MainActivity extends BaseActivity {
         mLearnBtn = findViewById(R.id.iv_learn);
         mReadTomeBtn = findViewById(R.id.iv_read_to_me);
         mPhonicsBtn = findViewById(R.id.iv_phonics);
-        ImageView mShareBtn = findViewById(R.id.iv_share);
+        mShareBtn = findViewById(R.id.iv_share);
 
         FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
@@ -90,6 +94,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 tab(position);
+                if (position == 1 || position == 2) {
+                    mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_phonogram_view));
+                } else {
+                    mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_share));
+                }
                 XinQuVideoPlayer.releaseAllVideos();
             }
 
@@ -130,8 +139,14 @@ public class MainActivity extends BaseActivity {
         RxView.clicks(mShareBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
-                sharePopupWindow.show();
+                if (mCurrentIndex == 1 || mCurrentIndex == 2) {
+                    PhonogramPopupWindow phonogramPopupWindow = new PhonogramPopupWindow(MainActivity.this);
+                    phonogramPopupWindow.show();
+                } else {
+                    SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
+                    sharePopupWindow.show();
+                }
+
             }
         });
 
@@ -273,25 +288,20 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (XinQuVideoPlayer.backPress()) {
-                return true;
-            }
-            final LogoutPopupWindow logoutPopupWindow = new LogoutPopupWindow(this);
-            logoutPopupWindow.setLogoutListener(new LogoutPopupWindow.LogoutListener() {
-                @Override
-                public void logout() {
-                    logoutPopupWindow.dismiss();
-                    startActivity(new Intent(MainActivity.this, MainActivity.class));
-                    finish();
-                }
-            });
-            return true;
+    public void onBackPressed() {
+        if (XinQuVideoPlayer.backPress()) {
+            return;
         }
-        return super.onKeyDown(keyCode, event);
+        final LogoutPopupWindow logoutPopupWindow = new LogoutPopupWindow(this);
+        logoutPopupWindow.setLogoutListener(new LogoutPopupWindow.LogoutListener() {
+            @Override
+            public void logout() {
+                logoutPopupWindow.dismiss();
+                finish();
+            }
+        });
+        logoutPopupWindow.show();
     }
-
 
     public void saveVip(String vip) {
         boolean flag = false;
