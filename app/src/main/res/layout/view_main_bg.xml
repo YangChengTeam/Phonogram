@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="257dp"
-                android:src="@mipmap/main_bg_left"
+                android:background="@drawable/main_bg_left_selector"
                 android:visibility="gone"/>
 
             <FrameLayout
@@ -60,6 +60,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:text="1/48"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="15dp"/>
             </FrameLayout>
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="257dp"
-                android:src="@mipmap/main_bg_right"/>
+                android:background="@drawable/main_bg_right_selector"/>
         </RelativeLayout>
     </FrameLayout>
 

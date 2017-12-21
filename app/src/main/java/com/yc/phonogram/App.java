@@ -3,8 +3,10 @@ package com.yc.phonogram;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
@@ -20,10 +22,13 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
+import com.yc.phonogram.utils.LPUtils;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+
 /**
  * Created by zhangkai on 2017/10/17.
  */
@@ -94,7 +99,6 @@ public class App extends Application {
         return Build.MODEL.contains(Build.BRAND) ? Build.MODEL + " " + Build.VERSION.RELEASE : Build.BRAND + " " + Build.MODEL + " " + Build.VERSION.RELEASE;
     }
 
-
     private LoginDataInfo loginDataInfo;
 
     public LoginDataInfo getLoginDataInfo() {
@@ -156,5 +160,30 @@ public class App extends Application {
                         }
                     }
                 });
+    }
+
+
+    private HttpProxyCacheServer proxy;
+    public static HttpProxyCacheServer getProxy() {
+        App app = (App) INSTANSE.getApplicationContext();
+        return app.proxy == null ? (app.proxy = app.newProxy()) : app.proxy;
+    }
+
+    /**
+     * 构造100M大小的缓存池
+     * @return
+     */
+    private HttpProxyCacheServer newProxy() {
+        int cacheSize = 100 * 1024 * 1024;
+        String videoCacheDir = LPUtils.getInstance().getVideoCacheDir(getApplicationContext());
+        //如果SD卡已挂载并且可读写
+        if(null==videoCacheDir){
+            return null;
+        }
+        //优先使用内部缓存
+        return new HttpProxyCacheServer.Builder(this)
+                .cacheDirectory(new File(videoCacheDir))
+                .maxCacheSize(cacheSize)//1BG缓存大小上限
+                .build();
     }
 }

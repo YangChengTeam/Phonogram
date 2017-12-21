@@ -35,6 +35,8 @@ public class PhonogramPopupWindow extends BasePopupWindow {
 
     @Override
     public void init() {
+        setAnimationStyle(R.style.popwindow_style);
+
         mRecyclerView = (RecyclerView) getView(R.id.recyclerView);
 
         RxView.clicks(getView(R.id.iv_close)).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {

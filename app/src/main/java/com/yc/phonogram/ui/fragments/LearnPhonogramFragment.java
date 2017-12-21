@@ -9,6 +9,7 @@ import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
+import com.yc.phonogram.helper.SeekBarHelper;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.pager.LearnVideoPager;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
@@ -78,7 +79,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
         mViewPager.setOffscreenPageLimit(1);
         mViewPager.setAdapter(mLearnPagerAdapter);
-        mMainBgView.setIndexListener(new MainBgView.IndexListener() {
+        mMainBgView.setIndexListener(new SeekBarHelper.IndexListener() {
             @Override
             public void leftClick(int position) {
                 if(null!=mViewPager&&mViewPager.getChildCount()>0){
@@ -225,5 +226,8 @@ public class LearnPhonogramFragment extends BaseFragment  {
     public void onDestroyView() {
         super.onDestroyView();
         onChildDestroyView(cureenIndex);
+        if(null!=mPagerMap){
+            mPagerMap.clear();
+        }
     }
 }

@@ -38,8 +38,8 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
         ViewHolder viewHolder= (ViewHolder) holder;
         ExampleInfo data = mData.get(position);
         if(null==data) return;
-        viewHolder.tv_item_content.setText(Html.fromHtml(LPUtils.addWordLetterColor(data.getWord(),data.getLetter())));
-        viewHolder.tv_item_content_lp.setText(Html.fromHtml(LPUtils.addWordPhoneticLetterColor(data.getWordPhonetic(),data.getPhonetic())));
+        viewHolder.tv_item_content.setText(Html.fromHtml(LPUtils.getInstance().addWordLetterColor(data.getWord(),data.getLetter())));
+        viewHolder.tv_item_content_lp.setText(Html.fromHtml(LPUtils.getInstance().addWordPhoneticLetterColor(data.getWordPhonetic(),data.getPhonetic())));
     }
 
     @Override

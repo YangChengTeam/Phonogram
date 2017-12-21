@@ -78,9 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/base_tran_ripple_bg"
-            android:clickable="true"
-            android:src="@mipmap/main_share"/>
+            android:background="@drawable/main_share_selector"
+           />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

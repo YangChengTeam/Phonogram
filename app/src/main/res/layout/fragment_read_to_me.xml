@@ -7,7 +7,7 @@
         android:id="@+id/mainBgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="560dp"
@@ -125,12 +125,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="12dp"
-                        android:src="@mipmap/read_stop_icon"/>
+                        android:src="@drawable/read_stop_selector"/>
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-
 
     </com.yc.phonogram.ui.views.MainBgView>
 </LinearLayout>
