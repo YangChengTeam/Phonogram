@@ -167,6 +167,7 @@ public class PayPopupWindow extends BasePopupWindow {
                 OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
                 orderParamsInfo.setPayway_name(payway);
 
+
                 iPayAbs.pay(orderParamsInfo, new IPayCallback() {
                     @Override
                     public void onSuccess(OrderInfo orderInfo) {
