@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yc.phonogram.R;
+
 import java.util.concurrent.TimeUnit;
+
 import rx.functions.Action1;
 
 /**
@@ -115,9 +117,11 @@ public class MainBgView extends BaseView {
     }
 
     private IndexListener indexListener;
+
     public void setIndexListener(IndexListener indexListener) {
         this.indexListener = indexListener;
     }
+
     public interface IndexListener {
         void leftClick(int position);
         void rightClcik(int position);
