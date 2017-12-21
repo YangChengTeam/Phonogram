@@ -8,6 +8,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.kk.securityhttp.domain.GoagalInfo;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
+import com.kk.share.UMShareImpl;
 import com.kk.utils.FileUtil;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
@@ -79,6 +80,14 @@ public class App extends Application {
         KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);
+
+        //友盟分享
+        UMShareImpl.Builder builder = new UMShareImpl.Builder();
+
+        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
+                .setQQ("1106261461", "p1PGwoz27nVHqoC5")
+                .setDebug(true)
+                .build(context);
     }
 
     public static String getSV() {

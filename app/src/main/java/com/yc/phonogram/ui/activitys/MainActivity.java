@@ -286,7 +286,7 @@ public class MainActivity extends BaseActivity {
         if (mCurrentIndex == 1) {
             mLearnPhonogramFragment.setCurrentItem(position);
         } else if (mCurrentIndex == 2) {
-
+            mReadToMeFragment.setReadCurrentPosition(position);
         }
     }
 
