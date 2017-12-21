@@ -22,6 +22,7 @@ import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.TaskUtil;
+import com.kk.utils.ToastUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
@@ -164,9 +165,13 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
+                if (MainActivity.getMainActivity().isVip(goodInfo.getId() + "")) {
+                    ToastUtil.toast(mContext, "你已经购买了该项目，请选择其他项目");
+                    return;
+                }
+
                 OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
                 orderParamsInfo.setPayway_name(payway);
-MainActivity.getMainActivity().isPhonicsVip();
 
                 iPayAbs.pay(orderParamsInfo, new IPayCallback() {
                     @Override
@@ -185,11 +190,16 @@ MainActivity.getMainActivity().isPhonicsVip();
         payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
+                boolean isBuy = (boolean) mIvSelect.getTag();
+                if (isBuy) {
+                    return;
+                }
+
                 if (preImagView == null)
                     preImagView = (ImageView) adapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
 
-                ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
-                if (preImagView != mIvSelect) {
+                if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);
                 }
                 mIvSelect.setImageResource(R.mipmap.pay_select_press);

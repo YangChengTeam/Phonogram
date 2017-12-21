@@ -7,14 +7,12 @@ package com.yc.phonogram.domain;
 public class Config {
     public static boolean DEBUG = false;
 
-
-    public final static int VIP = 0;
-    public final static int GOODS = 2;
-    public final static int REWARD = 1;
-
+    public final static int PHONOGRAM_VIP = 1;
+    public final static int PHONICS_VIP = 2;
+    public final static int PHONOGRAMORPHONICS_VIP = 3;
+    public final static int SUPER_VIP = 4;
 
     public static final String APPID = "?app_id=5";
-
 
     public static final String INIT_URL = getBaseUrl() + "index/init" + APPID;
     public static final String ORDER_URL = getBaseUrl() + "index/pay" + APPID;
@@ -26,7 +24,6 @@ public class Config {
 
     public static final String PHONOGRAM_LIST_URL = getBaseUrl() + "index/phonetic_list" + APPID;
     public static final String MCLASS_LIST_URL = getBaseUrl() + "index/phonetic_class" + APPID;
-
 
 
     public static String getBaseUrl() {

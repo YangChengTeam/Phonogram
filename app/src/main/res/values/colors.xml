@@ -12,4 +12,6 @@
     <color name="gray_ddd">#DDDDDD</color>
     <color name="transparent">#00000000</color>
 
+    <color name="black333">#333333</color>
+
 </resources>

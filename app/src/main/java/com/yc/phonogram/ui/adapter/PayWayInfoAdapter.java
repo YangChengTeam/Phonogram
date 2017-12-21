@@ -32,13 +32,22 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
 
         ImageView imageView = helper.getView(R.id.iv_select);
-//        MainActivity.getMainActivity().
+        int position = mData.indexOf(item);
+        if (MainActivity.getMainActivity().isVip(item.getId() + "")) {
+            imageView.setImageResource(R.mipmap.pay_selected);
+            imageView.setTag(true);
 
-        int position = helper.getAdapterPosition();
-        if (position == 0) {
-            imageView.setImageResource(R.mipmap.pay_select_press);
-        } else {
-            imageView.setImageResource(R.mipmap.pay_select_normal);
+        }else {
+            if (position == 0) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+            } else {
+                imageView.setImageResource(R.mipmap.pay_select_normal);
+            }
+            imageView.setTag(false);
         }
+
+
+
+
     }
 }
