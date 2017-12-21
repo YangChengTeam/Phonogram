@@ -33,9 +33,7 @@ import com.yc.phonogram.ui.popupwindow.LogoutPopupWindow;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.popupwindow.PhonogramPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
-import com.yc.phonogram.utils.EmptyUtils;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
