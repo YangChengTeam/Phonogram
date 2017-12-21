@@ -5,16 +5,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.kk.utils.LogUtil;
-import com.yc.phonogram.App;
-import com.yc.phonogram.R;
-
 import java.io.File;
-
 import pub.devrel.easypermissions.EasyPermissions;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * TinyHung@Outlook.com
@@ -203,34 +195,5 @@ public class LPUtils {
             Log.e("getInternalDirectory","getInternalDirectory fail ,the reason is make directory fail !");
         }
         return appCacheDir;
-    }
-
-
-
-    /**
-     * 创建根缓存目录
-     * @return
-     */
-    public  String createRootPath(Context context) {
-        String cacheRootPath = "";
-        //SD卡已挂载，使用SD卡缓存目录，这个缓存补录数据不会随着应用的卸载而清除
-        if (isSdCardAvailable()) {
-            // /sdcard/Android/data/<application package>/cache
-            if(null!=context.getExternalCacheDir()){
-                cacheRootPath = context.getExternalCacheDir().getPath();//SD卡内部临时缓存目录
-            }
-            //内部缓存目录，会随着应用的卸载而清除
-        } else {
-            // /data/data/<application package>/cache
-            if(null!=context.getCacheDir()){
-                cacheRootPath = context.getCacheDir().getPath();//应用内部临时缓存目录
-            }else{
-                File cacheDirectory = getCacheDirectory(context, null);
-                if(null!=cacheDirectory){
-                    cacheRootPath=cacheDirectory.getAbsolutePath();
-                }
-            }
-        }
-        return cacheRootPath;
     }
 }

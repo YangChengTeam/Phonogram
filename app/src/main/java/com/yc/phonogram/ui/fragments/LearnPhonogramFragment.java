@@ -226,5 +226,8 @@ public class LearnPhonogramFragment extends BaseFragment  {
     public void onDestroyView() {
         super.onDestroyView();
         onChildDestroyView(cureenIndex);
+        if(null!=mPagerMap){
+            mPagerMap.clear();
+        }
     }
 }

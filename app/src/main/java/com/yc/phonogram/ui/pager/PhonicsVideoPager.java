@@ -1,8 +1,6 @@
 package com.yc.phonogram.ui.pager;
 
 import android.app.Activity;
-import android.util.Log;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;

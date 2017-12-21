@@ -22,20 +22,10 @@ import com.umeng.analytics.game.UMGameAgent;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
-
-
 import com.yc.phonogram.utils.LPUtils;
-
 import java.io.File;
-
-
-import com.yc.phonogram.utils.LPUtils;
-
-import java.io.File;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -184,13 +174,13 @@ public class App extends Application {
      * @return
      */
     private HttpProxyCacheServer newProxy() {
-        //SD卡已挂载并且可读写
         int cacheSize = 100 * 1024 * 1024;
         String videoCacheDir = LPUtils.getInstance().getVideoCacheDir(getApplicationContext());
+        //如果SD卡已挂载并且可读写
         if(null==videoCacheDir){
             return null;
         }
-        //线使用内部缓存
+        //优先使用内部缓存
         return new HttpProxyCacheServer.Builder(this)
                 .cacheDirectory(new File(videoCacheDir))
                 .maxCacheSize(cacheSize)//1BG缓存大小上限
