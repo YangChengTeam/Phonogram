@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             }
         }
         if (!flag) {
-            PreferenceUtil.getImpl(this).putString("vip", vip);
+            PreferenceUtil.getImpl(this).putString("vip", vips + "," + vip);
         }
     }
 

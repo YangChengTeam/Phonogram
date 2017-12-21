@@ -136,6 +136,7 @@ public class ReadToMeFragment extends BaseFragment {
             ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
+        mainBgView.showInnerBg();
 
         RxView.clicks(mReadPlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
