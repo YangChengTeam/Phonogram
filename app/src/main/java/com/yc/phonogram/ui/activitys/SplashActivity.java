@@ -43,8 +43,9 @@ public class SplashActivity extends BaseActivity {
 
                                 @Override
                                 public void run() {
-                                    if (subscription != null && subscription.isUnsubscribed()) {
+                                    if (subscription != null && !subscription.isUnsubscribed()) {
                                         subscription.unsubscribe();
+                                        subscription = null;
                                     }
                                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                                     finish();

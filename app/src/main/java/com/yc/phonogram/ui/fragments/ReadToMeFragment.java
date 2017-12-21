@@ -8,6 +8,7 @@ import com.yc.phonogram.adapter.ReadItemPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.ui.activitys.MainActivity;
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ReadToMeFragment extends BaseFragment {
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         viewPager = (ViewPager) getView(R.id.view_pager);
 
-        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager());
+        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager(),viewPager);
         viewPager.setAdapter(readItemPagerAdapter);
         viewPager.setOffscreenPageLimit(1);
 
@@ -48,13 +49,13 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
+                if(position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()){
+                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+                    payPopupWindow.show();
+                    return;
+                }
                 LogUtil.msg(position + "");
                 mainBgView.setIndex(position);
-
-                if (lastCurrentPosition > -1 && lastCurrentPosition != position) {
-                    ((ReadItemFragment)readItemPagerAdapter.getItem(lastCurrentPosition)).stop();
-                }
-                lastCurrentPosition = position;
             }
 
             @Override

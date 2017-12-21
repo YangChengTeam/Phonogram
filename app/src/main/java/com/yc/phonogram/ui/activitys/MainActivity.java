@@ -1,18 +1,26 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
+
 import com.jakewharton.rxbinding.view.RxView;
+
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.LoginDataInfo;
+import com.yc.phonogram.domain.VipInfo;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.widget.ImageView;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
@@ -21,6 +29,7 @@ import com.kk.utils.TaskUtil;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
+import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.engin.PhonogramEngin;
@@ -28,7 +37,15 @@ import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
+
+
+import java.util.List;
+
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
+import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
+
 import java.util.concurrent.TimeUnit;
+
 import rx.functions.Action1;
 
 
@@ -84,6 +101,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageSelected(int position) {
                 tab(position);
+                XinQuVideoPlayer.releaseAllVideos();
             }
 
             @Override
@@ -131,7 +149,7 @@ public class MainActivity extends BaseActivity {
         RxView.clicks(mCenterBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                PayPopupWindow payPopupWindow =new PayPopupWindow(MainActivity.this);
+                PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.this);
                 payPopupWindow.show();
             }
         });
@@ -259,7 +277,7 @@ public class MainActivity extends BaseActivity {
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
         this.phonogramListInfo = phonogramListInfo;
-        if(mLearnPhonogramFragment != null && mReadToMeFragment != null) {
+        if (mLearnPhonogramFragment != null && mReadToMeFragment != null) {
             mLearnPhonogramFragment.loadData();
             mReadToMeFragment.loadData();
         }
@@ -268,8 +286,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(XinQuVideoPlayer.backPress()){
-                XinQuVideoPlayer.releaseAllVideos();
+            if (XinQuVideoPlayer.backPress()) {
                 return true;
             }
             new QMUIDialog.MessageDialogBuilder(MainActivity.this)
@@ -289,24 +306,66 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void saveVip(String vip){
 
+    public void saveVip(String vip) {
+        boolean flag = false;
+        String vips = PreferenceUtil.getImpl(this).getString("vip", "");
+        String[] vipArr = vips.split(",");
+        for (String tmp : vipArr) {
+            if (tmp.equals(vip)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            PreferenceUtil.getImpl(this).putString("vip", vip);
+        }
     }
 
-    public boolean isPhonogramVip(){
-        return true;
+
+    public boolean isVip(String vip) {
+        boolean flag = false;
+        String vips = PreferenceUtil.getImpl(this).getString("vip", "");
+        String[] vipArr = vips.split(",");
+
+        for (String tmp : vipArr) {
+            if (tmp.equals(vip)) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag) {
+            LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
+            if (loginDataInfo != null) {
+                List<VipInfo> vipInfoList = loginDataInfo.getVipInfoList();
+                if (vipInfoList != null) {
+                    for (VipInfo vipInfo : vipInfoList) {
+                        if (vip.equals(vipInfo.getType() + "")) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return flag;
     }
 
-    public boolean isPhonicsVip(){
-        return true;
+    public boolean isPhonogramVip() {
+        return isVip(Config.PHONOGRAM_VIP + "");
     }
 
-    public boolean isPhonogramOrPhonicsVip(){
-        return true;
+    public boolean isPhonicsVip() {
+        return isVip(Config.PHONICS_VIP + "");
     }
 
-    public boolean isSuperVip(){
-        return true;
+    public boolean isPhonogramOrPhonicsVip() {
+        return isVip(Config.PHONOGRAMORPHONICS_VIP + "");
+    }
+
+    public boolean isSuperVip() {
+        return isVip(Config.SUPER_VIP + "");
     }
 
 }
