@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.GoodInfo;
+import com.yc.phonogram.ui.activitys.MainActivity;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  */
 
 public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder> {
+
+
     public PayWayInfoAdapter(List<GoodInfo> data) {
         super(R.layout.popwindow_good_info_item, data);
     }
@@ -27,14 +30,24 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
                 .setText(R.id.tv_current_price, String.format(mContext.getString(R.string.current_price), item.getReal_price()))
                 .setVisible(R.id.tv_sub_title, !TextUtils.isEmpty(item.getSub_title()));
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
-        ImageView imageView = helper.getView(R.id.iv_select);
 
-        int position = helper.getAdapterPosition();
-        if (position == 0) {
-            item.setSelected(true);
-        } else {
-            item.setSelected(false);
+        ImageView imageView = helper.getView(R.id.iv_select);
+        int position = mData.indexOf(item);
+        if (MainActivity.getMainActivity().isVip(item.getId() + "")) {
+            imageView.setImageResource(R.mipmap.pay_selected);
+            imageView.setTag(true);
+
+        }else {
+            if (position == 0) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+            } else {
+                imageView.setImageResource(R.mipmap.pay_select_normal);
+            }
+            imageView.setTag(false);
         }
-        imageView.setTag(item.isSelected());
+
+
+
+
     }
 }

@@ -13,7 +13,6 @@ import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PhonogrameAdapter;
 
 import java.util.concurrent.TimeUnit;
-
 import rx.functions.Action1;
 
 /**
@@ -55,7 +54,8 @@ public class PhonogramPopupWindow extends BasePopupWindow {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                 
+                dismiss();
+                MainActivity.getMainActivity().goToPage(position);
             }
         });
     }

@@ -199,6 +199,12 @@ public class LearnPhonogramFragment extends BaseFragment  {
         }
     }
 
+    public void setCurrentItem(int index){
+        if(null!=mViewPager&&mViewPager.getChildCount()>0){
+            mViewPager.setCurrentItem(index);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();

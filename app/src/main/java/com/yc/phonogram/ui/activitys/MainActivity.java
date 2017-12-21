@@ -1,12 +1,10 @@
 package com.yc.phonogram.ui.activitys;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -99,7 +97,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_share));
                 }
-                XinQuVideoPlayer.releaseAllVideos();
+                stop();
             }
 
             @Override
@@ -157,6 +155,11 @@ public class MainActivity extends BaseActivity {
                 payPopupWindow.show();
             }
         });
+    }
+
+    private void stop(){
+        mReadToMeFragment.stop();
+        XinQuVideoPlayer.releaseAllVideos();
     }
 
     private void tab(int index) {
@@ -281,7 +284,7 @@ public class MainActivity extends BaseActivity {
 
     public void goToPage(int position) {
         if (mCurrentIndex == 1) {
-
+            mLearnPhonogramFragment.setCurrentItem(position);
         } else if (mCurrentIndex == 2) {
 
         }
@@ -305,6 +308,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void logout() {
                 logoutPopupWindow.dismiss();
+                stop();
                 finish();
             }
         });
