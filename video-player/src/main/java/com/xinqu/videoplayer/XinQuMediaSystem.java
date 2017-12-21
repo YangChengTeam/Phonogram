@@ -14,6 +14,7 @@ import java.util.Map;
  * Created by Nathen on 2017/11/8.
  * 实现系统的播放引擎
  */
+
 public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnVideoSizeChangedListener {
 
     public KSYMediaPlayer mKsyMdiaPlayer = null;

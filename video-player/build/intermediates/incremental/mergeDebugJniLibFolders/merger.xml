@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="F:\AndroidStudioProjects\Phonogram\video-player\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="F:\AndroidStudioProjects\Phonogram\video-player\src\debug\jniLibs"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="D:\AndroidStudioProjects\Phonogram\video-player\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\AndroidStudioProjects\Phonogram\video-player\src\debug\jniLibs"/></dataSet></merger>
+>>>>>>> d79fb7179e40c07d2e7f8ce0520a86aa41681340
