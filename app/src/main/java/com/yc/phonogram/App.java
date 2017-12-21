@@ -26,7 +26,6 @@ import com.yc.phonogram.utils.LPUtils;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

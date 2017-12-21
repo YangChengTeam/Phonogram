@@ -60,6 +60,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:text="1/48"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="15dp"/>
             </FrameLayout>

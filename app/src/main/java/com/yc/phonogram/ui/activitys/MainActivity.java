@@ -1,5 +1,7 @@
 package com.yc.phonogram.ui.activitys;
 
+import android.Manifest;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -35,10 +37,12 @@ import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 import rx.functions.Action1;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final String TAG = "MainActivity";
 
@@ -155,6 +159,8 @@ public class MainActivity extends BaseActivity {
                 payPopupWindow.show();
             }
         });
+
+        requestPermission();
     }
 
     private void stop() {
@@ -360,19 +366,47 @@ public class MainActivity extends BaseActivity {
     }
 
     public boolean isPhonogramVip() {
-        return isVip(Config.PHONOGRAM_VIP + "");
+        return isVip(Config.PHONOGRAM_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
     public boolean isPhonicsVip() {
-        return isVip(Config.PHONICS_VIP + "");
+        return isVip(Config.PHONICS_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
     public boolean isPhonogramOrPhonicsVip() {
-        return isVip(Config.PHONOGRAMORPHONICS_VIP + "");
+        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip();
     }
 
     public boolean isSuperVip() {
         return isVip(Config.SUPER_VIP + "");
+    }
+
+
+    private static final int WRITE = 100;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @AfterPermissionGranted(WRITE)
+    public void requestPermission() {
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 
 }

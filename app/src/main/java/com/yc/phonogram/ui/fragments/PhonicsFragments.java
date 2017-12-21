@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.kk.securityhttp.domain.ResultInfo;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
@@ -15,14 +16,17 @@ import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.MClassInfo;
 import com.yc.phonogram.domain.MClassListInfo;
 import com.yc.phonogram.engin.MClassEngin;
+import com.yc.phonogram.helper.SeekBarHelper;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.pager.PhonicsVideoPager;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.PhoniceSeekBarView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -33,7 +37,7 @@ import rx.functions.Action1;
 
 public class PhonicsFragments extends BaseFragment {
 
-    private Map<Integer,PhonicsVideoPager> playerViews;
+    private Map<Integer, PhonicsVideoPager> playerViews;
     private List<MClassInfo> mMClassInfos;
     private PhoniceVideoPlayerPagerAdapter mPlayerPagerAdapter;
     private PhoniceSeekBarView mPhoniceView;
@@ -51,7 +55,7 @@ public class PhonicsFragments extends BaseFragment {
 
     @Override
     public void init() {
-        playerViews=new HashMap<>();
+        playerViews = new HashMap<>();
         mViewPager = (ViewPager) getView(R.id.view_pager);
         mPhoniceView = (PhoniceSeekBarView) getView(R.id.phonice_view);
         initPagerAdapter();
@@ -74,10 +78,10 @@ public class PhonicsFragments extends BaseFragment {
             public void onPageSelected(int position) {
                 XinQuVideoPlayer.releaseAllVideos();
                 mPhoniceView.setIndex(position);
-                if(position>=1&&!MainActivity.getMainActivity().isPhonicsVip()){
+                if (position >= 1 && !MainActivity.getMainActivity().isPhonicsVip()) {
                     mPhoniceView.setIndex(0);
-                    mViewPager.setCurrentItem(0,false);
-                    PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
+                    mViewPager.setCurrentItem(0, false);
+                    PayPopupWindow payPopupWindow = new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
                 }
@@ -89,17 +93,18 @@ public class PhonicsFragments extends BaseFragment {
 
             }
         });
-        mPhoniceView.setIndexListener(new PhoniceSeekBarView.IndexListener() {
+
+        mPhoniceView.setIndexListener(new SeekBarHelper.IndexListener() {
             @Override
             public void leftClick(int position) {
-                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                if (null != mViewPager && mViewPager.getChildCount() > 0) {
                     mViewPager.setCurrentItem(position);
                 }
             }
 
             @Override
             public void rightClcik(int position) {
-                if(null!=mViewPager&&mViewPager.getChildCount()>0){
+                if (null != mViewPager && mViewPager.getChildCount() > 0) {
                     mViewPager.setCurrentItem(position);
                 }
             }
@@ -108,16 +113,17 @@ public class PhonicsFragments extends BaseFragment {
 
     /**
      * 刷新右边的拼读介绍
+     *
      * @param position
      */
     private void updataPhoniceContent(int position) {
-        if(null!=mMClassInfos&&mMClassInfos.size()>0){
+        if (null != mMClassInfos && mMClassInfos.size() > 0) {
             MClassInfo mClassInfo = mMClassInfos.get(position);
-            if(null!=mClassInfo&&null!=mGoodInfo){
+            if (null != mClassInfo && null != mGoodInfo) {
                 mStrokeTitle.setText(mClassInfo.getTitle());
-                mTvOriPrice.setText("原价"+mGoodInfo.getPrice()+"元");
-                mTvOriPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
-                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+mGoodInfo.getReal_price()+"</big></big></font>元"));
+                mTvOriPrice.setText("原价" + mGoodInfo.getPrice() + "元");
+                mTvOriPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>" + mGoodInfo.getReal_price() + "</big></big></font>元"));
                 mTvPhDesp.setText(mClassInfo.getDesp());
             }
         }
@@ -125,25 +131,25 @@ public class PhonicsFragments extends BaseFragment {
 
     @Override
     public void loadData() {
-       MClassEngin mClassEngin=new MClassEngin(getActivity());
-       mClassEngin.getMClassList().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResultInfo<MClassListInfo>>() {
+        MClassEngin mClassEngin = new MClassEngin(getActivity());
+        mClassEngin.getMClassList().observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<ResultInfo<MClassListInfo>>() {
 
-           @Override
-           public void call(ResultInfo<MClassListInfo> mClassListInfoResultInfo) {
-               if(null!=mClassListInfoResultInfo&&1==mClassListInfoResultInfo.code&&null!=mClassListInfoResultInfo.data&&null!=mClassListInfoResultInfo.data.getMClassInfos()){
-                   mMClassInfos = mClassListInfoResultInfo.data.getMClassInfos();
-                   mGoodInfo = mClassListInfoResultInfo.data.getInfo();
-                   if(null!=mPlayerPagerAdapter){
-                       mPlayerPagerAdapter.notifyDataSetChanged();
-                   }else{
-                       initPagerAdapter();
-                   }
-                   updataPhoniceContent(0);
-                   mPhoniceView.showIndex(mMClassInfos.size());
-                   mPhoniceView.setIndex(0);
-               }
-           }
-       });
+            @Override
+            public void call(ResultInfo<MClassListInfo> mClassListInfoResultInfo) {
+                if (null != mClassListInfoResultInfo && 1 == mClassListInfoResultInfo.code && null != mClassListInfoResultInfo.data && null != mClassListInfoResultInfo.data.getMClassInfos()) {
+                    mMClassInfos = mClassListInfoResultInfo.data.getMClassInfos();
+                    mGoodInfo = mClassListInfoResultInfo.data.getInfo();
+                    if (null != mPlayerPagerAdapter) {
+                        mPlayerPagerAdapter.notifyDataSetChanged();
+                    } else {
+                        initPagerAdapter();
+                    }
+                    updataPhoniceContent(0);
+                    mPhoniceView.showIndex(mMClassInfos.size());
+                    mPhoniceView.setIndex(0);
+                }
+            }
+        });
     }
 
     @Override
@@ -167,7 +173,7 @@ public class PhonicsFragments extends BaseFragment {
 
         @Override
         public int getCount() {
-            return null==mMClassInfos?0:mMClassInfos.size();
+            return null == mMClassInfos ? 0 : mMClassInfos.size();
         }
 
         @Override
@@ -177,9 +183,9 @@ public class PhonicsFragments extends BaseFragment {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            MClassInfo data=mMClassInfos.get(position);
-            if(null!=data){
-                PhonicsVideoPager videoPager = new PhonicsVideoPager(getActivity(),data);
+            MClassInfo data = mMClassInfos.get(position);
+            if (null != data) {
+                PhonicsVideoPager videoPager = new PhonicsVideoPager(getActivity(), data);
                 View view = videoPager.getItemView();
                 view.setId(position);
                 playerViews.put(position, videoPager);
