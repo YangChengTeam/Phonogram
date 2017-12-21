@@ -19,6 +19,7 @@ import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.ReadItemPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
+import com.yc.phonogram.helper.SeekBarHelper;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
@@ -240,7 +241,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
 
         mainBgView.showIndex(phonogramInfos.size());
         mainBgView.setIndex(0);
-        mainBgView.setIndexListener(new MainBgView.IndexListener() {
+        mainBgView.setIndexListener(new SeekBarHelper.IndexListener() {
             @Override
             public void leftClick(int position) {
 
