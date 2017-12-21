@@ -1,16 +1,6 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
-
-import com.jakewharton.rxbinding.view.RxView;
-
-import com.yc.phonogram.App;
-import com.yc.phonogram.R;
-import com.yc.phonogram.domain.LoginDataInfo;
-import com.yc.phonogram.domain.VipInfo;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
-import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -26,24 +16,23 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
+import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
+import com.yc.phonogram.domain.VipInfo;
 import com.yc.phonogram.engin.PhonogramEngin;
 import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
-
-
-import java.util.List;
-
+import com.yc.phonogram.ui.popupwindow.LogoutPopupWindow;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.functions.Action1;
@@ -288,18 +277,15 @@ public class MainActivity extends BaseActivity {
             if (XinQuVideoPlayer.backPress()) {
                 return true;
             }
-            new QMUIDialog.MessageDialogBuilder(MainActivity.this)
-                    .setMessage("确定要退出吗？")
-                    .addAction("确定", new QMUIDialogAction.ActionListener() {
-                        @Override
-                        public void onClick(QMUIDialog dialog, int index) {
-                            dialog.dismiss();
-                            startActivity(new Intent(MainActivity.this, MainActivity.class));
-                            finish();
-
-                        }
-                    })
-                    .show();
+            final LogoutPopupWindow logoutPopupWindow = new LogoutPopupWindow(this);
+            logoutPopupWindow.setLogoutListener(new LogoutPopupWindow.LogoutListener() {
+                @Override
+                public void logout() {
+                    logoutPopupWindow.dismiss();
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    finish();
+                }
+            });
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -320,7 +306,6 @@ public class MainActivity extends BaseActivity {
             PreferenceUtil.getImpl(this).putString("vip", vip);
         }
     }
-
 
     public boolean isVip(String vip) {
         boolean flag = false;
