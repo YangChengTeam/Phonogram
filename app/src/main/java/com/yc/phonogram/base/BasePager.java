@@ -1,6 +1,7 @@
 package com.yc.phonogram.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,10 @@ public abstract class BasePager  {
 
     public View getView(int id){
         return null==mRootView?null:mRootView.findViewById(id);
+    }
+
+    public Context getActivity(){
+        return mContext;
     }
 
 
