@@ -26,15 +26,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="真的要离开我吗？"
-                android:textColor="@color/black333"/>
+                android:textColor="@color/black333"
+                android:textSize="16dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_margin="20dp"
                 android:orientation="horizontal"
                 >
 
+                <ImageView
+                    android:id="@+id/iv_ok"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@mipmap/logout_ok"/>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"></View>
+
+                <ImageView
+                    android:id="@+id/iv_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@mipmap/logout_cancel"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

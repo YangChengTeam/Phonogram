@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.yc.phonogram.ui.IView;
+import com.yc.phonogram.utils.UIUtils;
 
 /**
  * Created by zhangkai on 2017/10/31.
@@ -23,6 +24,7 @@ public abstract class BaseActivity extends FragmentActivity implements IView {
             finish();
             return;
         }
+        UIUtils.invoke(getWindow().getDecorView().getRootView());
         setContentView(getLayoutId());
         init();
         loadData();
