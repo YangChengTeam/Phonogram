@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     mShareBtn.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.mipmap.main_share));
                 }
-                XinQuVideoPlayer.releaseAllVideos();
+                stop();
             }
 
             @Override
@@ -155,6 +155,11 @@ public class MainActivity extends BaseActivity {
                 payPopupWindow.show();
             }
         });
+    }
+
+    private void stop(){
+        mReadToMeFragment.stop();
+        XinQuVideoPlayer.releaseAllVideos();
     }
 
     private void tab(int index) {
@@ -277,6 +282,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    public void goToPage(int position) {
+        if (mCurrentIndex == 1) {
+            mLearnPhonogramFragment.setCurrentItem(position);
+        } else if (mCurrentIndex == 2) {
+            mReadToMeFragment.setReadCurrentPosition(position);
+        }
+    }
+
     private void showInfo(PhonogramListInfo phonogramListInfo) {
         this.phonogramListInfo = phonogramListInfo;
         if (mLearnPhonogramFragment != null && mReadToMeFragment != null) {
@@ -295,6 +308,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void logout() {
                 logoutPopupWindow.dismiss();
+                stop();
                 finish();
             }
         });

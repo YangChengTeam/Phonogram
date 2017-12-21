@@ -31,6 +31,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
     private List<PhonogramInfo> mPhonogramInfos=null;
     private Map<Integer,LearnVideoPager> mPagerMap=null;//方便调用View的伪生命周期方法
     private int cureenIndex=0;
+    private int oldCureenIndex=0;//过去显示到第几个Poistion 了
 
     @Override
     public int getLayoutId() {
@@ -59,12 +60,14 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
                 //如果用户没有购买章节
-                if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
-                    mMainBgView.setIndex(2);
-                    mViewPager.setCurrentItem(2);
+                if(cureenIndex>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
+                    mMainBgView.setIndex(oldCureenIndex);
+                    mViewPager.setCurrentItem(oldCureenIndex,false);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
+                    return;
                 }
+                oldCureenIndex=cureenIndex;
             }
 
             @Override
@@ -196,6 +199,12 @@ public class LearnPhonogramFragment extends BaseFragment  {
                     }
                 }
             }
+        }
+    }
+
+    public void setCurrentItem(int index){
+        if(null!=mViewPager&&mViewPager.getChildCount()>0){
+            mViewPager.setCurrentItem(index);
         }
     }
 

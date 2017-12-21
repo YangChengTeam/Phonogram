@@ -1,6 +1,7 @@
 package com.yc.phonogram.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ public abstract class BasePager  {
             throw new InvalidParameterException("音标：The context for the Activity type must be passed!");
         }
     }
-
 
     public void setContentView(int layoutID){
         if(null==mContext) return;
@@ -69,6 +69,10 @@ public abstract class BasePager  {
         return null==mRootView?null:mRootView.findViewById(id);
     }
 
+    public Context getActivity(){
+        return mContext;
+    }
+
 
 
     protected abstract void initViews();
@@ -90,7 +94,10 @@ public abstract class BasePager  {
     }
 
     public void onDestroyView(){
-
+        if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
+            mAnimationDrawable.stop();
+        }
+        mAnimationDrawable=null;
     }
 
     /**
@@ -151,4 +158,5 @@ public abstract class BasePager  {
             mAnimationDrawable.stop();
         }
     }
+
 }
