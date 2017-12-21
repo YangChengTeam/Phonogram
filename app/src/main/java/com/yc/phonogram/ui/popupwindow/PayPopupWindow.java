@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -43,7 +44,7 @@ public class PayPopupWindow extends BasePopupWindow {
 
     private ImageView mIvWxPay;
     private ImageView mIvAliPay;
-    private ImageView mIvPayCharge;
+    private ImageButton mIvPayCharge;
     private PayWayInfoAdapter payWayInfoAdapter;
     private ImageView preImagView;
     private RecyclerView recyclerView;
@@ -70,7 +71,7 @@ public class PayPopupWindow extends BasePopupWindow {
         goodEngin = new GoodEngin(mContext);
         setAnimationStyle(R.style.popwindow_style);
         initData();
-        mIvPayCharge = (ImageView) getView(R.id.iv_pay_charge);
+        mIvPayCharge = (ImageButton) getView(R.id.iv_pay_charge);
         mIvWxPay = (ImageView) getView(R.id.iv_wx_pay);
         mIvAliPay = (ImageView) getView(R.id.iv_ali_pay);
         recyclerView = (RecyclerView) getView(R.id.recyclerView);
@@ -191,14 +192,14 @@ public class PayPopupWindow extends BasePopupWindow {
         payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ImageView mIvSelect = (ImageView) adapter.getViewByPosition(recyclerView, position, R.id.iv_select);
+                ImageView mIvSelect = payWayInfoAdapter.getIv(position);
                 boolean isBuy = (boolean) mIvSelect.getTag();
                 if (isBuy) {
                     return;
                 }
 
                 if (preImagView == null)
-                    preImagView = (ImageView) adapter.getViewByPosition(recyclerView, 0, R.id.iv_select);
+                    preImagView = payWayInfoAdapter.getIv(0);
 
                 if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);

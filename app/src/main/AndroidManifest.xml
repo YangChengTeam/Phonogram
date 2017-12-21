@@ -48,6 +48,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="@string/umeng_id" />
+
+
     </application>
 
 </manifest>

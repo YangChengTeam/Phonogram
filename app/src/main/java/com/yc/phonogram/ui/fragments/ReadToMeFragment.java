@@ -134,6 +134,7 @@ public class ReadToMeFragment extends BaseFragment implements EasyPermissions.Pe
         mAnimationImageView = (ImageView) getView(R.id.iv_read_animation);
         mCurrentNumberTextView = (StrokeTextView) getView(R.id.tv_current_number);
         if (ksyMediaPlayer == null) {
+//            ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
