@@ -1,11 +1,15 @@
 package com.yc.phonogram.ui.pager;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.base.BasePager;
 import com.yc.phonogram.domain.MClassInfo;
@@ -38,7 +42,12 @@ public class PhonicsVideoPager extends BasePager {
         XinQuVideoPlayerStandard videoPlayerStandard = mRootView.findViewById(R.id.video_player);
         videoPlayerStandard.widthRatio=16;
         videoPlayerStandard.heightRatio=9;
-        videoPlayerStandard.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
+        String proxyUrl =mData.getVideo();
+        HttpProxyCacheServer proxy = App.getProxy();
+        if(null!=proxy){
+            proxyUrl= proxy.getProxyUrl(mData.getVideo());
+        }
+        videoPlayerStandard.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.ic_player_error);
         options.error(R.mipmap.ic_player_error);

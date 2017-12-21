@@ -9,8 +9,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.danikula.videocache.HttpProxyCacheServer;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPContentListAdapter;
 import com.yc.phonogram.base.BasePager;
@@ -66,7 +68,12 @@ public class LearnVideoPager  extends BasePager{
 
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
         //http://voice.wk2.com/video/2017112405.mp4
-        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"音标课":mData.getName());
+        String proxyUrl =mData.getVideo();
+        HttpProxyCacheServer proxy = App.getProxy();
+        if(null!=proxy){
+            proxyUrl= proxy.getProxyUrl(mData.getVideo());
+        }
+        mVidepPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"音标课":mData.getName());
         Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标
         //http://wk2-voice.oss-cn-shenzhen.aliyuncs.com/mp3/2017-11-28/5a1d2677de6d5.jpg
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);//视频播放器封面
