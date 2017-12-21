@@ -37,6 +37,10 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         } else {
             imageView.setImageResource(R.mipmap.pay_select_normal);
         }
+<<<<<<< HEAD
 
+=======
+        imageView.setTag(item.isSelected());
+>>>>>>> 6fdd94ba7d00475c8bb52c3ece76bc4bca283dc2
     }
 }

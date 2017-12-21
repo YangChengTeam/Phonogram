@@ -8,6 +8,7 @@ import com.yc.phonogram.adapter.ReadItemPagerAdapter;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.ui.activitys.MainActivity;
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 
 import java.util.List;
@@ -19,10 +20,12 @@ import java.util.List;
 public class ReadToMeFragment extends BaseFragment {
 
     private MainBgView mainBgView;
-    
+
     private ReadItemPagerAdapter readItemPagerAdapter;
-    
+
     private ViewPager viewPager;
+
+    private int lastCurrentPosition = 0;
 
     @Override
     public int getLayoutId() {
@@ -34,9 +37,10 @@ public class ReadToMeFragment extends BaseFragment {
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         viewPager = (ViewPager) getView(R.id.view_pager);
 
-        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager());
+        readItemPagerAdapter = new ReadItemPagerAdapter(getChildFragmentManager(),viewPager);
         viewPager.setAdapter(readItemPagerAdapter);
         viewPager.setOffscreenPageLimit(1);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -45,6 +49,11 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
+                if(position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()){
+                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+                    payPopupWindow.show();
+                    return;
+                }
                 LogUtil.msg(position + "");
                 mainBgView.setIndex(position);
             }
@@ -63,6 +72,7 @@ public class ReadToMeFragment extends BaseFragment {
             return;
         }
         List<PhonogramInfo> phonogramInfos = phonogramListInfo.getPhonogramInfos();
+
         readItemPagerAdapter.setDatas(phonogramInfos);
         readItemPagerAdapter.notifyDataSetChanged();
 

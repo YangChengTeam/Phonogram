@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:text="--"/>
     <TextView
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="--"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
+        android:textSize="17sp"
         android:textColor="@color/common_title3"/>
 </LinearLayout>
