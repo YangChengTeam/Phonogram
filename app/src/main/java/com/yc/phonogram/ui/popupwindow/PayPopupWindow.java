@@ -222,7 +222,7 @@ public class PayPopupWindow extends BasePopupWindow {
 
     private void createRewardDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("确定");
+        builder.setTitle("提示");
         builder.setMessage("你已经购买了所有项目");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

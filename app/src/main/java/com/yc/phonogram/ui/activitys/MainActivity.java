@@ -1,6 +1,7 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.Manifest;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
+import com.umeng.socialize.UMShareAPI;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
@@ -409,5 +411,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
 
 }
