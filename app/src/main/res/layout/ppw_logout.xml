@@ -18,7 +18,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:src="@mipmap/logout_head"
                 />
 
@@ -34,7 +33,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="16dp"
                 android:orientation="horizontal"
                 >
 
@@ -44,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@mipmap/logout_ok"/>
+                    android:background="@drawable/logout_ok_selector"
+                    />
 
                 <View
                     android:layout_width="20dp"
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:src="@mipmap/logout_cancel"/>
+                    android:background="@drawable/logout_cancel_selector"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

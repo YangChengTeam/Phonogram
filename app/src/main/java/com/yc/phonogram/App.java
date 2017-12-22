@@ -90,7 +90,7 @@ public class App extends Application {
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
 
         builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
-                .setQQ("1106261461", "p1PGwoz27nVHqoC5")
+                .setQQ("1106626200", "Vpa3dJ9rkFNy5kyi")
                 .setDebug(true)
                 .build(context);
     }

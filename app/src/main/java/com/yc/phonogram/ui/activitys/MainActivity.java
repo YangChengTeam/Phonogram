@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -146,7 +147,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     phonogramPopupWindow.show();
                 } else {
                     SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
-                    sharePopupWindow.show();
+                    sharePopupWindow.show(getWindow().getDecorView().getRootView(), Gravity.CENTER);
+
                 }
 
             }
