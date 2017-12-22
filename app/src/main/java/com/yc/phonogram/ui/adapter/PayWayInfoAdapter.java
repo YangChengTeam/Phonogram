@@ -38,26 +38,65 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         final ImageView imageView = helper.getView(R.id.iv_select);
         int position = mData.indexOf(item);
-        if (MainActivity.getMainActivity().isVip(item.getId() + "")) {
-            imageView.setImageResource(R.mipmap.pay_selected);
-            imageView.setTag(true);
-        } else {
-            if (position == 0) {
-                imageView.setImageResource(R.mipmap.pay_select_press);
-            } else {
-                imageView.setImageResource(R.mipmap.pay_select_normal);
-            }
-            imageView.setTag(false);
-        }
-
         sparseArray.put(position, imageView);
-
-
+        setIvState(imageView, position);
     }
+
 
     public ImageView getIv(int position) {
         return sparseArray.get(position);
     }
 
+
+    private void setIvState(ImageView imageView, int position) {
+        if (MainActivity.getMainActivity().isSuperVip()) {
+            imageView.setImageResource(R.mipmap.pay_selected);
+            imageView.setTag(true);
+            return;
+        }
+
+        if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
+            imageView.setImageResource(R.mipmap.pay_selected);
+            imageView.setTag(true);
+            if (position == mData.size() - 1) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+                imageView.setTag(false);
+            }
+            return;
+        }
+
+        if (MainActivity.getMainActivity().isPhonogramVip()) {
+            imageView.setImageResource(R.mipmap.pay_select_normal);
+            if (position == 1) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+            }
+            imageView.setTag(false);
+            if (position == 0) {
+                imageView.setImageResource(R.mipmap.pay_selected);
+                imageView.setTag(true);
+            }
+            return;
+
+        }
+        if (MainActivity.getMainActivity().isPhonicsVip()) {
+            imageView.setImageResource(R.mipmap.pay_select_normal);
+            if (position == 0) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+            }
+            imageView.setTag(false);
+            if (position == 1) {
+                imageView.setImageResource(R.mipmap.pay_selected);
+                imageView.setTag(true);
+            }
+            return;
+        }
+        if (position == 0) {
+            imageView.setImageResource(R.mipmap.pay_select_press);
+        } else {
+            imageView.setImageResource(R.mipmap.pay_select_normal);
+        }
+        imageView.setTag(false);
+
+    }
 
 }
