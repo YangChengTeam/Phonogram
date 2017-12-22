@@ -172,7 +172,6 @@ public class PayPopupWindow extends BasePopupWindow {
             @Override
             public void call(Void aVoid) {
                 if (goodInfo == null && MainActivity.getMainActivity().isSuperVip()) {
-                    ToastUtil.toast(mContext, "你已经购买了所有项目");
                     createRewardDialog();
                     return;
                 }
@@ -223,19 +222,12 @@ public class PayPopupWindow extends BasePopupWindow {
 
     private void createRewardDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("打赏");
-        builder.setMessage("你已经购买了所有项目，是否在打赏一笔");
-        builder.setPositiveButton("欣然打赏", new DialogInterface.OnClickListener() {
+        builder.setTitle("确定");
+        builder.setMessage("你已经购买了所有项目");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ToastUtil.toast(mContext, "打赏");
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("残忍拒绝", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                ToastUtil.toast(mContext, "拒绝");
+
                 dialog.dismiss();
             }
         });
