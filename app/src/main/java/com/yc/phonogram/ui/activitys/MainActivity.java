@@ -148,7 +148,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                 } else {
                     SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
                     sharePopupWindow.show(getWindow().getDecorView().getRootView(), Gravity.CENTER);
-
                 }
 
             }

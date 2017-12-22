@@ -3,6 +3,8 @@ package com.yc.phonogram;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -33,7 +35,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/10/17.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static App INSTANSE;
 
     @Override
@@ -185,5 +187,12 @@ public class App extends Application {
                 .cacheDirectory(new File(videoCacheDir))
                 .maxCacheSize(cacheSize)//1BG缓存大小上限
                 .build();
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
