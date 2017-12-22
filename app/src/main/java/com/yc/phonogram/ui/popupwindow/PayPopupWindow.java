@@ -1,9 +1,12 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Rect;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
@@ -32,6 +35,7 @@ import com.yc.phonogram.engin.GoodEngin;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import rx.functions.Action1;
@@ -101,13 +105,12 @@ public class PayPopupWindow extends BasePopupWindow {
                         if (goodListInfo != null) {
                             mContext.runOnUiThread(new Runnable() {
 
-
                                 @Override
 
                                 public void run() {
                                     if (goodListInfo.getGoodInfoList() != null) {
                                         payWayInfoAdapter.setNewData(goodListInfo.getGoodInfoList());
-                                        goodInfo = goodListInfo.getGoodInfoList().get(0);
+                                        goodInfo = getGoodInfo(goodListInfo.getGoodInfoList());
                                     }
 
                                 }
@@ -126,7 +129,7 @@ public class PayPopupWindow extends BasePopupWindow {
                 if (goodListInfoResultInfo != null && goodListInfoResultInfo.code == HttpConfig.STATUS_OK
                         && goodListInfoResultInfo.data != null && goodListInfoResultInfo.data.getGoodInfoList() != null) {
                     payWayInfoAdapter.setNewData(goodListInfoResultInfo.data.getGoodInfoList());
-                    goodInfo = goodListInfoResultInfo.data.getGoodInfoList().get(0);
+                    goodInfo = getGoodInfo(goodListInfoResultInfo.data.getGoodInfoList());
                 }
                 TaskUtil.getImpl().runTask(new Runnable() {
                     @Override
@@ -141,6 +144,8 @@ public class PayPopupWindow extends BasePopupWindow {
 
 
     private void initListener() {
+
+
         RxView.clicks(getView(R.id.ll_ali_pay)).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
@@ -166,26 +171,29 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (MainActivity.getMainActivity().isVip(goodInfo.getId() + "")) {
-                    ToastUtil.toast(mContext, "你已经购买了该项目，请选择其他项目");
+                if (goodInfo == null && MainActivity.getMainActivity().isSuperVip()) {
+                    createRewardDialog();
                     return;
                 }
+                if (goodInfo != null) {
+                    OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
+                    orderParamsInfo.setPayway_name(payway);
 
-                OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
-                orderParamsInfo.setPayway_name(payway);
+                    iPayAbs.pay(orderParamsInfo, new IPayCallback() {
+                        @Override
+                        public void onSuccess(OrderInfo orderInfo) {
+                            MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
+                            dismiss();
+                        }
 
-                iPayAbs.pay(orderParamsInfo, new IPayCallback() {
-                    @Override
-                    public void onSuccess(OrderInfo orderInfo) {
-                        MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
-                        dismiss();
-                    }
+                        @Override
+                        public void onFailure(OrderInfo orderInfo) {
 
-                    @Override
-                    public void onFailure(OrderInfo orderInfo) {
-
-                    }
-                });
+                        }
+                    });
+                } else {
+                    ToastUtil.toast(mContext, HttpConfig.NET_ERROR);
+                }
             }
         });
 
@@ -212,6 +220,20 @@ public class PayPopupWindow extends BasePopupWindow {
 
     }
 
+    private void createRewardDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("确定");
+        builder.setMessage("你已经购买了所有项目");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 
     private void resetPayWay() {
         mIvAliPay.setImageResource(R.mipmap.pay_ali_normal);
@@ -224,5 +246,28 @@ public class PayPopupWindow extends BasePopupWindow {
             super.getItemOffsets(outRect, view, parent, state);
             outRect.set(0, 0, 0, ScreenUtil.dip2px(mContext, 9));
         }
+    }
+
+    private GoodInfo getGoodInfo(List<GoodInfo> goodInfoList) {
+        GoodInfo goodInfo = null;
+        if (goodInfoList != null && goodInfoList.size() > 0) {
+            goodInfo = goodInfoList.get(0);
+
+            if (MainActivity.getMainActivity().isPhonogramVip()) {
+                goodInfo = goodInfoList.get(1);
+            }
+            if (MainActivity.getMainActivity().isPhonicsVip()) {
+                goodInfo = goodInfoList.get(0);
+            }
+
+            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
+                goodInfo = goodInfoList.get(goodInfoList.size() - 1);
+            }
+
+            if (MainActivity.getMainActivity().isSuperVip()) {
+                goodInfo = null;
+            }
+        }
+        return goodInfo;
     }
 }
