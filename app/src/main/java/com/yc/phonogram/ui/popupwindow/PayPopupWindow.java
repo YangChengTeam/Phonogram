@@ -1,7 +1,9 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Rect;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -103,13 +105,11 @@ public class PayPopupWindow extends BasePopupWindow {
                         if (goodListInfo != null) {
                             mContext.runOnUiThread(new Runnable() {
 
-
                                 @Override
 
                                 public void run() {
                                     if (goodListInfo.getGoodInfoList() != null) {
                                         payWayInfoAdapter.setNewData(goodListInfo.getGoodInfoList());
-
                                         goodInfo = getGoodInfo(goodListInfo.getGoodInfoList());
                                     }
 
@@ -171,26 +171,30 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (goodInfo == null) {
+                if (goodInfo == null && MainActivity.getMainActivity().isSuperVip()) {
                     ToastUtil.toast(mContext, "你已经购买了所有项目");
+                    createRewardDialog();
                     return;
                 }
+                if (goodInfo != null) {
+                    OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
+                    orderParamsInfo.setPayway_name(payway);
 
-                OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
-                orderParamsInfo.setPayway_name(payway);
+                    iPayAbs.pay(orderParamsInfo, new IPayCallback() {
+                        @Override
+                        public void onSuccess(OrderInfo orderInfo) {
+                            MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
+                            dismiss();
+                        }
 
-                iPayAbs.pay(orderParamsInfo, new IPayCallback() {
-                    @Override
-                    public void onSuccess(OrderInfo orderInfo) {
-                        MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
-                        dismiss();
-                    }
+                        @Override
+                        public void onFailure(OrderInfo orderInfo) {
 
-                    @Override
-                    public void onFailure(OrderInfo orderInfo) {
-
-                    }
-                });
+                        }
+                    });
+                } else {
+                    ToastUtil.toast(mContext, HttpConfig.NET_ERROR);
+                }
             }
         });
 
@@ -215,6 +219,27 @@ public class PayPopupWindow extends BasePopupWindow {
             }
         });
 
+    }
+
+    private void createRewardDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("打赏");
+        builder.setMessage("你已经购买了所有项目，是否在打赏一笔");
+        builder.setPositiveButton("欣然打赏", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ToastUtil.toast(mContext, "打赏");
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("残忍拒绝", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ToastUtil.toast(mContext, "拒绝");
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
 
@@ -251,8 +276,6 @@ public class PayPopupWindow extends BasePopupWindow {
                 goodInfo = null;
             }
         }
-
         return goodInfo;
-
     }
 }
