@@ -2,11 +2,13 @@ package com.yc.phonogram.ui.pager;
 
 import android.app.Activity;
 import android.media.AudioManager;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -75,7 +77,7 @@ public class LearnVideoPager  extends BasePager{
                         ExampleInfo exampleInfo = exampleInfos.get(position);
                         if(null!=exampleInfo){
                             //http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3
-                            startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3",view);
+                            startMusic(TextUtils.isEmpty(exampleInfo.getVideo())?"":exampleInfo.getVideo(),view);
                         }
                     }
                 }
@@ -111,8 +113,9 @@ public class LearnVideoPager  extends BasePager{
     }
 
 
-    private void startMusic(String musicUrl,View attachView){
+    private void startMusic(String musicUrl,  View attachView){
         stopMusic();
+        if(TextUtils.isEmpty(musicUrl)) return;
         if(null==mKsyMediaPlayer){
             mKsyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             mKsyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -130,7 +133,12 @@ public class LearnVideoPager  extends BasePager{
             }
         });
         try {
-            mKsyMediaPlayer.setDataSource(musicUrl);
+            String proxyUrl =musicUrl;
+            HttpProxyCacheServer proxy = App.getProxy();
+            if(null!=proxy){
+                proxyUrl= proxy.getProxyUrl(musicUrl);
+            }
+            mKsyMediaPlayer.setDataSource(proxyUrl);
             mKsyMediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +149,8 @@ public class LearnVideoPager  extends BasePager{
                 mInputAnimation.cancel();
                 mInputAnimation=null;
             }
-            mInputAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.view_shake);
+//                    mInputAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.view_shake);
+            mInputAnimation =getAnimation();
             attachView.startAnimation(mInputAnimation);
         }
     }
@@ -155,6 +164,19 @@ public class LearnVideoPager  extends BasePager{
             mKsyMediaPlayer.reset();
             mKsyMediaPlayer=null;
         }
+    }
+
+
+    /**
+     * 点赞的动画小
+     * @return
+     */
+    public  ScaleAnimation getAnimation(){
+        ScaleAnimation followScaleAnimation = new ScaleAnimation(1.0f, 1.6f, 1.0f, 1.6f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        followScaleAnimation.setRepeatCount(1);
+        followScaleAnimation.setDuration(600);
+        return followScaleAnimation;
     }
 
 
