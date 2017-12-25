@@ -133,9 +133,11 @@ public class ReadToMeFragment extends BaseFragment {
         mAnimationImageView = (ImageView) getView(R.id.iv_read_animation);
         mCurrentNumberTextView = (StrokeTextView) getView(R.id.tv_current_number);
         if (ksyMediaPlayer == null) {
+//            ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
+        mainBgView.showInnerBg();
 
         RxView.clicks(mReadPlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
@@ -147,6 +149,7 @@ public class ReadToMeFragment extends BaseFragment {
         ksyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(IMediaPlayer mp) {
+                mReadPlayImageView.setClickable(true);
                 mReadPlayImageView.setImageResource(R.drawable.read_play_selector);
                 play();
                 playAnimation();
@@ -163,6 +166,7 @@ public class ReadToMeFragment extends BaseFragment {
         ksyMediaPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(IMediaPlayer mp, int what, int extra) {
+                mReadPlayImageView.setClickable(true);
                 ToastUtil.toast(getActivity(), "播放错误，请稍后重试");
                 MainActivity.getMainActivity().requestPermission();
                 return false;
@@ -182,7 +186,7 @@ public class ReadToMeFragment extends BaseFragment {
                             }
                             ksyMediaPlayer.reset();
                         }
-
+                        mReadPlayImageView.setClickable(false);
                         mReadPlayImageView.setImageResource(R.mipmap.reading_icon);
 
                         String proxyUrl = phonogramInfo.getVoice();
@@ -194,6 +198,7 @@ public class ReadToMeFragment extends BaseFragment {
                         ksyMediaPlayer.prepareAsync();
 
                     } else {
+                        mReadPlayImageView.setClickable(true);
                         mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
                         stop();
                     }
@@ -295,6 +300,7 @@ public class ReadToMeFragment extends BaseFragment {
     public void stop() {
         isPlay = false;
         readNum = 0;
+
         mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
         mCurrentNumberTextView.setText(readNum + "");
         mProgressBar.setProgress(100);

@@ -1,23 +1,32 @@
 package com.yc.phonogram.ui.pager;
 
 import android.app.Activity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.media.AudioManager;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.ksyun.media.player.IMediaPlayer;
+import com.ksyun.media.player.KSYMediaPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.adapter.LPContentListAdapter;
 import com.yc.phonogram.base.BasePager;
+import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.domain.PhonogramInfo;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * TinyHung@Outlook.com
@@ -33,6 +42,8 @@ public class LearnVideoPager  extends BasePager{
     private ImageView mIvLpLogo;
     private TextView mTvLpTipsContent;
     private XinQuVideoPlayerStandard mVidepPlayer;
+    private KSYMediaPlayer mKsyMediaPlayer;
+    private Animation mInputAnimation;
 
 
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
@@ -52,11 +63,27 @@ public class LearnVideoPager  extends BasePager{
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
-        RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerview_lp);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
         mLpContentListAdapter = new LPContentListAdapter(mContext,null);
-        recyclerView.setAdapter(mLpContentListAdapter);
+        GridView gridView = (GridView) getView(R.id.grid_view);
+        gridView.setAdapter(mLpContentListAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(null!=mLpContentListAdapter){
+                    List<ExampleInfo> exampleInfos=mLpContentListAdapter.getData();
+                    if(null!=exampleInfos&&exampleInfos.size()>0){
+                        ExampleInfo exampleInfo = exampleInfos.get(position);
+                        if(null!=exampleInfo){
+                            //http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3
+                            startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3",view);
+                        }
+                    }
+                }
+            }
+        });
     }
+
+
 
     @Override
     protected void loadData() {
@@ -84,6 +111,53 @@ public class LearnVideoPager  extends BasePager{
     }
 
 
+    private void startMusic(String musicUrl,View attachView){
+        stopMusic();
+        if(null==mKsyMediaPlayer){
+            mKsyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
+            mKsyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
+        mKsyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(IMediaPlayer mp) {
+                mp.start();
+            }
+        });
+        mKsyMediaPlayer.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(IMediaPlayer mp) {
+
+            }
+        });
+        try {
+            mKsyMediaPlayer.setDataSource(musicUrl);
+            mKsyMediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(null!=attachView){
+            if(null!=mInputAnimation){
+                mInputAnimation.reset();
+                mInputAnimation.cancel();
+                mInputAnimation=null;
+            }
+            mInputAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.view_shake);
+            attachView.startAnimation(mInputAnimation);
+        }
+    }
+
+    public void stopMusic(){
+        if(null!=mKsyMediaPlayer){
+            if(mKsyMediaPlayer.isPlaying()){
+                mKsyMediaPlayer.stop();
+            }
+            mKsyMediaPlayer.release();
+            mKsyMediaPlayer.reset();
+            mKsyMediaPlayer=null;
+        }
+    }
+
+
     @Override
     protected void onRefresh() {
         super.onRefresh();
@@ -101,11 +175,13 @@ public class LearnVideoPager  extends BasePager{
     public void onPause() {
         super.onPause();
         Log.d(TAG,"onPause");
+        stopMusic();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(TAG,"onDestroyView");
+        stopMusic();
     }
 }

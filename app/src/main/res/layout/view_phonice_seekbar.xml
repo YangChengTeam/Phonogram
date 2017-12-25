@@ -25,7 +25,8 @@
             android:text="0/0"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textSize="15dp"/>
     </RelativeLayout>
 
     <ImageView

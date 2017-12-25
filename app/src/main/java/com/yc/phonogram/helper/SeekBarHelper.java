@@ -52,7 +52,7 @@ public class SeekBarHelper {
     private int index;
 
     private void hideLeft() {
-        mLeftImageView.setVisibility(View.GONE);
+        mLeftImageView.setVisibility(View.INVISIBLE);
     }
 
     private void showLeft() {
@@ -61,7 +61,7 @@ public class SeekBarHelper {
     }
 
     private void hideRight() {
-        mRightImageView.setVisibility(View.GONE);
+        mRightImageView.setVisibility(View.INVISIBLE);
     }
 
     private void showRight() {

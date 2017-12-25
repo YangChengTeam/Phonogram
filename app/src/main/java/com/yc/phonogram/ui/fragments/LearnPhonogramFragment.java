@@ -57,6 +57,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
+                onChildPause(cureenIndex);
                 cureenIndex=position;
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
@@ -208,6 +209,10 @@ public class LearnPhonogramFragment extends BaseFragment  {
         if(null!=mViewPager&&mViewPager.getChildCount()>0){
             mViewPager.setCurrentItem(index);
         }
+    }
+
+    public void pause(){
+        onChildPause(cureenIndex);
     }
 
     @Override

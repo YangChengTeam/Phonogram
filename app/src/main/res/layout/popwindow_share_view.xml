@@ -29,45 +29,101 @@
                 android:background="@color/white"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/tv_wx"
+                <LinearLayout
+                    android:id="@+id/ll_wx"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@mipmap/share_wx"
                     android:gravity="center"
-                    android:text="微信" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_qq"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@mipmap/share_qq"
-                    android:gravity="center"
-                    android:text="QQ" />
+                    <ImageButton
+                        android:id="@+id/ib_wx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/share_wx_selector" />
 
-                <TextView
-                    android:id="@+id/tv_circle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@mipmap/share_wx_circle"
-                    android:gravity="center"
-                    android:text="朋友圈" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:gravity="center"
+                        android:text="微信" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_qq_zone"
+                <LinearLayout
+                    android:id="@+id/ll_qq"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/dimen_5"
-                    android:drawableTop="@mipmap/share_qq_zone"
                     android:gravity="center"
-                    android:text="QQ空间" />
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/ib_qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/share_qq_selector" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:gravity="center"
+                        android:text="QQ" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_circle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/ib_circle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/share_wx_circle_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:gravity="center"
+                        android:text="朋友圈" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_qq_zone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/ib_zone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@drawable/share_qq_zone_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:gravity="center"
+                        android:text="QQ空间" />
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <View

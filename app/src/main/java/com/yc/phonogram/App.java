@@ -1,9 +1,9 @@
 package com.yc.phonogram;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.danikula.videocache.HttpProxyCacheServer;
@@ -33,7 +33,7 @@ import rx.functions.Action1;
  * Created by zhangkai on 2017/10/17.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static App INSTANSE;
 
     @Override
@@ -89,8 +89,8 @@ public class App extends Application {
         //友盟分享
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
 
-        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
-                .setQQ("1106261461", "p1PGwoz27nVHqoC5")
+        builder.setWeixin("wx2d0b6315f8d80d64", "a194bcc16fc8bf38b0bafad7b4f00a4a")
+                .setQQ("1106626200", "Vpa3dJ9rkFNy5kyi")
                 .setDebug(true)
                 .build(context);
     }
@@ -185,5 +185,12 @@ public class App extends Application {
                 .cacheDirectory(new File(videoCacheDir))
                 .maxCacheSize(cacheSize)//1BG缓存大小上限
                 .build();
+    }
+
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

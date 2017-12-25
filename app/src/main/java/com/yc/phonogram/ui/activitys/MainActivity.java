@@ -1,12 +1,14 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.Manifest;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
@@ -17,6 +19,7 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
+import com.umeng.socialize.UMShareAPI;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
@@ -146,7 +149,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     phonogramPopupWindow.show();
                 } else {
                     SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
-                    sharePopupWindow.show();
+                    sharePopupWindow.show(getWindow().getDecorView().getRootView(), Gravity.CENTER);
                 }
 
             }
@@ -289,11 +292,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void goToPage(int position) {
-        if (mCurrentIndex == 1) {
-            mLearnPhonogramFragment.setCurrentItem(position);
-        } else if (mCurrentIndex == 2) {
-            mReadToMeFragment.setReadCurrentPosition(position);
-        }
+        mLearnPhonogramFragment.setCurrentItem(position);
+        mReadToMeFragment.setReadCurrentPosition(position);
     }
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             }
         }
         if (!flag) {
-            PreferenceUtil.getImpl(this).putString("vip", vip);
+            PreferenceUtil.getImpl(this).putString("vip", vips + "," + vip);
         }
     }
 
@@ -408,5 +408,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
+
 
 }
