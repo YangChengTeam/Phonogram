@@ -2,7 +2,6 @@ package com.yc.phonogram.ui.adapter;
 
 import android.text.TextUtils;
 import android.util.SparseArray;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -78,6 +77,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
             return;
 
         }
+
         if (MainActivity.getMainActivity().isPhonicsVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
             if (position == 0) {
@@ -90,6 +90,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
             }
             return;
         }
+
         if (position == 0) {
             imageView.setImageResource(R.mipmap.pay_select_press);
         } else {
