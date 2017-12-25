@@ -70,7 +70,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void init() {
-        SplashActivity.getApp().finish();
+        if(SplashActivity.getInstance() != null) {
+            SplashActivity.getInstance().finish();
+        }
 
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);

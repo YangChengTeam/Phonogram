@@ -1,11 +1,13 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.utils.Mp3Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +22,7 @@ import rx.functions.Action1;
 
 public class SplashActivity extends BaseActivity {
     private Subscription subscription = null;
-
+    private MediaPlayer mediaPlayer;
     public static SplashActivity INSTANCE;
 
     @Override
@@ -41,21 +43,40 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void call(Long aLong) {
                         logoImageView.setImageDrawable(ContextCompat.getDrawable(SplashActivity.this, bgIDs[aLong.intValue() % 4]));
-                        if (aLong == 4) {
-                            App.getApp().getLoginInfo(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    if (subscription != null && !subscription.isUnsubscribed()) {
-                                        subscription.unsubscribe();
-                                        subscription = null;
-                                    }
-                                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                                }
-                            });
-                        }
                     }
                 });
+        mediaPlayer = Mp3Utils.playMp3(this, "splash.mp3", new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                App.getApp().getLoginInfo(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (subscription != null && !subscription.isUnsubscribed()) {
+                            subscription.unsubscribe();
+                            subscription = null;
+                        }
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+        }
     }
 
     @Override
@@ -64,7 +85,12 @@ public class SplashActivity extends BaseActivity {
         INSTANCE = null;
     }
 
-    public static SplashActivity getApp() {
+    public static SplashActivity getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
