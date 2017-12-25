@@ -69,7 +69,6 @@ public class LearnVideoPager  extends BasePager{
         options.skipMemoryCache(true);//跳过内存缓存
 
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
-        //http://voice.wk2.com/video/2017112405.mp4
         String proxyUrl =mData.getVideo();
         HttpProxyCacheServer proxy = App.getProxy();
         if(null!=proxy){
@@ -77,7 +76,6 @@ public class LearnVideoPager  extends BasePager{
         }
         mVidepPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"":mData.getName());
         Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标
-        //http://wk2-voice.oss-cn-shenzhen.aliyuncs.com/mp3/2017-11-28/5a1d2677de6d5.jpg
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);//视频播放器封面
         mTvLpTipsContent.setText(mData.getDesp());
         if(null!=mLpContentListAdapter&&null!=mData.getExampleInfos()){
