@@ -1,6 +1,10 @@
 package com.yc.phonogram.ui.fragments;
 
+import android.widget.TextView;
+
+import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.ui.views.MainBgView;
 
 /**
@@ -19,6 +23,11 @@ public class IndexFragment extends BaseFragment {
     public void init() {
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         mainBgView.showInnerBg();
+
+        LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
+        if (loginDataInfo != null && loginDataInfo.getStatusInfo() != null) {
+            ((TextView) getView(R.id.tv_user)).setText("用户名: " + loginDataInfo.getStatusInfo().getUid());
+        }
     }
 
     @Override

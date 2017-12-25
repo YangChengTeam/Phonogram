@@ -97,7 +97,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
     }
 
     public void show() {
-        show(mContext.getWindow().getDecorView().getRootView(), Gravity.CENTER);
+        show(mContext.getWindow().getDecorView().getRootView());
     }
 
     public void show(View view) {

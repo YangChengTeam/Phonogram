@@ -91,7 +91,7 @@ public class App extends MultiDexApplication {
         //友盟分享
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
 
-        builder.setWeixin("wx97247860e3d30d2f", "68931a7e136b97bebeb46754082aae0a")
+        builder.setWeixin("wx2d0b6315f8d80d64", "a194bcc16fc8bf38b0bafad7b4f00a4a")
                 .setQQ("1106626200", "Vpa3dJ9rkFNy5kyi")
                 .setDebug(true)
                 .build(context);
