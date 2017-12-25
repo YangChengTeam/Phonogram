@@ -26,7 +26,8 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="invisible">
+            android:visibility="invisible"
+            android:background="@drawable/jz_bottom_bg">
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +107,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:background="@drawable/jz_title_bg"
+            android:visibility="invisible">
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="wrap_content"

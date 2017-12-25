@@ -642,13 +642,15 @@ public final class R {
         public static int notification_template_icon_low_bg = 0x7f090096;
         public static int notification_tile_bg = 0x7f090097;
         public static int notify_panel_notification_icon_bg = 0x7f090098;
-        public static int progress_anim = 0x7f090099;
-        public static int retry_bg = 0x7f09009a;
-        public static int text_bg_shape = 0x7f09009b;
-        public static int tooltip_frame_dark = 0x7f09009c;
-        public static int tooltip_frame_light = 0x7f09009d;
-        public static int video_empty_bg = 0x7f09009e;
-        public static int video_plsyer_bottom_progress = 0x7f09009f;
+        public static int play_bottom_bar = 0x7f090099;
+        public static int play_top_bar = 0x7f09009a;
+        public static int progress_anim = 0x7f09009b;
+        public static int retry_bg = 0x7f09009c;
+        public static int text_bg_shape = 0x7f09009d;
+        public static int tooltip_frame_dark = 0x7f09009e;
+        public static int tooltip_frame_light = 0x7f09009f;
+        public static int video_empty_bg = 0x7f0900a0;
+        public static int video_plsyer_bottom_progress = 0x7f0900a1;
     }
     public static final class id {
         public static int action0 = 0x7f0c0001;

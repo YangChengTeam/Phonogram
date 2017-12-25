@@ -396,6 +396,10 @@
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png"
     },
     {
+        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_play_bottom_bar.xml.flat",
+        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable\\play_bottom_bar.xml"
+    },
+    {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
         "source": "C:\\Users\\YangCheng\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\e7312a6f2ef11e058e84e21e0606fa66\\res\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
@@ -1774,6 +1778,10 @@
     {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_video_play_full_standard.xml.flat",
         "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\layout\\video_play_full_standard.xml"
+    },
+    {
+        "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_play_top_bar.xml.flat",
+        "source": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\bundles\\debug\\res\\drawable\\play_top_bar.xml"
     },
     {
         "merged": "F:\\AndroidStudioProjects\\Phonogram\\video-player\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_abc_cab_background_top_material.xml.flat",

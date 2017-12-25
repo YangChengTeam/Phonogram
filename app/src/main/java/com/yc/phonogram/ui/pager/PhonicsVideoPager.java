@@ -45,7 +45,7 @@ public class PhonicsVideoPager extends BasePager {
         if(null!=proxy){
             proxyUrl= proxy.getProxyUrl(mData.getVideo());
         }
-        videoPlayerStandard.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,"测试");
+        videoPlayerStandard.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getTitle()?"":mData.getTitle());
         RequestOptions options = new RequestOptions();
         options.placeholder(R.mipmap.ic_player_error);
         options.error(R.mipmap.ic_player_error);

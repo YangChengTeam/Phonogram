@@ -21,7 +21,8 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final String TAG = LPContentListAdapter.class.getSimpleName();
     private final Context mContext;
-    private List<ExampleInfo> mData;
+    private List<ExampleInfo> mData=null;
+    private String mLearn=null;
 
     public LPContentListAdapter(Context context, List<ExampleInfo> list) {
         this.mContext=context;
@@ -38,8 +39,11 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
         ViewHolder viewHolder= (ViewHolder) holder;
         ExampleInfo data = mData.get(position);
         if(null==data) return;
+        viewHolder.tv_item_content.setText("");
+        viewHolder.tv_item_content_lp.setText("");
         viewHolder.tv_item_content.setText(Html.fromHtml(LPUtils.getInstance().addWordLetterColor(data.getWord(),data.getLetter())));
-        viewHolder.tv_item_content_lp.setText(Html.fromHtml(LPUtils.getInstance().addWordPhoneticLetterColor(data.getWordPhonetic(),data.getPhonetic())));
+        viewHolder.tv_item_content_lp.setText(Html.fromHtml(LPUtils.getInstance().addWordPhoneticLetterColor(data.getWordPhonetic(),null==mLearn?data.getPhonetic():mLearn)));
+
     }
 
     @Override
@@ -47,8 +51,9 @@ public class LPContentListAdapter extends RecyclerView.Adapter<RecyclerView.View
         return null==mData?0:mData.size();
     }
 
-    public void setNewData(List<ExampleInfo> data) {
+    public void setNewData(List<ExampleInfo> data,String learn) {
         this.mData=data;
+        this.mLearn=learn;
         this.notifyDataSetChanged();
     }
 

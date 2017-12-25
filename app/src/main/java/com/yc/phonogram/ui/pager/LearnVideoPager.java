@@ -3,6 +3,7 @@ package com.yc.phonogram.ui.pager;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class LearnVideoPager  extends BasePager{
         //封面
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
+        mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
@@ -73,13 +75,13 @@ public class LearnVideoPager  extends BasePager{
         if(null!=proxy){
             proxyUrl= proxy.getProxyUrl(mData.getVideo());
         }
-        mVidepPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"音标课":mData.getName());
+        mVidepPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"":mData.getName());
         Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标
         //http://wk2-voice.oss-cn-shenzhen.aliyuncs.com/mp3/2017-11-28/5a1d2677de6d5.jpg
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);//视频播放器封面
         mTvLpTipsContent.setText(mData.getDesp());
         if(null!=mLpContentListAdapter&&null!=mData.getExampleInfos()){
-            mLpContentListAdapter.setNewData(mData.getExampleInfos());
+            mLpContentListAdapter.setNewData(mData.getExampleInfos(),mData.getName());
         }
     }
 
