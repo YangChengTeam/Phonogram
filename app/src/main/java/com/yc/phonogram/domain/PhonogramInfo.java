@@ -16,6 +16,15 @@ public class PhonogramInfo {
     private String img;
     private String name;
     private String desp;
+    private String desp_audio;
+
+    public String getDesp_audio() {
+        return desp_audio;
+    }
+
+    public void setDesp_audio(String desp_audio) {
+        this.desp_audio = desp_audio;
+    }
 
     @JSONField(name = "example")
     private List<ExampleInfo> exampleInfos;

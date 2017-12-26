@@ -11,6 +11,13 @@ android {
         versionCode 72
         versionName "6.2.1"
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,7 +34,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:26.1.0'
     //点播SDK
-    compile 'com.ksyun.media:libksyplayer-java:2.1.0'
-    compile 'com.ksyun.media:libksyplayer-armv7a:2.1.0'
-    compile 'com.ksyun.media:libksyplayer-arm64:2.1.0'
+//    compile 'com.ksyun.media:libksyplayer-java:2.1.0'
+//    compile 'com.ksyun.media:libksyplayer-armv7a:2.1.0'
+//    compile 'com.ksyun.media:libksyplayer-arm64:2.1.0'
+    implementation files('libs/libksyplayer.jar')
 }

@@ -5,7 +5,15 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.kk.utils.ToastUtil;
+import com.yc.phonogram.App;
+
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
+import java.net.URLDecoder;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -16,15 +24,16 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class LPUtils {
 
     private static final String TAG = LPUtils.class.getSimpleName();
-    private static LPUtils mInstance;
+    private static WeakReference<LPUtils> mUtilsWeakReference=null;
 
     public static synchronized LPUtils getInstance(){
         synchronized (LPUtils.class){
-            if(null==mInstance){
-                mInstance=new LPUtils();
+            if(null==mUtilsWeakReference||null==mUtilsWeakReference.get()){
+                LPUtils utils=new LPUtils();
+                mUtilsWeakReference=new WeakReference<LPUtils>(utils);
             }
         }
-        return mInstance;
+        return mUtilsWeakReference.get();
     }
 
     /**
@@ -44,19 +53,20 @@ public class LPUtils {
 
     /**
      * 给音标加上颜色
-     * @param phonetic 源音标
-     * @param letter
+     * @param wordPhonetic 源音标
+     * @param phonetic
      * @return
      */
-    public  String addWordPhoneticLetterColor(String phonetic, String letter) {
-        if(TextUtils.isEmpty(phonetic))return phonetic;
-        if(TextUtils.isEmpty(letter))return phonetic;
-        String replace = letter.replace("/", "");
-            if(phonetic.contains(replace)){
-                return phonetic.replace(replace,"<font color='#FD0000'>"+replace+"</font>");
+    public  String addWordPhoneticLetterColor(String wordPhonetic, String phonetic) {
+        if(TextUtils.isEmpty(wordPhonetic))return wordPhonetic;
+        if(TextUtils.isEmpty(phonetic))return wordPhonetic;
+        String replace = phonetic.replace("/", "");
+            if(wordPhonetic.contains(replace)){
+                return wordPhonetic.replace(replace,"<font color='#FD0000'>"+replace+"</font>");
             }
         return phonetic;
     }
+
 
     /**
      * 获取视频缓存的目录

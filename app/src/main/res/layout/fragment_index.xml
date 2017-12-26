@@ -7,10 +7,26 @@
         android:id="@+id/mainBgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
+
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/main_view_index"/>
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/main_view_index"/>
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="用户ID:666"
+                android:textColor="#FFC84900"
+                android:textSize="15dp"
+                />
+        </FrameLayout>
     </com.yc.phonogram.ui.views.MainBgView>
 </RelativeLayout>

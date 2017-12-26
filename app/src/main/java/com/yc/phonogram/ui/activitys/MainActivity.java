@@ -70,7 +70,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void init() {
-        SplashActivity.getApp().finish();
+        if (SplashActivity.getInstance() != null) {
+            SplashActivity.getInstance().finish();
+        }
 
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);
@@ -103,6 +105,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_view_selector));
                 } else {
                     mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_share_selector));
+                }
+                if (position == 1) {
+                    mLearnPhonogramFragment.pause();
                 }
                 stop();
             }
@@ -150,7 +155,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                 } else {
                     SharePopupWindow sharePopupWindow = new SharePopupWindow(MainActivity.this);
                     sharePopupWindow.show(getWindow().getDecorView().getRootView(), Gravity.CENTER);
-
                 }
 
             }
@@ -293,11 +297,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void goToPage(int position) {
-        if (mCurrentIndex == 1) {
-            mLearnPhonogramFragment.setCurrentItem(position);
-        } else if (mCurrentIndex == 2) {
-            mReadToMeFragment.setReadCurrentPosition(position);
-        }
+        mLearnPhonogramFragment.setCurrentItem(position);
+        mReadToMeFragment.setReadCurrentPosition(position);
     }
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
@@ -398,8 +399,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @AfterPermissionGranted(WRITE)
     public void requestPermission() {
-        if (!EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)) {
+            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO);
         }
     }
 

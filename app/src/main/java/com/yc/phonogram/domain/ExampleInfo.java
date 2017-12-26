@@ -15,6 +15,15 @@ public class ExampleInfo {
     private String word;
     @JSONField(name = "word_phonetic")
     private String wordPhonetic;
+    private String video;
+
+    public String getVideo() {
+        return video;
+    }
+
+    public void setVideo(String video) {
+        this.video = video;
+    }
 
     private String letter;
 

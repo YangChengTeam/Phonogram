@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-
 import com.yc.phonogram.ui.IView;
 import com.yc.phonogram.utils.NavgationBarUtils;
 import com.yc.phonogram.utils.UIUtils;
@@ -42,7 +41,6 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
         assert inflater != null;
         mRootView = inflater.inflate(getLayoutId(), null);
 
-        UIUtils.invoke(mRootView);
 
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -50,7 +48,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
         setWindowAlpha(0.5f);
         setContentView(mRootView);
         setOutsideTouchable(false);
-
+        UIUtils.invoke(mContext.getWindow().getDecorView().getRootView());
         init();
     }
 
@@ -60,6 +58,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
 
     @Override
     public void dismiss() {
+        UIUtils.invoke(mContext.getWindow().getDecorView().getRootView());
         super.dismiss();
         setWindowAlpha(1.f);
     }
@@ -98,7 +97,7 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
     }
 
     public void show() {
-        show(mContext.getWindow().getDecorView().getRootView(), Gravity.CENTER);
+        show(mContext.getWindow().getDecorView().getRootView());
     }
 
     public void show(View view) {

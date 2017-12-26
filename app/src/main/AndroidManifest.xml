@@ -17,7 +17,6 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -32,7 +31,7 @@
             android:exported="true"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/Splash"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +46,7 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            ></activity>
 
         <meta-data
             android:name="UMENG_APPKEY"

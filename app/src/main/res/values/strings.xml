@@ -1,9 +1,41 @@
 <resources>
-    <string name="app_name">小学英标课</string>
+    <string name="app_name">小学英语音标点读</string>
     <string name="umeng_id">5a332ce6a40fa3151800009f</string>
     <string name="bugly_id">6762001ca5</string>
 
     <string name="current_price">¥ %1$s</string>
     <string name="origin_price">原价 ¥ %1$s元</string>
 
+    <string name="pref_key_translate">translate</string>
+    <string name="pref_title_translate">翻译</string>
+    <string name="default_hint">No Lyrics</string>
+
+    <!-- 语言 -->
+    <string-array name="language_entries">
+        <item>普通话</item>
+        <item>粤语</item>
+        <item>英语</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>mandarin</item>
+        <item>cantonese</item>
+        <item>en_us</item>
+    </string-array>
+
+    <!-- 标点符号 -->
+    <string-array name="punc_entries">
+        <item>有标点</item>
+        <item>无标点</item>
+    </string-array>
+    <string-array name="punc_values">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+    <string-array name="dwa_entries">
+        <item>开启</item>
+        <item>关闭</item>
+    </string-array>
+
+    <string name="pref_key_iat_show">iat_show</string>
+    <string name="pref_title_iat_show">显示听写界面</string>
 </resources>
