@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="3dp"
         android:layout_gravity="center_horizontal"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -20,6 +21,5 @@
         android:layout_gravity="center_horizontal"
         android:text="--"
         android:textSize="17sp"
-        android:layout_marginBottom="5dp"
         android:textColor="@color/common_title3"/>
 </LinearLayout>
