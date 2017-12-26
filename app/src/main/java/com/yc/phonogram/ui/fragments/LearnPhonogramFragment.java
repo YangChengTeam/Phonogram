@@ -2,6 +2,7 @@ package com.yc.phonogram.ui.fragments;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.Map;
  */
 public class LearnPhonogramFragment extends BaseFragment  {
 
-    private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
+    private static final String TAG = LearnPhonogramFragment.class.getSimpleName();
     private MainBgView mMainBgView;
     private ViewPager mViewPager;
     private LearnPagerAdapter mLearnPagerAdapter=null;
@@ -61,11 +62,11 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 cureenIndex=position;
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
-                MainActivity.getMainActivity().goToPage(position);
                 //如果用户没有购买章节
                 if(cureenIndex>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
+                    Log.d(TAG,"onPageSelected--positio="+position);
                     mMainBgView.setIndex(oldCureenIndex);
-                    mViewPager.setCurrentItem(oldCureenIndex,false);
+                    mViewPager.setCurrentItem(oldCureenIndex);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;

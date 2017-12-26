@@ -20,7 +20,6 @@ import java.util.List;
 
 public class LPContentListAdapter extends BaseAdapter{
 
-    private static final String TAG = LPContentListAdapter.class.getSimpleName();
     private List<ExampleInfo> mData=null;
     private String mLearn=null;
     private final LayoutInflater mInflater;
@@ -34,7 +33,7 @@ public class LPContentListAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return mData==null?0:mData.size();
+        return null==mData?0:mData.size();
     }
 
     @Override
@@ -50,7 +49,7 @@ public class LPContentListAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder=null;
-        if(null==viewHolder){
+        if(null==convertView){
             convertView= mInflater.inflate(R.layout.lp_content_list_item, null);
             viewHolder=new ViewHolder(convertView);
             convertView.setTag(viewHolder);
@@ -77,12 +76,15 @@ public class LPContentListAdapter extends BaseAdapter{
         return mData;
     }
 
+
     private class ViewHolder {
+
         private TextView tv_item_content;
         private TextView tv_item_content_lp;
-        public ViewHolder(View itemView) {
-            tv_item_content=itemView.findViewById(R.id.tv_item_content);
-            tv_item_content_lp=itemView.findViewById(R.id.tv_item_content_lp);
+
+        public ViewHolder(View convertView) {
+            tv_item_content=convertView.findViewById(R.id.tv_item_content);
+            tv_item_content_lp=convertView.findViewById(R.id.tv_item_content_lp);
         }
     }
 }

@@ -7,7 +7,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -17,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
@@ -47,13 +47,11 @@ public class LearnVideoPager  extends BasePager{
     private KSYMediaPlayer mKsyMediaPlayer;
     private Animation mInputAnimation;
 
-
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
         super(context);
         this.mData=phonogramInfo;
         setContentView(R.layout.pager_learn_child_content);
     }
-
 
     @Override
     protected void initViews() {
@@ -112,7 +110,11 @@ public class LearnVideoPager  extends BasePager{
         }
     }
 
-
+    /**
+     * 开始播放音乐
+     * @param musicUrl
+     * @param attachView
+     */
     private void startMusic(String musicUrl,  View attachView){
         stopMusic();
         if(TextUtils.isEmpty(musicUrl)) return;
@@ -126,10 +128,11 @@ public class LearnVideoPager  extends BasePager{
                 mp.start();
             }
         });
-        mKsyMediaPlayer.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+        mKsyMediaPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
             @Override
-            public void onCompletion(IMediaPlayer mp) {
-
+            public boolean onError(IMediaPlayer mp, int what, int extra) {
+                ToastUtil.toast2(getActivity(),"单词播放失败！");
+                return true;
             }
         });
         try {
@@ -174,8 +177,8 @@ public class LearnVideoPager  extends BasePager{
     public  ScaleAnimation getAnimation(){
         ScaleAnimation followScaleAnimation = new ScaleAnimation(1.0f, 1.6f, 1.0f, 1.6f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        followScaleAnimation.setRepeatCount(1);
-        followScaleAnimation.setDuration(600);
+//        followScaleAnimation.setRepeatCount(0);
+        followScaleAnimation.setDuration(1000);
         return followScaleAnimation;
     }
 

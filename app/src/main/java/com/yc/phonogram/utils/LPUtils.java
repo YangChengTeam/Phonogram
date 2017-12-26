@@ -5,8 +5,15 @@ import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.kk.utils.ToastUtil;
+import com.yc.phonogram.App;
+
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
+import java.net.URLDecoder;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
 /**
@@ -59,6 +66,7 @@ public class LPUtils {
             }
         return phonetic;
     }
+
 
     /**
      * 获取视频缓存的目录
