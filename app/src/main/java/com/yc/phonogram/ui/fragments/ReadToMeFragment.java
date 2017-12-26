@@ -24,9 +24,13 @@ import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
+import com.yc.phonogram.utils.AudioFileFunc;
+import com.yc.phonogram.utils.AudioRecordFunc;
 import com.yc.phonogram.utils.EmptyUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -79,6 +83,16 @@ public class ReadToMeFragment extends BaseFragment {
 
     private List<PhonogramInfo> phonogramInfos;
 
+    private AudioRecordFunc audioRecordFunc;
+
+    private int inNumber;
+
+    private int outNumber;
+
+    private String voicePath = "";
+
+    private boolean isPlayUser;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_read_to_me;
@@ -86,6 +100,7 @@ public class ReadToMeFragment extends BaseFragment {
 
     @Override
     public void init() {
+        audioRecordFunc = AudioRecordFunc.getInstance();
         mCompositeSubscription = new CompositeSubscription();
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         viewPager = (ViewPager) getView(R.id.view_pager);
@@ -132,11 +147,12 @@ public class ReadToMeFragment extends BaseFragment {
         mReadPlayImageView = (ImageView) getView(R.id.iv_read_play);
         mAnimationImageView = (ImageView) getView(R.id.iv_read_animation);
         mCurrentNumberTextView = (StrokeTextView) getView(R.id.tv_current_number);
+
         if (ksyMediaPlayer == null) {
-//            ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
             ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
+
         mainBgView.showInnerBg();
 
         RxView.clicks(mReadPlayImageView).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
@@ -160,6 +176,29 @@ public class ReadToMeFragment extends BaseFragment {
             @Override
             public void onCompletion(IMediaPlayer mp) {
                 mProgressLayout.setVisibility(View.VISIBLE);
+
+                if (isPlayUser) {
+                    return;
+                }
+
+                if (inNumber == 0) {
+                    if (audioRecordFunc != null) {
+
+                        String filePath = getActivity().getFilesDir() + "/mp3/";
+                        File path = new File(filePath);
+                        if (!path.exists()) {
+                            path.mkdirs();
+                        }
+
+                        voicePath = filePath + getCurrentTime() + ".wav";
+                        audioRecordFunc.startRecordAndFile();
+                    }
+                }
+
+                if (inNumber == 1) {
+                    playUserVoice();
+                }
+
                 countDownRead();
             }
         });
@@ -172,6 +211,12 @@ public class ReadToMeFragment extends BaseFragment {
                 return false;
             }
         });
+
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        return sdf.format(System.currentTimeMillis());
     }
 
     private void requestPlay() {
@@ -297,6 +342,35 @@ public class ReadToMeFragment extends BaseFragment {
         ksyMediaPlayer.start();
     }
 
+    /**
+     * 播放用户录音
+     */
+    public void playUserVoice() {
+        isPlayUser = true;
+        if (ksyMediaPlayer == null) {
+            ksyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
+            ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        }
+
+        if (ksyMediaPlayer != null) {
+            if (ksyMediaPlayer.isPlaying()) {
+                ksyMediaPlayer.stop();
+            }
+            ksyMediaPlayer.reset();
+        }
+
+        try {
+            if (audioRecordFunc != null) {
+                LogUtil.msg("播放用户录音文件--->" + AudioFileFunc.getWavFilePath());
+                ksyMediaPlayer.setDataSource(AudioFileFunc.getWavFilePath());
+                ksyMediaPlayer.prepareAsync();
+                ksyMediaPlayer.start();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void stop() {
         isPlay = false;
         readNum = 0;
@@ -352,12 +426,14 @@ public class ReadToMeFragment extends BaseFragment {
                             mProgressBar.setProgress(100);
                             mProgressLayout.setVisibility(View.INVISIBLE);
 
-                            readNum++;
-                            if (readNum < 3) {
+                            //停止录音
+                            if (inNumber == 0 && audioRecordFunc != null) {
+                                audioRecordFunc.stopRecordAndFile();
+                            }
+
+                            inNumber++;
+                            if (inNumber < 2) {
                                 play();
-                            } else {
-                                isPlay = false;
-                                stop();
                             }
                         }
                     }

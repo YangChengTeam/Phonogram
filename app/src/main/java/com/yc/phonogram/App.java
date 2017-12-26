@@ -1,6 +1,5 @@
 package com.yc.phonogram;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.support.multidex.MultiDex;
@@ -25,9 +24,11 @@ import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
 import com.yc.phonogram.utils.LPUtils;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
