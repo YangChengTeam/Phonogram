@@ -1,4 +1,2 @@
-include ':app', ':pay', ':video-player', ':share'
-
-
+include ':app', ':pay',':video-player',':share'
 
