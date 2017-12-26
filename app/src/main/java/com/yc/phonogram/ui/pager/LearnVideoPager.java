@@ -66,14 +66,16 @@ public class LearnVideoPager  extends BasePager{
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
-        //点击了音标的说明文字
-//        mTvLpTipsContent.setOnClickListener(new PerfectClickListener() {
-//            @Override
-//            protected void onClickView(View v) {
-//                stopMusic();
-//                startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3");
-//            }
-//        });
+
+        //点击了音标的说LOGO
+        ((ImageView) getView(R.id.iv_lp_tips_logo)).setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onClickView(View v) {
+
+                stopMusic();
+                startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3");
+            }
+        });
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
