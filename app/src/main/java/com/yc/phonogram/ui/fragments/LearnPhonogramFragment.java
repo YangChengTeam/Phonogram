@@ -2,6 +2,7 @@ package com.yc.phonogram.ui.fragments;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.Map;
  */
 public class LearnPhonogramFragment extends BaseFragment  {
 
-    private static final String TAG =LearnPhonogramFragment.class.getSimpleName() ;
+    private static final String TAG = LearnPhonogramFragment.class.getSimpleName();
     private MainBgView mMainBgView;
     private ViewPager mViewPager;
     private LearnPagerAdapter mLearnPagerAdapter=null;
@@ -57,13 +58,15 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
+                onChildPause(cureenIndex);
                 cureenIndex=position;
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
                 //如果用户没有购买章节
                 if(cureenIndex>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
+                    Log.d(TAG,"onPageSelected--positio="+position);
                     mMainBgView.setIndex(oldCureenIndex);
-                    mViewPager.setCurrentItem(oldCureenIndex,false);
+                    mViewPager.setCurrentItem(oldCureenIndex);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
@@ -83,14 +86,14 @@ public class LearnPhonogramFragment extends BaseFragment  {
             @Override
             public void leftClick(int position) {
                 if(null!=mViewPager&&mViewPager.getChildCount()>0){
-                    mViewPager.setCurrentItem(position);
+                    MainActivity.getMainActivity().goToPage(position);
                 }
             }
 
             @Override
             public void rightClcik(int position) {
                 if(null!=mViewPager&&mViewPager.getChildCount()>0){
-                    mViewPager.setCurrentItem(position);
+                    MainActivity.getMainActivity().goToPage(position);
                 }
             }
         });
@@ -207,6 +210,10 @@ public class LearnPhonogramFragment extends BaseFragment  {
         if(null!=mViewPager&&mViewPager.getChildCount()>0){
             mViewPager.setCurrentItem(index);
         }
+    }
+
+    public void pause(){
+        onChildPause(cureenIndex);
     }
 
     @Override

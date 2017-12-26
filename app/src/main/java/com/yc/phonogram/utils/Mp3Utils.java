@@ -12,38 +12,40 @@ import com.kk.utils.TaskUtil;
  */
 
 public class Mp3Utils {
-    private static MediaPlayer player;
 
-    private static void prepareMp3(final Context context) {
+    public static void playMp3(Context context, String name) {
+        playMp3(context, name, null);
+    }
+
+    public static MediaPlayer playMp3(final Context context,final String name,  final MediaPlayer.OnCompletionListener
+            completionListener) {
+        final MediaPlayer player = new MediaPlayer();
         TaskUtil.getImpl().runTask(new Runnable() {
             @Override
             public void run() {
                 try {
                     AssetManager assetManager = context.getAssets();
-                    AssetFileDescriptor afd = assetManager.openFd("sound.mp3");
-                    if (player == null) {
-                        player = new MediaPlayer();
-                    }
+                    AssetFileDescriptor afd = assetManager.openFd(name);
+
                     player.setDataSource(afd.getFileDescriptor(),
                             afd.getStartOffset(), afd.getLength());
-                    player.prepare();
+                    player.prepareAsync();
+                    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
+                    if(completionListener != null) {
+                        player.setOnCompletionListener(completionListener);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+        return player;
     }
 
-    public static void playMp3() {
-        if (player != null) {
-            player.start();
-        }
-    }
-
-    public static void stop() {
-        if (player != null) {
-            player.stop();
-        }
-    }
 
 }

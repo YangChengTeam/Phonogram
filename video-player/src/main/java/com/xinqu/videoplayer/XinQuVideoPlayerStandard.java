@@ -352,7 +352,7 @@ public class XinQuVideoPlayerStandard extends XinQuVideoPlayer {
         switch (currentScreen) {
             case SCREEN_WINDOW_NORMAL:
             case SCREEN_WINDOW_LIST:
-                setAllControlsVisiblity(View.VISIBLE, View.INVISIBLE, View.VISIBLE,
+                setAllControlsVisiblity(View.INVISIBLE, View.INVISIBLE, View.VISIBLE,
                         View.INVISIBLE, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 updateStartImage();
                 break;
@@ -460,7 +460,7 @@ public class XinQuVideoPlayerStandard extends XinQuVideoPlayer {
         switch (currentScreen) {
             case SCREEN_WINDOW_NORMAL:
             case SCREEN_WINDOW_LIST:
-                setAllControlsVisiblity(View.VISIBLE, View.INVISIBLE, View.VISIBLE,
+                setAllControlsVisiblity(View.INVISIBLE, View.INVISIBLE, View.VISIBLE,
                         View.INVISIBLE, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 updateStartImage();
                 break;

@@ -70,7 +70,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void init() {
-        SplashActivity.getApp().finish();
+        if (SplashActivity.getInstance() != null) {
+            SplashActivity.getInstance().finish();
+        }
 
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);
@@ -103,6 +105,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_view_selector));
                 } else {
                     mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_share_selector));
+                }
+                if (position == 1) {
+                    mLearnPhonogramFragment.pause();
                 }
                 stop();
             }

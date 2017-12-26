@@ -26,7 +26,7 @@ public class IndexFragment extends BaseFragment {
 
         LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
         if (loginDataInfo != null && loginDataInfo.getStatusInfo() != null) {
-            ((TextView) getView(R.id.tv_user)).setText("用户名: " + loginDataInfo.getStatusInfo().getUid());
+            ((TextView) getView(R.id.tv_user)).setText("用户ID: SE" + loginDataInfo.getStatusInfo().getUid());
         }
     }
 
