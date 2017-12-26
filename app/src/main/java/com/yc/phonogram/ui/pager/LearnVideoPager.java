@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.danikula.videocache.HttpProxyCacheServer;
-import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
@@ -30,7 +29,6 @@ import com.yc.phonogram.base.BasePager;
 import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.listener.PerfectClickListener;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -66,14 +64,16 @@ public class LearnVideoPager  extends BasePager{
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
-        //点击了音标的说明文字
-//        mTvLpTipsContent.setOnClickListener(new PerfectClickListener() {
-//            @Override
-//            protected void onClickView(View v) {
-//                stopMusic();
-//                startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3");
-//            }
-//        });
+
+        //点击了音标的说LOGO
+        ((ImageView) getView(R.id.iv_lp_tips_logo)).setOnClickListener(new PerfectClickListener() {
+            @Override
+            protected void onClickView(View v) {
+                if(null!=mData&&!TextUtils.isEmpty(mData.getDesp_audio())){
+                    startMusic(mData.getDesp_audio());
+                }
+            }
+        });
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;

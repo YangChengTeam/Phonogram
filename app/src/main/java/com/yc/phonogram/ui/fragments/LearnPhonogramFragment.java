@@ -32,7 +32,6 @@ public class LearnPhonogramFragment extends BaseFragment  {
     private LearnPagerAdapter mLearnPagerAdapter=null;
     private List<PhonogramInfo> mPhonogramInfos=null;
     private Map<Integer,LearnVideoPager> mPagerMap=null;//方便调用View的伪生命周期方法
-    private int cureenIndex=0;
     private int oldCureenIndex=0;//过去显示到第几个Poistion 了
 
     @Override
@@ -48,6 +47,18 @@ public class LearnPhonogramFragment extends BaseFragment  {
         initPagerAdapter();
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()){
+            Log.d(TAG,"UserVisibleHint");
+            if(null!=mLearnPagerAdapter&&null!=mViewPager&&mViewPager.getChildCount()>0){
+                mViewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex());
+            }
+        }
+    }
+
     private void initPagerAdapter() {
         mLearnPagerAdapter = new LearnPagerAdapter();
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -58,12 +69,11 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
-                onChildPause(cureenIndex);
-                cureenIndex=position;
+                onChildPause(oldCureenIndex);
                 XinQuVideoPlayer.releaseAllVideos();
                 mMainBgView.setIndex(position);
                 //如果用户没有购买章节
-                if(cureenIndex>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
+                if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     Log.d(TAG,"onPageSelected--positio="+position);
                     mMainBgView.setIndex(oldCureenIndex);
                     mViewPager.setCurrentItem(oldCureenIndex);
@@ -71,7 +81,8 @@ public class LearnPhonogramFragment extends BaseFragment  {
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
                 }
-                oldCureenIndex=cureenIndex;
+                oldCureenIndex=position;
+                (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
             }
 
             @Override
@@ -86,14 +97,16 @@ public class LearnPhonogramFragment extends BaseFragment  {
             @Override
             public void leftClick(int position) {
                 if(null!=mViewPager&&mViewPager.getChildCount()>0){
-                    MainActivity.getMainActivity().goToPage(position);
+                    mViewPager.setCurrentItem(position);
+                    (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
                 }
             }
 
             @Override
             public void rightClcik(int position) {
                 if(null!=mViewPager&&mViewPager.getChildCount()>0){
-                    MainActivity.getMainActivity().goToPage(position);
+                    mViewPager.setCurrentItem(position);
+                    (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
                 }
             }
         });
@@ -213,26 +226,26 @@ public class LearnPhonogramFragment extends BaseFragment  {
     }
 
     public void pause(){
-        onChildPause(cureenIndex);
+        onChildPause(mViewPager.getCurrentItem());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        onChilResume(cureenIndex);
+        onChilResume(mViewPager.getCurrentItem());
     }
 
     @Override
     public void onPause() {
         super.onPause();
         XinQuVideoPlayer.goOnPlayOnPause();
-        onChildPause(cureenIndex);
+        onChildPause(mViewPager.getCurrentItem());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        onChildDestroyView(cureenIndex);
+        onChildDestroyView(mViewPager.getCurrentItem());
         if(null!=mPagerMap){
             mPagerMap.clear();
         }
