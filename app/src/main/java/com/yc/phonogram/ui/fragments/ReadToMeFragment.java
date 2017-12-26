@@ -114,7 +114,8 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                MainActivity.getMainActivity().goToPage(position);
+                //MainActivity.getMainActivity().goToPage(position);
+                MainActivity.getMainActivity().setChildCureenItemIndex(position);
             }
 
             @Override
@@ -212,6 +213,17 @@ public class ReadToMeFragment extends BaseFragment {
             }
         });
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+
+            if (null != readItemPagerAdapter1 && null != viewPager && viewPager.getChildCount() > 0) {
+                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex());
+            }
+        }
     }
 
     public void playGuideFirst() {
@@ -322,7 +334,7 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void changePage(int position) {
-        MainActivity.getMainActivity().goToPage(position);
+        MainActivity.getMainActivity().setChildCureenItemIndex(position);
         viewPager.setCurrentItem(position);
     }
 
@@ -477,10 +489,11 @@ public class ReadToMeFragment extends BaseFragment {
         stop();
         currentPosition = position;
         mainBgView.setIndex(currentPosition);
-        currentPosition = mainBgView.getIndex();
+        //currentPosition = mainBgView.getIndex();
         if (phonogramInfos != null && phonogramInfos.size() > 0) {
             phonogramInfo = phonogramInfos.get(currentPosition);
         }
-
+        viewPager.setCurrentItem(currentPosition);
+        (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
     }
 }
