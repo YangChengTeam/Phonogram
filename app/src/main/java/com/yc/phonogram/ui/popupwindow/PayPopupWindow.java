@@ -31,7 +31,6 @@ import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.GoodListInfo;
 import com.yc.phonogram.engin.GoodEngin;
-import com.yc.phonogram.engin.PaywayListEngin;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
 
@@ -172,7 +171,7 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (goodInfo == null && MainActivity.getMainActivity().isSuperVip()) {
+                if (MainActivity.getMainActivity().isSuperVip()) {
                     createRewardDialog();
                     return;
                 }
@@ -256,6 +255,7 @@ public class PayPopupWindow extends BasePopupWindow {
             if (MainActivity.getMainActivity().isSuperVip()) {
                 goodInfo = null;
             }
+
 //            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
 //                goodInfo = goodInfoList.get(0);
 //            }
@@ -265,8 +265,6 @@ public class PayPopupWindow extends BasePopupWindow {
 //            if (MainActivity.getMainActivity().isPhonicsVip()) {
 //                goodInfo = goodInfoList.get(0);
 //            }
-
-
 
 
         }
