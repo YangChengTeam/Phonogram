@@ -57,25 +57,11 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
             imageView.setImageResource(R.mipmap.pay_selected);
             imageView.setTag(true);
-            if (position == mData.size() - 1) {
+            if (position == 0) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
                 imageView.setTag(false);
             }
             return;
-        }
-
-        if (MainActivity.getMainActivity().isPhonogramVip()) {
-            imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (position == 1) {
-                imageView.setImageResource(R.mipmap.pay_select_press);
-            }
-            imageView.setTag(false);
-            if (position == 0) {
-                imageView.setImageResource(R.mipmap.pay_selected);
-                imageView.setTag(true);
-            }
-            return;
-
         }
 
         if (MainActivity.getMainActivity().isPhonicsVip()) {
@@ -84,11 +70,25 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
-            if (position == 1) {
+            if (position == 2) {
                 imageView.setImageResource(R.mipmap.pay_selected);
                 imageView.setTag(true);
             }
             return;
+        }
+
+        if (MainActivity.getMainActivity().isPhonogramVip()) {
+            imageView.setImageResource(R.mipmap.pay_select_normal);
+            if (position == 0) {
+                imageView.setImageResource(R.mipmap.pay_select_press);
+            }
+            imageView.setTag(false);
+            if (position == mData.size() - 1) {
+                imageView.setImageResource(R.mipmap.pay_selected);
+                imageView.setTag(true);
+            }
+            return;
+
         }
 
         if (position == 0) {
