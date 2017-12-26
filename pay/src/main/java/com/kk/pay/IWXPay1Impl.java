@@ -18,7 +18,9 @@ public class IWXPay1Impl extends IPayImpl {
 
     public IWXPay1Impl(Activity context) {
         super(context);
+        isGen=true;
         msgApi = WXAPIFactory.createWXAPI(context, null);
+        msgApi.registerApp("wx2d0b6315f8d80d64");
     }
 
     @Override
