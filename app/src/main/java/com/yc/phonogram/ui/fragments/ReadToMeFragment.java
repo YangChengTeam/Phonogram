@@ -83,8 +83,6 @@ public class ReadToMeFragment extends BaseFragment {
 
     private AudioRecordFunc audioRecordFunc;
 
-    private int inNumber;
-
     private int outNumber;
 
     public int playStep = 1;//播放步骤:1第一步引导语，2开始循环引导播放
