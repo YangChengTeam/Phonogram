@@ -23,6 +23,7 @@ import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.helper.SeekBarHelper;
 import com.yc.phonogram.ui.activitys.MainActivity;
+import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
 import com.yc.phonogram.utils.AudioFileFunc;
@@ -114,8 +115,7 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                //MainActivity.getMainActivity().goToPage(position);
-                MainActivity.getMainActivity().setChildCureenItemIndex(position);
+                changePage(position);
             }
 
             @Override
@@ -221,7 +221,7 @@ public class ReadToMeFragment extends BaseFragment {
         if (getUserVisibleHint()) {
 
             if (null != readItemPagerAdapter1 && null != viewPager && viewPager.getChildCount() > 0) {
-                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex());
+                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
             }
         }
     }
@@ -334,8 +334,16 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void changePage(int position) {
+        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(2);
+            viewPager.setCurrentItem(2, false);
+            PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+            payPopupWindow.show();
+            return;
+        }
         MainActivity.getMainActivity().setChildCureenItemIndex(position);
         viewPager.setCurrentItem(position);
+        mainBgView.setIndex(position);
     }
 
     @Override
@@ -485,6 +493,13 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void setReadCurrentPosition(int position) {
+        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(2);
+            viewPager.setCurrentItem(2, false);
+            PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+            payPopupWindow.show();
+            return;
+        }
 
         stop();
         currentPosition = position;
