@@ -1,4 +1,1 @@
-
-include ':app', ':pay',':video-player'
-
-
+include ':app', ':pay',':video-player',':share'
