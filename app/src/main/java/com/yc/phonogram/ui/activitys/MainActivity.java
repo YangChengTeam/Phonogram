@@ -59,6 +59,15 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     private int mCurrentIndex = -1;
 
+    private int mChildCureenItemIndex=0;
+    public void setChildCureenItemIndex(int cureenItemIndex) {
+        mChildCureenItemIndex = cureenItemIndex;
+    }
+    public int getChildCureenItemIndex() {
+        return mChildCureenItemIndex;
+    }
+
+
     public static MainActivity getMainActivity() {
         return INSTANSE;
     }
@@ -206,6 +215,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private LearnPhonogramFragment mLearnPhonogramFragment;
     private ReadToMeFragment mReadToMeFragment;
     private PhonicsFragments mPhonicsFragments;
+
+
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
