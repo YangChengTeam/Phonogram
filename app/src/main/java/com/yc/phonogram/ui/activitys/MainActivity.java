@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         return mChildCureenItemIndex;
     }
 
-
     public static MainActivity getMainActivity() {
         return INSTANSE;
     }
@@ -82,7 +81,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         if (SplashActivity.getInstance() != null) {
             SplashActivity.getInstance().finish();
         }
-
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);
         ImageView mCenterBtn = findViewById(R.id.iv_center);
@@ -91,7 +89,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         mReadTomeBtn = findViewById(R.id.iv_read_to_me);
         mPhonicsBtn = findViewById(R.id.iv_phonics);
         mShareBtn = findViewById(R.id.iv_share);
-
         FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(4);
