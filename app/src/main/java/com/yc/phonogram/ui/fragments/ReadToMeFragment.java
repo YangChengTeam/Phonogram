@@ -23,7 +23,6 @@ import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.helper.SeekBarHelper;
 import com.yc.phonogram.ui.activitys.MainActivity;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
 import com.yc.phonogram.utils.AudioFileFunc;
@@ -66,6 +65,8 @@ public class ReadToMeFragment extends BaseFragment {
     private ImageView mReadPlayImageView;
 
     private ImageView mAnimationImageView;
+
+    private ImageView mUserTapeImageView;
 
     private LinearLayout mProgressLayout;
 
@@ -113,22 +114,7 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                LogUtil.msg("position--->" + position);
-                mainBgView.setIndex(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                MainActivity.getMainActivity().goToPage(position);
             }
 
             @Override
@@ -142,6 +128,8 @@ public class ReadToMeFragment extends BaseFragment {
         mProgressBar = (ProgressBar) getView(R.id.progress_bar);
         mReadPlayImageView = (ImageView) getView(R.id.iv_read_play);
         mAnimationImageView = (ImageView) getView(R.id.iv_read_animation);
+        mUserTapeImageView = (ImageView) getView(R.id.iv_user_tape);
+
         mCurrentNumberTextView = (StrokeTextView) getView(R.id.tv_current_number);
 
         if (ksyMediaPlayer == null) {
@@ -192,6 +180,8 @@ public class ReadToMeFragment extends BaseFragment {
                     switch (inStep) {
                         case 1:
                             if (audioRecordFunc != null) {
+                                mAnimationImageView.setVisibility(View.GONE);
+                                mUserTapeImageView.setVisibility(View.VISIBLE);
                                 mProgressLayout.setVisibility(View.VISIBLE);
                                 audioRecordFunc.startRecordAndFile();
                             }
@@ -317,46 +307,23 @@ public class ReadToMeFragment extends BaseFragment {
         mainBgView.setIndexListener(new SeekBarHelper.IndexListener() {
             @Override
             public void leftClick(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                MainActivity.getMainActivity().goToPage(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                changePage(position);
             }
 
             @Override
             public void rightClcik(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                MainActivity.getMainActivity().goToPage(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                changePage(position);
             }
         });
         currentPosition = mainBgView.getIndex();
         if (phonogramInfos != null && phonogramInfos.size() > 0) {
             phonogramInfo = phonogramInfos.get(currentPosition);
         }
+    }
+
+    public void changePage(int position) {
+        MainActivity.getMainActivity().goToPage(position);
+        viewPager.setCurrentItem(position);
     }
 
     @Override
@@ -419,7 +386,7 @@ public class ReadToMeFragment extends BaseFragment {
     public void stop() {
         isPlay = false;
         inStep = 1;
-        playStep =1;
+        playStep = 1;
         outNumber = 0;
 
         mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
@@ -473,6 +440,9 @@ public class ReadToMeFragment extends BaseFragment {
                             mProgressBar.setProgress(100);
                             mProgressLayout.setVisibility(View.INVISIBLE);
 
+                            mAnimationImageView.setVisibility(View.VISIBLE);
+                            mUserTapeImageView.setVisibility(View.GONE);
+
                             //停止录音
                             if (inStep == 1 && audioRecordFunc != null) {
                                 audioRecordFunc.stopRecordAndFile();
@@ -503,8 +473,14 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void setReadCurrentPosition(int position) {
+
+        stop();
         currentPosition = position;
         mainBgView.setIndex(currentPosition);
-        MainActivity.getMainActivity().goToPage(position);
+        currentPosition = mainBgView.getIndex();
+        if (phonogramInfos != null && phonogramInfos.size() > 0) {
+            phonogramInfo = phonogramInfos.get(currentPosition);
+        }
+
     }
 }

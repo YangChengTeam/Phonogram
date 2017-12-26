@@ -297,7 +297,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void goToPage(int position) {
-        mLearnPhonogramFragment.setCurrentItem(position);
+       // mLearnPhonogramFragment.setCurrentItem(position);
         mReadToMeFragment.setReadCurrentPosition(position);
     }
 
