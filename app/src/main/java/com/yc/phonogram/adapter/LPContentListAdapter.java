@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ExampleInfo;
@@ -81,10 +82,12 @@ public class LPContentListAdapter extends BaseAdapter{
 
         private TextView tv_item_content;
         private TextView tv_item_content_lp;
+        private ImageView progress_load;
 
         public ViewHolder(View convertView) {
             tv_item_content=convertView.findViewById(R.id.tv_item_content);
             tv_item_content_lp=convertView.findViewById(R.id.tv_item_content_lp);
+            progress_load=convertView.findViewById(R.id.progress_load);
         }
     }
 }

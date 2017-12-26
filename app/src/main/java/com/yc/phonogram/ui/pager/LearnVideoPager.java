@@ -1,6 +1,7 @@
 package com.yc.phonogram.ui.pager;
 
 import android.app.Activity;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.jakewharton.rxbinding.view.RxView;
 import com.kk.utils.ToastUtil;
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
@@ -27,6 +29,8 @@ import com.yc.phonogram.adapter.LPContentListAdapter;
 import com.yc.phonogram.base.BasePager;
 import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.domain.PhonogramInfo;
+import com.yc.phonogram.listener.PerfectClickListener;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -46,6 +50,8 @@ public class LearnVideoPager  extends BasePager{
     private XinQuVideoPlayerStandard mVidepPlayer;
     private KSYMediaPlayer mKsyMediaPlayer;
     private Animation mInputAnimation;
+    private View mAttachView=null;//当前正在播放的ItemView
+    private AnimationDrawable mAnimationDrawable;
 
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
         super(context);
@@ -60,6 +66,14 @@ public class LearnVideoPager  extends BasePager{
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
+        //点击了音标的说明文字
+//        mTvLpTipsContent.setOnClickListener(new PerfectClickListener() {
+//            @Override
+//            protected void onClickView(View v) {
+//                stopMusic();
+//                startMusic("http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3");
+//            }
+//        });
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
@@ -75,7 +89,7 @@ public class LearnVideoPager  extends BasePager{
                         ExampleInfo exampleInfo = exampleInfos.get(position);
                         if(null!=exampleInfo){
                             //http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3
-                            startMusic(TextUtils.isEmpty(exampleInfo.getVideo())?"":exampleInfo.getVideo(),view);
+                            startMusic(exampleInfo.getVideo(),true,view);
                         }
                     }
                 }
@@ -110,13 +124,22 @@ public class LearnVideoPager  extends BasePager{
         }
     }
 
+
+    private void startMusic(String musicUrl){
+        startMusic(musicUrl,false,null);
+    }
+
     /**
      * 开始播放音乐
      * @param musicUrl
      * @param attachView
+     * @param isListPlay 是否是列表播放
      */
-    private void startMusic(String musicUrl,  View attachView){
+    private void startMusic(String musicUrl, final boolean isListPlay, View attachView){
         stopMusic();
+        if(null!=attachView){
+            this.mAttachView=attachView;
+        }
         if(TextUtils.isEmpty(musicUrl)) return;
         if(null==mKsyMediaPlayer){
             mKsyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
@@ -125,12 +148,27 @@ public class LearnVideoPager  extends BasePager{
         mKsyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(IMediaPlayer mp) {
+                if(isListPlay){
+                    cleanLoadingAnimation();//清除和隐藏加载进度条
+                }
+                //开始播放动画，如果当前有动画正在播放
+                if(isListPlay&&null!=mAttachView){
+                    if(null!=mInputAnimation){
+                        mInputAnimation.reset();
+                        mInputAnimation.cancel();
+                        mInputAnimation=null;
+                    }
+                    mInputAnimation =getAnimation();
+                    mAttachView.startAnimation(mInputAnimation);
+                }
+                //开始播放
                 mp.start();
             }
         });
         mKsyMediaPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(IMediaPlayer mp, int what, int extra) {
+                cleanLoadingAnimation();//清除和隐藏加载进度条
                 ToastUtil.toast2(getActivity(),"单词播放失败！");
                 return true;
             }
@@ -146,19 +184,26 @@ public class LearnVideoPager  extends BasePager{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(null!=attachView){
-            if(null!=mInputAnimation){
-                mInputAnimation.reset();
-                mInputAnimation.cancel();
-                mInputAnimation=null;
+        if(null!=attachView&&null!=mAttachView&&isListPlay){
+            ImageView progressLoad = mAttachView.findViewById(R.id.progress_load);
+            if(null!=progressLoad){
+                progressLoad.setVisibility(View.VISIBLE);
+                mAnimationDrawable = (AnimationDrawable) progressLoad.getDrawable();
+                if(null!=mAnimationDrawable){
+                    mAnimationDrawable.start();
+                }
             }
-//                    mInputAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.view_shake);
-            mInputAnimation =getAnimation();
-            attachView.startAnimation(mInputAnimation);
         }
     }
 
     public void stopMusic(){
+        //停止ItemView缩放动画播放
+        if(null!=mInputAnimation){
+            mInputAnimation.reset();
+            mInputAnimation.cancel();
+            mInputAnimation=null;
+        }
+        //停止音乐播放
         if(null!=mKsyMediaPlayer){
             if(mKsyMediaPlayer.isPlaying()){
                 mKsyMediaPlayer.stop();
@@ -166,6 +211,24 @@ public class LearnVideoPager  extends BasePager{
             mKsyMediaPlayer.release();
             mKsyMediaPlayer.reset();
             mKsyMediaPlayer=null;
+        }
+        cleanLoadingAnimation();
+    }
+
+    /**
+     * 清除缓冲进度
+     */
+    private void cleanLoadingAnimation() {
+        if(null!=mAnimationDrawable&&mAnimationDrawable.isRunning()){
+            mAnimationDrawable.stop();
+        }
+        mAnimationDrawable=null;
+        //刚才正在播放音标的ItemView
+        if(null!=mAttachView){
+            ImageView progress_load=mAttachView.findViewById(R.id.progress_load);
+            if(null!=progress_load){
+                progress_load.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -207,6 +270,5 @@ public class LearnVideoPager  extends BasePager{
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(TAG,"onDestroyView");
-        stopMusic();
     }
 }

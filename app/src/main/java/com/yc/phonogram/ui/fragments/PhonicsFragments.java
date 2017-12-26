@@ -144,6 +144,8 @@ public class PhonicsFragments extends BaseFragment {
                     updataPhoniceContent(0);
                     mPhoniceView.showIndex(mMClassInfos.size());
                     mPhoniceView.setIndex(0);
+                }else{
+                    loadData();
                 }
             }
         });
