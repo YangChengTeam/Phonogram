@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ExampleInfo;
-import com.yc.phonogram.ui.views.holder.RecyclerHolder;
+import com.yc.phonogram.listener.PerfectClickListener;
+import com.yc.phonogram.ui.views.holder.LearnRecyclerHolder;
 import com.yc.phonogram.utils.LPUtils;
 import java.util.List;
 
@@ -32,21 +33,19 @@ public class RecyclerViewLPContentListAdapter extends RecyclerView.Adapter<Recyc
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RecyclerHolder(mInflater.inflate(R.layout.lp_content_list_item,null));
+        return new LearnRecyclerHolder(mInflater.inflate(R.layout.lp_content_list_item,null));
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final RecyclerHolder viewHolder= (RecyclerHolder) holder;
+        final LearnRecyclerHolder viewHolder= (LearnRecyclerHolder) holder;
         ExampleInfo data = mData.get(position);
         if(null!=data){
-            viewHolder.tv_item_content.setText("");
-            viewHolder.tv_item_content_lp.setText("");
             viewHolder.tv_item_content.setText(Html.fromHtml(LPUtils.getInstance().addWordLetterColor(data.getWord(),data.getLetter())));
             viewHolder.tv_item_content_lp.setText(Html.fromHtml(LPUtils.getInstance().addWordPhoneticLetterColor(data.getWordPhonetic(),null==mLearn?data.getPhonetic():mLearn)));
-            viewHolder.ll_item.setOnClickListener(new View.OnClickListener() {
+            viewHolder.ll_item.setOnClickListener(new PerfectClickListener() {
                 @Override
-                public void onClick(View v) {
+                protected void onClickView(View v) {
                     if(null!=mOnItemClickListener){
                         mOnItemClickListener.onItemClick(viewHolder,position);
                     }
@@ -77,7 +76,7 @@ public class RecyclerViewLPContentListAdapter extends RecyclerView.Adapter<Recyc
     }
 
     public interface OnItemClickListener{
-        void onItemClick(RecyclerHolder holder,int position);
+        void onItemClick(LearnRecyclerHolder holder, int position);
     }
     private OnItemClickListener mOnItemClickListener;
 

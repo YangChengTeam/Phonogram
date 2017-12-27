@@ -13,14 +13,14 @@ import com.yc.phonogram.R;
  * 音标的Adapter
  */
 
-public class RecyclerHolder extends RecyclerView.ViewHolder {
+public class LearnRecyclerHolder extends RecyclerView.ViewHolder {
 
     public TextView tv_item_content;
     public TextView tv_item_content_lp;
     public ImageView progressLoad;
     public LinearLayout ll_item;
 
-    public RecyclerHolder(View convertView) {
+    public LearnRecyclerHolder(View convertView) {
         super(convertView);
 
         tv_item_content=convertView.findViewById(R.id.tv_item_content);

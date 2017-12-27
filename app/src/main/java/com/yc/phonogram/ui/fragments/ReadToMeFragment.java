@@ -89,7 +89,7 @@ public class ReadToMeFragment extends BaseFragment {
 
     public int playStep = 1;//播放步骤:1第一步引导语，2开始循环引导播放
 
-    public int inStep = 1;
+    public int inStep = 0;
 
     Subscription subscriptionAnimation;
 
@@ -150,7 +150,7 @@ public class ReadToMeFragment extends BaseFragment {
                 if (isPlay) {
                     playGuideFirst();
                 } else {
-                    inStep = 1;
+                    inStep = 0;
                     stop();
                 }
             }
@@ -181,6 +181,9 @@ public class ReadToMeFragment extends BaseFragment {
                     }
 
                     switch (inStep) {
+                        case 0:
+                            playTapeTips();
+                            break;
                         case 1:
                             if (audioRecordFunc != null) {
                                 stopAnimate();
@@ -223,17 +226,41 @@ public class ReadToMeFragment extends BaseFragment {
         if (getUserVisibleHint()) {
 
             if (null != readItemPagerAdapter1 && null != viewPager && viewPager.getChildCount() > 0) {
-                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
+                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(), false);
             }
         }
     }
 
-    private void stopAnimate(){
-        if(subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()){
+    private void stopAnimate() {
+        if (subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()) {
             subscriptionAnimation.unsubscribe();
             subscriptionAnimation = null;
         }
         mAnimationImageView.setVisibility(View.GONE);
+    }
+
+
+    public void playTapeTips() {
+        if (ksyMediaPlayer != null) {
+            if (ksyMediaPlayer.isPlaying()) {
+                ksyMediaPlayer.stop();
+            }
+            ksyMediaPlayer.reset();
+        }
+        AssetManager assetManager = getActivity().getAssets();
+        AssetFileDescriptor afd = null;
+        try {
+            afd = assetManager.openFd("user_tape_tips.mp3");
+            ksyMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            ksyMediaPlayer.prepareAsync();
+            mReadPlayImageView.setClickable(false);
+            mReadPlayImageView.setImageResource(R.mipmap.reading_icon);
+
+            inStep = 1;
+            playStep = 2;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void playGuideFirst() {
@@ -304,7 +331,9 @@ public class ReadToMeFragment extends BaseFragment {
                         mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
                         stop();
                     }
-                    inStep = 1;
+                    //inStep = 1;
+                    //playStep = 2;
+                    inStep = 0;
                     playStep = 2;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -386,8 +415,30 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void play() {
-
         ksyMediaPlayer.start();
+    }
+
+    public void playAgain() {
+        if (ksyMediaPlayer != null) {
+            if (ksyMediaPlayer.isPlaying()) {
+                ksyMediaPlayer.stop();
+            }
+            ksyMediaPlayer.reset();
+        }
+
+        String proxyUrl = phonogramInfo.getVoice();
+        HttpProxyCacheServer proxy = App.getProxy();
+        if (null != proxy) {
+            proxyUrl = proxy.getProxyUrl(phonogramInfo.getVoice());
+        }
+        ksyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        ksyMediaPlayer.setVolume(2.0f, 2.0f);
+        try {
+            ksyMediaPlayer.setDataSource(proxyUrl);
+            ksyMediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -422,7 +473,7 @@ public class ReadToMeFragment extends BaseFragment {
 
     public void stop() {
         isPlay = false;
-        inStep = 1;
+        inStep = 0;
         playStep = 1;
         outNumber = 0;
 
@@ -434,7 +485,7 @@ public class ReadToMeFragment extends BaseFragment {
             ksyMediaPlayer.stop();
         }
 
-        if(subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()){
+        if (subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()) {
             subscriptionAnimation.unsubscribe();
             subscriptionAnimation = null;
         }
@@ -492,7 +543,7 @@ public class ReadToMeFragment extends BaseFragment {
                                 audioRecordFunc.stopRecordAndFile();
                             }
                             inStep = 2;
-                            play();
+                            playAgain();
                         }
                     }
                 });
