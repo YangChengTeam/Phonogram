@@ -32,7 +32,13 @@ public class LearnPhonogramFragment extends BaseFragment  {
     private LearnPagerAdapter mLearnPagerAdapter=null;
     private List<PhonogramInfo> mPhonogramInfos=null;
     private Map<Integer,LearnVideoPager> mPagerMap=null;//方便调用View的伪生命周期方法
-    private int oldCureenIndex=0; //过去显示到第几个Poistion 了
+
+    private int oldCureenIndex=0;//过去显示到第几个Poistion 了
+    private int CHANGE_ODE_DESTROY=1;
+    private int CHANGE_ODE_RESUME = 2;
+    private int CHANGE_ODE_PAUSE = 3;
+
+
 
     @Override
     public int getLayoutId() {
@@ -52,9 +58,8 @@ public class LearnPhonogramFragment extends BaseFragment  {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(getUserVisibleHint()){
-            Log.d(TAG,"UserVisibleHint");
-            if(null!=mLearnPagerAdapter&&null!=mViewPager&&mViewPager.getChildCount()>0){
-                mViewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex());
+            if(null!=mLearnPagerAdapter&&null!=mViewPager){
+                mViewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
             }
         }
     }
@@ -69,20 +74,20 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
-                onChildPause(oldCureenIndex);
+                Log.d(TAG,"onPageSelected--position="+position);
                 XinQuVideoPlayer.releaseAllVideos();
-                mMainBgView.setIndex(position);
+                onLifeChange(oldCureenIndex,CHANGE_ODE_PAUSE);
                 //如果用户没有购买章节
                 if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
-                    Log.d(TAG,"onPageSelected--positio="+position);
                     mMainBgView.setIndex(oldCureenIndex);
-                    mViewPager.setCurrentItem(oldCureenIndex);
+                    mViewPager.setCurrentItem(oldCureenIndex,false);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
                 }
-                oldCureenIndex=position;
+                mMainBgView.setIndex(position);
                 (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
+                oldCureenIndex=position;
             }
 
             @Override
@@ -162,57 +167,24 @@ public class LearnPhonogramFragment extends BaseFragment  {
         }
     }
 
-    /**
-     * 伪生命周期 DestroyView
-     * @param itemPoistion
-     */
-    private void onChildDestroyView(int itemPoistion) {
-        if(-1!=itemPoistion&&null!=mPagerMap&&mPagerMap.size()>0){
+    private void onLifeChange(int poistion,int CHANGE_MODE){
+        if(null!=mPagerMap&&mPagerMap.size()>0){
             Iterator<Map.Entry<Integer, LearnVideoPager>> iterator = mPagerMap.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<Integer, LearnVideoPager> next = iterator.next();
-                if(itemPoistion==next.getKey()){
+                if(poistion==next.getKey()){
                     LearnVideoPager playerTempPager = next.getValue();
                     if(null!=playerTempPager){
-                        playerTempPager.onDestroyView();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 伪生命周期 Resume
-     * @param itemPoistion
-     */
-    private void onChilResume(int itemPoistion) {
-        if(-1!=itemPoistion&&null!=mPagerMap&&mPagerMap.size()>0){
-            Iterator<Map.Entry<Integer, LearnVideoPager>> iterator = mPagerMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Integer, LearnVideoPager> next = iterator.next();
-                if(itemPoistion==next.getKey()){
-                    LearnVideoPager playerTempPager = next.getValue();
-                    if(null!=playerTempPager){
-                        playerTempPager.onResume();
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * 伪生命周期 Pause
-     * @param itemPoistion
-     */
-    private void onChildPause(int itemPoistion) {
-        if(-1!=itemPoistion&&null!=mPagerMap&&mPagerMap.size()>0){
-            Iterator<Map.Entry<Integer, LearnVideoPager>> iterator = mPagerMap.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<Integer, LearnVideoPager> next = iterator.next();
-                if(itemPoistion==next.getKey()){
-                    LearnVideoPager playerTempPager = next.getValue();
-                    if(null!=playerTempPager){
-                        playerTempPager.onPause();
+                        if(CHANGE_ODE_DESTROY==CHANGE_MODE){
+                            playerTempPager.onDestroyView();
+                            return;
+                        }else if(CHANGE_ODE_RESUME==CHANGE_MODE){
+                            playerTempPager.onResume();
+                            return;
+                        }else if(CHANGE_ODE_PAUSE==CHANGE_MODE){
+                            playerTempPager.onPause();
+                            return;
+                        }
                     }
                 }
             }
@@ -226,26 +198,26 @@ public class LearnPhonogramFragment extends BaseFragment  {
     }
 
     public void pause(){
-        onChildPause(mViewPager.getCurrentItem());
+        onLifeChange(mViewPager.getCurrentItem(),CHANGE_ODE_PAUSE);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        onChilResume(mViewPager.getCurrentItem());
+        onLifeChange(mViewPager.getCurrentItem(),CHANGE_ODE_RESUME);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         XinQuVideoPlayer.goOnPlayOnPause();
-        onChildPause(mViewPager.getCurrentItem());
+        onLifeChange(mViewPager.getCurrentItem(),CHANGE_ODE_PAUSE);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        onChildDestroyView(mViewPager.getCurrentItem());
+        onLifeChange(mViewPager.getCurrentItem(),CHANGE_ODE_DESTROY);
         if(null!=mPagerMap){
             mPagerMap.clear();
         }
