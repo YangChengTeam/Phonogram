@@ -32,7 +32,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
     private LearnPagerAdapter mLearnPagerAdapter=null;
     private List<PhonogramInfo> mPhonogramInfos=null;
     private Map<Integer,LearnVideoPager> mPagerMap=null;//方便调用View的伪生命周期方法
-    private int oldCureenIndex=0;//过去显示到第几个Poistion 了
+    private int oldCureenIndex=0; //过去显示到第几个Poistion 了
 
     @Override
     public int getLayoutId() {
