@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.kk.pay.Config;
 import com.kk.pay.IPayImpl;
 import com.kk.utils.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
@@ -49,6 +50,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 ToastUtil.toast(WXPayEntryActivity.this, "支付成功");
                 IPayImpl.uOrderInfo.setMessage("支付成功");
                 IPayImpl.uiPayCallback.onSuccess(IPayImpl.uOrderInfo);
+                IPayImpl.checkOrder(IPayImpl.uOrderInfo, IPayImpl.uiPayCallback, Config.CHECK_URL);
             } else if (resp.errCode == -1) // 支付错误
             {
                 ToastUtil.toast(WXPayEntryActivity.this, "支付错误");

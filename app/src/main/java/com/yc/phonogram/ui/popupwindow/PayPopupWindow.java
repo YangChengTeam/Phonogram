@@ -57,6 +57,7 @@ public class PayPopupWindow extends BasePopupWindow {
     private final String ALI_PAY = "alipay";
     private String payway = ALI_PAY;
     private GoodEngin goodEngin;
+
     private GoodInfo goodInfo;
 
 
@@ -170,7 +171,7 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (goodInfo == null && MainActivity.getMainActivity().isSuperVip()) {
+                if (MainActivity.getMainActivity().isSuperVip()) {
                     createRewardDialog();
                     return;
                 }
@@ -251,21 +252,21 @@ public class PayPopupWindow extends BasePopupWindow {
         GoodInfo goodInfo = null;
         if (goodInfoList != null && goodInfoList.size() > 0) {
             goodInfo = goodInfoList.get(0);
-
-            if (MainActivity.getMainActivity().isPhonogramVip()) {
-                goodInfo = goodInfoList.get(1);
-            }
-            if (MainActivity.getMainActivity().isPhonicsVip()) {
-                goodInfo = goodInfoList.get(0);
-            }
-
-            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
-                goodInfo = goodInfoList.get(goodInfoList.size() - 1);
-            }
-
             if (MainActivity.getMainActivity().isSuperVip()) {
                 goodInfo = null;
             }
+
+//            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
+//                goodInfo = goodInfoList.get(0);
+//            }
+//            if (MainActivity.getMainActivity().isPhonogramVip()) {
+//                goodInfo = goodInfoList.get(1);
+//            }
+//            if (MainActivity.getMainActivity().isPhonicsVip()) {
+//                goodInfo = goodInfoList.get(0);
+//            }
+
+
         }
         return goodInfo;
     }
