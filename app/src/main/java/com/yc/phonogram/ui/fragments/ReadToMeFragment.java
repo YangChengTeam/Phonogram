@@ -67,6 +67,8 @@ public class ReadToMeFragment extends BaseFragment {
 
     private ImageView mAnimationImageView;
 
+    private ImageView mUserTapeImageView;
+
     private LinearLayout mProgressLayout;
 
     private StrokeTextView mCurrentNumberTextView;
@@ -82,8 +84,6 @@ public class ReadToMeFragment extends BaseFragment {
     private List<PhonogramInfo> phonogramInfos;
 
     private AudioRecordFunc audioRecordFunc;
-
-    private int inNumber;
 
     private int outNumber;
 
@@ -115,22 +115,7 @@ public class ReadToMeFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                LogUtil.msg("position--->" + position);
-                mainBgView.setIndex(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                changePage(position);
             }
 
             @Override
@@ -144,6 +129,8 @@ public class ReadToMeFragment extends BaseFragment {
         mProgressBar = (ProgressBar) getView(R.id.progress_bar);
         mReadPlayImageView = (ImageView) getView(R.id.iv_read_play);
         mAnimationImageView = (ImageView) getView(R.id.iv_read_animation);
+        mUserTapeImageView = (ImageView) getView(R.id.iv_user_tape);
+
         mCurrentNumberTextView = (StrokeTextView) getView(R.id.tv_current_number);
 
         if (ksyMediaPlayer == null) {
@@ -194,6 +181,8 @@ public class ReadToMeFragment extends BaseFragment {
                     switch (inStep) {
                         case 1:
                             if (audioRecordFunc != null) {
+                                mAnimationImageView.setVisibility(View.GONE);
+                                mUserTapeImageView.setVisibility(View.VISIBLE);
                                 mProgressLayout.setVisibility(View.VISIBLE);
                                 audioRecordFunc.startRecordAndFile();
                             }
@@ -224,6 +213,17 @@ public class ReadToMeFragment extends BaseFragment {
             }
         });
 
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()) {
+
+            if (null != readItemPagerAdapter1 && null != viewPager && viewPager.getChildCount() > 0) {
+                viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
+            }
+        }
     }
 
     public void playGuideFirst() {
@@ -319,46 +319,31 @@ public class ReadToMeFragment extends BaseFragment {
         mainBgView.setIndexListener(new SeekBarHelper.IndexListener() {
             @Override
             public void leftClick(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                MainActivity.getMainActivity().goToPage(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                changePage(position);
             }
 
             @Override
             public void rightClcik(int position) {
-
-                if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-                    mainBgView.setIndex(2);
-                    viewPager.setCurrentItem(2, false);
-                    PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
-                    payPopupWindow.show();
-                    return;
-                }
-
-                stop();
-                MainActivity.getMainActivity().goToPage(position);
-                currentPosition = mainBgView.getIndex();
-                if (phonogramInfos != null && phonogramInfos.size() > 0) {
-                    phonogramInfo = phonogramInfos.get(currentPosition);
-                }
+                changePage(position);
             }
         });
         currentPosition = mainBgView.getIndex();
         if (phonogramInfos != null && phonogramInfos.size() > 0) {
             phonogramInfo = phonogramInfos.get(currentPosition);
         }
+    }
+
+    public void changePage(int position) {
+        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(2);
+            viewPager.setCurrentItem(2, false);
+            PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+            payPopupWindow.show();
+            return;
+        }
+        MainActivity.getMainActivity().setChildCureenItemIndex(position);
+        viewPager.setCurrentItem(position);
+        mainBgView.setIndex(position);
     }
 
     @Override
@@ -421,7 +406,7 @@ public class ReadToMeFragment extends BaseFragment {
     public void stop() {
         isPlay = false;
         inStep = 1;
-        playStep =1;
+        playStep = 1;
         outNumber = 0;
 
         mReadPlayImageView.setImageResource(R.drawable.read_stop_selector);
@@ -475,6 +460,9 @@ public class ReadToMeFragment extends BaseFragment {
                             mProgressBar.setProgress(100);
                             mProgressLayout.setVisibility(View.INVISIBLE);
 
+                            mAnimationImageView.setVisibility(View.VISIBLE);
+                            mUserTapeImageView.setVisibility(View.GONE);
+
                             //停止录音
                             if (inStep == 1 && audioRecordFunc != null) {
                                 audioRecordFunc.stopRecordAndFile();
@@ -505,8 +493,22 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void setReadCurrentPosition(int position) {
+        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(2);
+            viewPager.setCurrentItem(2, false);
+            PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
+            payPopupWindow.show();
+            return;
+        }
+
+        stop();
         currentPosition = position;
         mainBgView.setIndex(currentPosition);
-        MainActivity.getMainActivity().goToPage(position);
+        //currentPosition = mainBgView.getIndex();
+        if (phonogramInfos != null && phonogramInfos.size() > 0) {
+            phonogramInfo = phonogramInfos.get(currentPosition);
+        }
+        viewPager.setCurrentItem(currentPosition);
+        (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
     }
 }

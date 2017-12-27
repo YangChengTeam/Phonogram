@@ -2,6 +2,7 @@ package com.yc.phonogram.ui.fragments;
 
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.Map;
  */
 public class LearnPhonogramFragment extends BaseFragment  {
 
+    private static final String TAG = LearnPhonogramFragment.class.getSimpleName();
     private MainBgView mMainBgView;
     private ViewPager mViewPager;
     private LearnPagerAdapter mLearnPagerAdapter=null;
@@ -34,6 +36,8 @@ public class LearnPhonogramFragment extends BaseFragment  {
     private int CHANGE_ODE_DESTROY=1;
     private int CHANGE_ODE_RESUME = 2;
     private int CHANGE_ODE_PAUSE = 3;
+
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_learn;
@@ -52,7 +56,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(getUserVisibleHint()){
-            if(null!=mLearnPagerAdapter&&null!=mViewPager&&mViewPager.getChildCount()>0){
+            if(null!=mLearnPagerAdapter&&null!=mViewPager){
                 mViewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
             }
         }
@@ -68,9 +72,9 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
-                onLifeChange(oldCureenIndex,CHANGE_ODE_PAUSE);
+                Log.d(TAG,"onPageSelected--position="+position);
                 XinQuVideoPlayer.releaseAllVideos();
-                mMainBgView.setIndex(position);
+                onLifeChange(oldCureenIndex,CHANGE_ODE_PAUSE);
                 //如果用户没有购买章节
                 if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(oldCureenIndex);
@@ -79,8 +83,9 @@ public class LearnPhonogramFragment extends BaseFragment  {
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
                 }
-                oldCureenIndex=position;
+                mMainBgView.setIndex(position);
                 (MainActivity.getMainActivity()).setChildCureenItemIndex(position);
+                oldCureenIndex=position;
             }
 
             @Override
