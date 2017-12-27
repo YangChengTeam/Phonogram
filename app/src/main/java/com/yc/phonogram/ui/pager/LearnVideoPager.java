@@ -40,7 +40,6 @@ import java.util.List;
 
 public class LearnVideoPager  extends BasePager{
 
-    private static final String TAG = LearnVideoPager.class.getSimpleName();
     private final PhonogramInfo mData;
     private LPContentListAdapter mLpContentListAdapter;
     private ImageView mIvLpLogo;
@@ -64,7 +63,6 @@ public class LearnVideoPager  extends BasePager{
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
         mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
-
         //点击了音标的说LOGO
         ((ImageView) getView(R.id.iv_lp_tips_logo)).setOnClickListener(new PerfectClickListener() {
             @Override
@@ -249,26 +247,22 @@ public class LearnVideoPager  extends BasePager{
     @Override
     protected void onRefresh() {
         super.onRefresh();
-
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG,"onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG,"onPause");
         stopMusic();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG,"onDestroyView");
     }
 }

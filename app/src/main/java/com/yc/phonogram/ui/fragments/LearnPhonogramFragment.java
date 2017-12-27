@@ -74,7 +74,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 //如果用户没有购买章节
                 if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(oldCureenIndex);
-                    mViewPager.setCurrentItem(oldCureenIndex);
+                    mViewPager.setCurrentItem(oldCureenIndex,false);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());
                     payPopupWindow.show(getActivity().getWindow().getDecorView(), Gravity.CENTER);
                     return;
@@ -161,7 +161,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
     }
 
     private void onLifeChange(int poistion,int CHANGE_MODE){
-        if(-1!=poistion&&null!=mPagerMap&&mPagerMap.size()>0){
+        if(null!=mPagerMap&&mPagerMap.size()>0){
             Iterator<Map.Entry<Integer, LearnVideoPager>> iterator = mPagerMap.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<Integer, LearnVideoPager> next = iterator.next();
