@@ -3,14 +3,13 @@ package com.yc.phonogram.ui.pager;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -24,11 +23,13 @@ import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
-import com.yc.phonogram.adapter.LPContentListAdapter;
+import com.yc.phonogram.adapter.RecyclerViewLPContentListAdapter;
 import com.yc.phonogram.base.BasePager;
 import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.listener.PerfectClickListener;
+import com.yc.phonogram.ui.views.holder.LearnRecyclerHolder;
+import com.yc.phonogram.ui.views.layout.NoScrollingGridLayoutManager;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,16 +41,15 @@ import java.util.List;
 
 public class LearnVideoPager  extends BasePager{
 
-    private static final String TAG = LearnVideoPager.class.getSimpleName();
     private final PhonogramInfo mData;
-    private LPContentListAdapter mLpContentListAdapter;
     private ImageView mIvLpLogo;
     private TextView mTvLpTipsContent;
     private XinQuVideoPlayerStandard mVidepPlayer;
     private KSYMediaPlayer mKsyMediaPlayer;
-    private Animation mInputAnimation;
-    private View mAttachView=null;//当前正在播放的ItemView
+    private Animation mScaleAnimation;
     private AnimationDrawable mAnimationDrawable;
+    private RecyclerViewLPContentListAdapter mReContentListAdapter;
+    private LearnRecyclerHolder mAttachHolder=null;//当前正在播放的ItemView Holder
 
     public LearnVideoPager(Activity context, PhonogramInfo phonogramInfo) {
         super(context);
@@ -63,8 +63,6 @@ public class LearnVideoPager  extends BasePager{
         //封面
         mIvLpLogo = (ImageView) getView(R.id.iv_lp_logo);
         mTvLpTipsContent = (TextView) getView(R.id.tv_lp_tips_content);
-        mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
-
         //点击了音标的说LOGO
         ((ImageView) getView(R.id.iv_lp_tips_logo)).setOnClickListener(new PerfectClickListener() {
             @Override
@@ -77,39 +75,40 @@ public class LearnVideoPager  extends BasePager{
         mVidepPlayer = (XinQuVideoPlayerStandard) getView(R.id.video_player);
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
-        mLpContentListAdapter = new LPContentListAdapter(mContext,null);
-        GridView gridView = (GridView) getView(R.id.grid_view);
-        gridView.setAdapter(mLpContentListAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerView);
+        recyclerView.setLayoutManager(new NoScrollingGridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
+        mReContentListAdapter = new RecyclerViewLPContentListAdapter(getActivity());
+        mReContentListAdapter.setOnItemClickListener(new RecyclerViewLPContentListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(null!=mLpContentListAdapter){
-                    List<ExampleInfo> exampleInfos=mLpContentListAdapter.getData();
+            public void onItemClick(LearnRecyclerHolder holder, int position) {
+                if(null!=mReContentListAdapter){
+                    List<ExampleInfo> exampleInfos=mReContentListAdapter.getData();
                     if(null!=exampleInfos&&exampleInfos.size()>0){
                         ExampleInfo exampleInfo = exampleInfos.get(position);
                         if(null!=exampleInfo){
                             //http://sc.wk2.com/upload/music/9/2017-11-17/5a0e4b51c34e7.mp3
-                            startMusic(exampleInfo.getVideo(),true,view);
+                            startMusic(exampleInfo.getVideo(),true,holder);
                         }
                     }
                 }
             }
         });
+        recyclerView.setAdapter(mReContentListAdapter);
     }
-
 
 
     @Override
     protected void loadData() {
         if(null==mData) return;
-        mVidepPlayer.setUp(mData.getVideo(), XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,mData.getName());
+        if(null!=mReContentListAdapter){
+            mReContentListAdapter.setNewData(mData.getExampleInfos(),mData.getName());
+        }
         RequestOptions options = new RequestOptions();
-        options.placeholder(R.mipmap.ic_player_error);
         options.error(R.mipmap.ic_player_error);
         options.diskCacheStrategy(DiskCacheStrategy.ALL);//缓存源资源和转换后的资源
         options.skipMemoryCache(true);//跳过内存缓存
-
-        Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);
         String proxyUrl =mData.getVideo();
         HttpProxyCacheServer proxy = App.getProxy();
         if(null!=proxy){
@@ -118,9 +117,9 @@ public class LearnVideoPager  extends BasePager{
         mVidepPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST,false,null==mData.getName()?"":mData.getName());
         Glide.with(mContext).load(mData.getImg()).apply(options).thumbnail(0.1f).into(mIvLpLogo);//音标
         Glide.with(mContext).load(mData.getCover()).apply(options).thumbnail(0.1f).into(mVidepPlayer.thumbImageView);//视频播放器封面
-        mTvLpTipsContent.setText(mData.getDesp());
-        if(null!=mLpContentListAdapter&&null!=mData.getExampleInfos()){
-            mLpContentListAdapter.setNewData(mData.getExampleInfos(),mData.getName());
+        if(null!=mTvLpTipsContent){
+            mTvLpTipsContent.setMovementMethod(ScrollingMovementMethod.getInstance());
+            mTvLpTipsContent.setText(mData.getDesp());
         }
     }
 
@@ -132,13 +131,13 @@ public class LearnVideoPager  extends BasePager{
     /**
      * 开始播放音乐
      * @param musicUrl
-     * @param attachView
+     * @param attachHolder 当前Itemd的Holder
      * @param isListPlay 是否是列表播放
      */
-    private void startMusic(String musicUrl, final boolean isListPlay, View attachView){
+    private void startMusic(String musicUrl, final boolean isListPlay, LearnRecyclerHolder attachHolder){
         stopMusic();
-        if(null!=attachView){
-            this.mAttachView=attachView;
+        if(null!=attachHolder){
+            this.mAttachHolder=attachHolder;
         }
         if(TextUtils.isEmpty(musicUrl)) return;
         if(null==mKsyMediaPlayer){
@@ -152,14 +151,16 @@ public class LearnVideoPager  extends BasePager{
                     cleanLoadingAnimation();//清除和隐藏加载进度条
                 }
                 //开始播放动画，如果当前有动画正在播放
-                if(isListPlay&&null!=mAttachView){
-                    if(null!=mInputAnimation){
-                        mInputAnimation.reset();
-                        mInputAnimation.cancel();
-                        mInputAnimation=null;
+                if(isListPlay&&null!=mAttachHolder){
+                    if(null!= mScaleAnimation){
+                        mScaleAnimation.reset();
+                        mScaleAnimation.cancel();
+                        mScaleAnimation =null;
                     }
-                    mInputAnimation =getAnimation();
-                    mAttachView.startAnimation(mInputAnimation);
+                    mScaleAnimation = getScaleAnimation();
+                    if(null!=mAttachHolder.itemView){
+                        mAttachHolder.itemView.startAnimation(mScaleAnimation);
+                    }
                 }
                 //开始播放
                 mp.start();
@@ -184,11 +185,10 @@ public class LearnVideoPager  extends BasePager{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(null!=attachView&&null!=mAttachView&&isListPlay){
-            ImageView progressLoad = mAttachView.findViewById(R.id.progress_load);
-            if(null!=progressLoad){
-                progressLoad.setVisibility(View.VISIBLE);
-                mAnimationDrawable = (AnimationDrawable) progressLoad.getDrawable();
+        if(null!=attachHolder&&null!=mAttachHolder&&isListPlay){
+            if(null!=mAttachHolder.progressLoad){
+                mAttachHolder.progressLoad.setVisibility(View.VISIBLE);
+                mAnimationDrawable = (AnimationDrawable) mAttachHolder.progressLoad.getDrawable();
                 if(null!=mAnimationDrawable){
                     mAnimationDrawable.start();
                 }
@@ -198,10 +198,10 @@ public class LearnVideoPager  extends BasePager{
 
     public void stopMusic(){
         //停止ItemView缩放动画播放
-        if(null!=mInputAnimation){
-            mInputAnimation.reset();
-            mInputAnimation.cancel();
-            mInputAnimation=null;
+        if(null!= mScaleAnimation){
+            mScaleAnimation.reset();
+            mScaleAnimation.cancel();
+            mScaleAnimation =null;
         }
         //停止音乐播放
         if(null!=mKsyMediaPlayer){
@@ -210,6 +210,7 @@ public class LearnVideoPager  extends BasePager{
             }
             mKsyMediaPlayer.release();
             mKsyMediaPlayer.reset();
+            mKsyMediaPlayer.resetListeners();
             mKsyMediaPlayer=null;
         }
         cleanLoadingAnimation();
@@ -224,20 +225,12 @@ public class LearnVideoPager  extends BasePager{
         }
         mAnimationDrawable=null;
         //刚才正在播放音标的ItemView
-        if(null!=mAttachView){
-            ImageView progress_load=mAttachView.findViewById(R.id.progress_load);
-            if(null!=progress_load){
-                progress_load.setVisibility(View.GONE);
-            }
+        if(null!=mAttachHolder&&null!=mAttachHolder.progressLoad){
+            mAttachHolder.progressLoad.setVisibility(View.GONE);
         }
     }
 
-
-    /**
-     * 点赞的动画小
-     * @return
-     */
-    public  ScaleAnimation getAnimation(){
+    private  ScaleAnimation getScaleAnimation(){
         ScaleAnimation followScaleAnimation = new ScaleAnimation(1.0f, 1.6f, 1.0f, 1.6f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 //        followScaleAnimation.setRepeatCount(0);
@@ -249,26 +242,22 @@ public class LearnVideoPager  extends BasePager{
     @Override
     protected void onRefresh() {
         super.onRefresh();
-
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG,"onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG,"onPause");
         stopMusic();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d(TAG,"onDestroyView");
     }
 }

@@ -109,13 +109,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <GridView
-                        android:id="@+id/grid_view"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:numColumns="2">
-                    </GridView>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

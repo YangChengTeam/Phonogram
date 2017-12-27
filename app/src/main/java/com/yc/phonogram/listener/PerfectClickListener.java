@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public abstract class PerfectClickListener implements OnClickListener {
 
-    public static final int MIN_CLICK_DELAY_TIME = 1000;
+    public static final int MIN_CLICK_DELAY_TIME = 800;
     private long lastClickTime = 0;
     private int id = -1;
 

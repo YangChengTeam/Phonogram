@@ -4,22 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:id="@+id/ll_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:id="@+id/tv_item_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingTop="3dp"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:layout_gravity="center_horizontal"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="--"/>
         <TextView
             android:id="@+id/tv_item_content_lp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:layout_gravity="center_horizontal"
             android:text="--"
             android:textSize="17sp"
