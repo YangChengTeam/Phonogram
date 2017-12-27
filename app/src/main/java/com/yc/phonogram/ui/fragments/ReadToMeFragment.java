@@ -91,6 +91,8 @@ public class ReadToMeFragment extends BaseFragment {
 
     public int inStep = 1;
 
+    Subscription subscriptionAnimation;
+
     @Override
     public int getLayoutId() {
         return R.layout.fragment_read_to_me;
@@ -181,7 +183,7 @@ public class ReadToMeFragment extends BaseFragment {
                     switch (inStep) {
                         case 1:
                             if (audioRecordFunc != null) {
-                                mAnimationImageView.setVisibility(View.GONE);
+                                stopAnimate();
                                 mUserTapeImageView.setVisibility(View.VISIBLE);
                                 mProgressLayout.setVisibility(View.VISIBLE);
                                 audioRecordFunc.startRecordAndFile();
@@ -224,6 +226,14 @@ public class ReadToMeFragment extends BaseFragment {
                 viewPager.setCurrentItem(MainActivity.getMainActivity().getChildCureenItemIndex(),false);
             }
         }
+    }
+
+    private void stopAnimate(){
+        if(subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()){
+            subscriptionAnimation.unsubscribe();
+            subscriptionAnimation = null;
+        }
+        mAnimationImageView.setVisibility(View.GONE);
     }
 
     public void playGuideFirst() {
@@ -334,6 +344,7 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void changePage(int position) {
+        stop();
         if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
             mainBgView.setIndex(2);
             viewPager.setCurrentItem(2, false);
@@ -341,7 +352,12 @@ public class ReadToMeFragment extends BaseFragment {
             payPopupWindow.show();
             return;
         }
-        MainActivity.getMainActivity().setChildCureenItemIndex(position);
+
+        currentPosition = position;
+        MainActivity.getMainActivity().setChildCureenItemIndex(currentPosition);
+        if (phonogramInfos != null && phonogramInfos.size() > 0) {
+            phonogramInfo = phonogramInfos.get(currentPosition);
+        }
         viewPager.setCurrentItem(position);
         mainBgView.setIndex(position);
     }
@@ -356,7 +372,9 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void playAnimation() {
-        Subscription subscription = Observable.interval(300, TimeUnit.MILLISECONDS).observeOn
+        stopAnimate();
+        mAnimationImageView.setVisibility(View.VISIBLE);
+        subscriptionAnimation = Observable.interval(300, TimeUnit.MILLISECONDS).observeOn
                 (AndroidSchedulers
                         .mainThread())
                 .subscribe(new Action1<Long>() {
@@ -365,7 +383,6 @@ public class ReadToMeFragment extends BaseFragment {
                         mAnimationImageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), bgIDs[aLong.intValue() % 4]));
                     }
                 });
-        mCompositeSubscription.add(subscription);
     }
 
     public void play() {
@@ -416,6 +433,12 @@ public class ReadToMeFragment extends BaseFragment {
         if (ksyMediaPlayer != null) {
             ksyMediaPlayer.stop();
         }
+
+        if(subscriptionAnimation != null && !subscriptionAnimation.isUnsubscribed()){
+            subscriptionAnimation.unsubscribe();
+            subscriptionAnimation = null;
+        }
+
         if (mCompositeSubscription != null) {
             mCompositeSubscription.clear();
         }
@@ -462,12 +485,12 @@ public class ReadToMeFragment extends BaseFragment {
 
                             mAnimationImageView.setVisibility(View.VISIBLE);
                             mUserTapeImageView.setVisibility(View.GONE);
+                            playAnimation();
 
                             //停止录音
                             if (inStep == 1 && audioRecordFunc != null) {
                                 audioRecordFunc.stopRecordAndFile();
                             }
-
                             inStep = 2;
                             play();
                         }
