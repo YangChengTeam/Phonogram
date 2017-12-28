@@ -72,7 +72,6 @@ public class LearnPhonogramFragment extends BaseFragment  {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG,"onPageSelected--position="+position);
                 XinQuVideoPlayer.releaseAllVideos();
                 onLifeChange(oldCureenIndex,CHANGE_ODE_PAUSE);
                 //如果用户没有购买章节
@@ -177,6 +176,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                             playerTempPager.onDestroyView();
                             return;
                         }else if(CHANGE_ODE_RESUME==CHANGE_MODE){
+
                             playerTempPager.onResume();
                             return;
                         }else if(CHANGE_ODE_PAUSE==CHANGE_MODE){
