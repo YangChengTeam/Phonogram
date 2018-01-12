@@ -50,7 +50,7 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="@string/umeng_id" />
+            android:value="5a332ce6a40fa3151800009f" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
