@@ -89,9 +89,9 @@ public class SharePopupWindow extends BasePopupWindow {
 
 
     private void shareInfo(String tag) {
-        String title = "小学音标APP上线啦！随时随地想学就学";
-        String url = "http://mp.weixin.qq.com/s/JepGpluow-Zf6VhI0wMJEA";
-        String desc = "小学音标自营首款APP学音标软件上线了，涵盖市面所有主流英语教材，配套各种版本教科书（完全免费），让你随时随地就能通过手机打开书本，进行学习，单词记忆。还有各种趣味方式助你学英语。";
+        String title = "小学英语音标APP上线啦！随时随地想学就学";
+        String url = "http://android.myapp.com/myapp/detail.htm?apkName=com.yc.phonogram";
+        String desc = "小学英语自营首款APP学音标软件上线了，涵盖市面所有主流英语教材，配套各种版本教科书（完全免费），让你随时随地就能通过手机打开书本，进行学习，单词记忆。还有各种趣味方式助你学英语。";
 
         if (mShareInfo != null) {
             if (!TextUtils.isEmpty(mShareInfo.getTitle())) {

@@ -77,7 +77,7 @@ public class App extends MultiDexApplication {
         //动态设置渠道信息
         String appId_agentId = context.getResources().getString(R.string.app_name) + "-渠道id" + agent_id;
         MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(context,
-                context.getResources().getString(R.string.umeng_id), appId_agentId));
+                "5a332ce6a40fa3151800009f", appId_agentId));
 
         //友盟统计
         UMGameAgent.setDebugMode(Config.DEBUG);
