@@ -9,9 +9,12 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 3
+<<<<<<< HEAD
         versionName "1.0.1"
+=======
+        versionName "1.0.3"
+>>>>>>> 1db7010bda21bb5cb38fdeb5a169af43b203f58d
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         multiDexEnabled true
 
     }
