@@ -76,7 +76,7 @@ public class LearnPhonogramFragment extends BaseFragment  {
                 XinQuVideoPlayer.releaseAllVideos();
                 onLifeChange(oldCureenIndex,CHANGE_ODE_PAUSE);
                 //如果用户没有购买章节
-                if(position>=3&&!MainActivity.getMainActivity().isPhonogramVip()){
+                if(position>=8&&!MainActivity.getMainActivity().isPhonogramVip()){
                     mMainBgView.setIndex(oldCureenIndex);
                     mViewPager.setCurrentItem(oldCureenIndex,false);
                     PayPopupWindow payPopupWindow=new PayPopupWindow(getActivity());

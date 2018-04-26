@@ -2,7 +2,9 @@ package com.yc.phonogram.ui.activitys;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,6 +21,7 @@ import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.App;
@@ -59,10 +62,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     private int mCurrentIndex = -1;
 
-    private int mChildCureenItemIndex=0;
+    private int mChildCureenItemIndex = 0;
+
     public void setChildCureenItemIndex(int cureenItemIndex) {
         mChildCureenItemIndex = cureenItemIndex;
     }
+
     public int getChildCureenItemIndex() {
         return mChildCureenItemIndex;
     }
@@ -104,8 +109,23 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                 mCurrentIndex = position;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onPageSelected(int position) {
+                switch (position) {
+                    case 1:
+                        MobclickAgent.onEvent(MainActivity.this,"xueyinbiao_click","学音标");
+                        break;
+                    case 2:
+                        MobclickAgent.onEvent(MainActivity.this,"genwoxue_click","跟我学");
+                        break;
+                    case 3:
+                        MobclickAgent.onEvent(MainActivity.this,"quwei_click","趣味音标课");
+                        break;
+                    default:
+                        break;
+                }
+
                 tab(position);
                 if (position == 1 || position == 2) {
                     mShareBtn.setBackground(ContextCompat.getDrawable(MainActivity.this, R.drawable.main_view_selector));
@@ -214,7 +234,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private PhonicsFragments mPhonicsFragments;
 
 
-
     class FragmentAdapter extends FragmentStatePagerAdapter {
         public FragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -305,11 +324,11 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public void goToPage(int position) {
-       if(mCurrentIndex == 1) {
-           mLearnPhonogramFragment.setCurrentItem(position);
-       } else if(mCurrentIndex == 2) {
-           mReadToMeFragment.setReadCurrentPosition(position);
-       }
+        if (mCurrentIndex == 1) {
+            mLearnPhonogramFragment.setCurrentItem(position);
+        } else if (mCurrentIndex == 2) {
+            mReadToMeFragment.setReadCurrentPosition(position);
+        }
     }
 
     private void showInfo(PhonogramListInfo phonogramListInfo) {
@@ -410,8 +429,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @AfterPermissionGranted(WRITE)
     public void requestPermission() {
-        if (!EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO)) {
-            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO);
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO)) {
+            EasyPermissions.requestPermissions(this, "请允许文件读写权限", WRITE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO);
         }
     }
 

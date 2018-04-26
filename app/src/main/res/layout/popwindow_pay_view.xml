@@ -38,21 +38,6 @@
                     android:gravity="center_vertical">
 
                     <LinearLayout
-                        android:id="@+id/ll_ali_pay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/iv_ali_pay"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/pay_way_ali_selector" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/ll_wx_pay"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -64,6 +49,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/pay_way_wx_selector" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_ali_pay"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/iv_ali_pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/pay_way_ali_selector" />
 
                     </LinearLayout>
                 </LinearLayout>

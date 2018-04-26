@@ -374,9 +374,9 @@ public class ReadToMeFragment extends BaseFragment {
 
     public void changePage(int position) {
         stop();
-        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-            mainBgView.setIndex(2);
-            viewPager.setCurrentItem(2, false);
+        if (position >= 8 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(7);
+            viewPager.setCurrentItem(7, false);
             PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
             payPopupWindow.show();
             return;
@@ -567,9 +567,9 @@ public class ReadToMeFragment extends BaseFragment {
     }
 
     public void setReadCurrentPosition(int position) {
-        if (position >= 3 && !MainActivity.getMainActivity().isPhonogramVip()) {
-            mainBgView.setIndex(2);
-            viewPager.setCurrentItem(2, false);
+        if (position >= 8 && !MainActivity.getMainActivity().isPhonogramVip()) {
+            mainBgView.setIndex(7);
+            viewPager.setCurrentItem(7, false);
             PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.getMainActivity());
             payPopupWindow.show();
             return;

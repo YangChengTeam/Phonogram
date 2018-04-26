@@ -26,6 +26,7 @@ import com.kk.utils.PreferenceUtil;
 import com.kk.utils.ScreenUtil;
 import com.kk.utils.TaskUtil;
 import com.kk.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
@@ -55,7 +56,7 @@ public class PayPopupWindow extends BasePopupWindow {
     private IPayAbs iPayAbs;
     private final String WX_PAY = "wxpay";
     private final String ALI_PAY = "alipay";
-    private String payway = ALI_PAY;
+    private String payway = WX_PAY;
     private GoodEngin goodEngin;
 
     private GoodInfo goodInfo;
@@ -72,6 +73,9 @@ public class PayPopupWindow extends BasePopupWindow {
 
     @Override
     public void init() {
+
+        MobclickAgent.onEvent(mContext,"open_pay_click","打开付费界面");
+
         goodEngin = new GoodEngin(mContext);
         setAnimationStyle(R.style.popwindow_style);
         initData();
@@ -84,7 +88,7 @@ public class PayPopupWindow extends BasePopupWindow {
         recyclerView.setAdapter(payWayInfoAdapter);
         recyclerView.addItemDecoration(new MyItemDecoration());
 
-        mIvAliPay.setImageResource(R.mipmap.pay_ali_press);
+        mIvWxPay.setImageResource(R.mipmap.pay_wx_press);
 
         initListener();
 
@@ -175,6 +179,9 @@ public class PayPopupWindow extends BasePopupWindow {
                     createRewardDialog();
                     return;
                 }
+
+                MobclickAgent.onEvent(mContext,"pay_click","点击充值按钮");
+
                 if (goodInfo != null) {
                     OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
                     orderParamsInfo.setPayway_name(payway);
