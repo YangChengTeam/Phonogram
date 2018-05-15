@@ -76,6 +76,7 @@ public class PayPopupWindow extends BasePopupWindow {
 
         MobclickAgent.onEvent(mContext,"open_pay_click","打开付费界面");
 
+
         goodEngin = new GoodEngin(mContext);
         setAnimationStyle(R.style.popwindow_style);
         initData();
