@@ -51,6 +51,7 @@
                             android:src="@drawable/pay_way_wx_selector" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/ll_ali_pay"
                         android:layout_width="0dp"
