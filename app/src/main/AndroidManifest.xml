@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
-        android:name=".App"
+        android:name="com.yc.phonogram.App"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
@@ -26,7 +26,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activitys.SplashActivity"
+            android:name="com.yc.phonogram.ui.activitys.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="sensorLandscape"
@@ -42,7 +42,7 @@
 
 
         <activity
-            android:name=".ui.activitys.MainActivity"
+            android:name="com.yc.phonogram.ui.activitys.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
@@ -53,7 +53,7 @@
             android:name="UMENG_APPKEY"
             android:value="5a332ce6a40fa3151800009f" />
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.yc.phonogram.wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />

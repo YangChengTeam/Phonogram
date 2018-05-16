@@ -1,12 +1,10 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -18,10 +16,8 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ShareInfo;
-import com.yc.phonogram.ui.activitys.MainActivity;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 

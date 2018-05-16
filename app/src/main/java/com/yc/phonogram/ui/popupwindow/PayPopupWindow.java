@@ -60,7 +60,7 @@ public class PayPopupWindow extends BasePopupWindow {
     private GoodEngin goodEngin;
 
     private GoodInfo goodInfo;
-
+    private PaySuccessTintPopWindow paySuccessTintPopWindow;
 
     public PayPopupWindow(Activity context) {
         super(context);
@@ -74,7 +74,7 @@ public class PayPopupWindow extends BasePopupWindow {
     @Override
     public void init() {
 
-        MobclickAgent.onEvent(mContext,"open_pay_click","打开付费界面");
+        MobclickAgent.onEvent(mContext, "open_pay_click", "打开付费界面");
 
 
         goodEngin = new GoodEngin(mContext);
@@ -181,7 +181,7 @@ public class PayPopupWindow extends BasePopupWindow {
                     return;
                 }
 
-                MobclickAgent.onEvent(mContext,"pay_click","点击充值按钮");
+                MobclickAgent.onEvent(mContext, "pay_click", "点击充值按钮");
 
                 if (goodInfo != null) {
                     OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
@@ -192,6 +192,11 @@ public class PayPopupWindow extends BasePopupWindow {
                         public void onSuccess(OrderInfo orderInfo) {
                             MainActivity.getMainActivity().saveVip(goodInfo.getId() + "");
                             dismiss();
+                            if (paySuccessTintPopWindow == null)
+                                paySuccessTintPopWindow = new PaySuccessTintPopWindow(getContext());
+                            if (!paySuccessTintPopWindow.isShowing())
+                                paySuccessTintPopWindow.show();
+
                         }
 
                         @Override
@@ -215,7 +220,7 @@ public class PayPopupWindow extends BasePopupWindow {
                 }
 
                 if (preImagView == null)
-                    preImagView = payWayInfoAdapter.getIv(0);
+                    preImagView = payWayInfoAdapter.getIv(getPositon());
 
                 if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
                     preImagView.setImageResource(R.mipmap.pay_select_normal);
@@ -259,23 +264,36 @@ public class PayPopupWindow extends BasePopupWindow {
     private GoodInfo getGoodInfo(List<GoodInfo> goodInfoList) {
         GoodInfo goodInfo = null;
         if (goodInfoList != null && goodInfoList.size() > 0) {
-            goodInfo = goodInfoList.get(0);
-            if (MainActivity.getMainActivity().isSuperVip()) {
+            goodInfo = goodInfoList.get(getPositon());
+            if (MainActivity.getMainActivity().isSuperVip() || MainActivity.getMainActivity().isCorrectPronunciation() || MainActivity.getMainActivity().isCorrectPromiss()) {
                 goodInfo = null;
             }
-
-//            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
-//                goodInfo = goodInfoList.get(0);
-//            }
 //            if (MainActivity.getMainActivity().isPhonogramVip()) {
 //                goodInfo = goodInfoList.get(1);
 //            }
 //            if (MainActivity.getMainActivity().isPhonicsVip()) {
 //                goodInfo = goodInfoList.get(0);
 //            }
+//
+//            if ((MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip()) || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
+//                goodInfo = goodInfoList.get(3);
+//            }
 
 
         }
         return goodInfo;
+    }
+
+
+    private int getPositon() {
+        int pos = 0;
+        if (MainActivity.getMainActivity().isPhonogramVip()) {
+            pos = 1;
+        }
+        if (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip() || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
+            pos = 3;
+        }
+
+        return pos;
     }
 }

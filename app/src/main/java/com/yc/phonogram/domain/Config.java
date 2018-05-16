@@ -7,10 +7,12 @@ package com.yc.phonogram.domain;
 public class Config {
     public static boolean DEBUG = false;
 
-    public final static int PHONOGRAM_VIP = 1;
-    public final static int PHONICS_VIP = 2;
-    public final static int PHONOGRAMORPHONICS_VIP = 3;
-    public final static int SUPER_VIP = 4;
+    public final static int PHONOGRAM_VIP = 1;//点读
+    public final static int PHONICS_VIP = 2;//微课
+    public final static int PHONOGRAMORPHONICS_VIP = 3;//点读+微课
+    public final static int SUPER_VIP = 4;//点读+微课+小班辅导纠音
+    public final static int CORRECTPRONUNCIATION_VIP = 12;//点读+微课+1对1纠音
+    public final static int CORRECTPRONUNCIATIONPROMISS_VIP = 13;//点读+微课+1对1纠音+学习保
 
     public static final String APPID = "?app_id=5";
 
@@ -24,6 +26,8 @@ public class Config {
 
     public static final String PHONOGRAM_LIST_URL = getBaseUrl() + "index/phonetic_list" + APPID;
     public static final String MCLASS_LIST_URL = getBaseUrl() + "index/phonetic_class" + APPID;
+
+    public static final String UPLOAD_PHONE_URL = getBaseUrl() + "index/user_edit" + APPID;
 
 
     public static String getBaseUrl() {
