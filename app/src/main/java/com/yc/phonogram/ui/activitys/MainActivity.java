@@ -401,19 +401,19 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public boolean isPhonogramVip() {
-        return isVip(Config.PHONOGRAM_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip() || isCorrectPronunciation() || isCorrectPromiss();
+        return isVip(Config.PHONOGRAM_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
     public boolean isPhonicsVip() {
-        return isVip(Config.PHONICS_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip() || isCorrectPronunciation() || isCorrectPromiss();
+        return isVip(Config.PHONICS_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
     public boolean isPhonogramOrPhonicsVip() {
-        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip() || isCorrectPronunciation() || isCorrectPromiss();
+        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip();
     }
 
     public boolean isSuperVip() {
-        return isVip(Config.SUPER_VIP + "");
+        return isVip(Config.SUPER_VIP + "") || isCorrectPromiss() || isCorrectPronunciation();
     }
 
     public boolean isCorrectPronunciation() {

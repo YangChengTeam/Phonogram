@@ -52,7 +52,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
 
     private void setIvState(ImageView imageView, LinearLayout layout, int position, GoodInfo item) {
-        if (MainActivity.getMainActivity().isCorrectPromiss() || MainActivity.getMainActivity().isCorrectPronunciation() || MainActivity.getMainActivity().isSuperVip()) {
+        if ( MainActivity.getMainActivity().isSuperVip()) {
             imageView.setImageResource(R.mipmap.pay_selected);
             layout.setVisibility(View.GONE);
             imageView.setTag(true);
