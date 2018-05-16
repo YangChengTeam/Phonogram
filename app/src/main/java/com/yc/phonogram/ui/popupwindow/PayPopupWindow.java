@@ -176,7 +176,7 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (MainActivity.getMainActivity().isSuperVip()) {
+                if (MainActivity.getMainActivity().isSuperVip() || MainActivity.getMainActivity().isCorrectPronunciation() || MainActivity.getMainActivity().isCorrectPromiss()) {
                     createRewardDialog();
                     return;
                 }
