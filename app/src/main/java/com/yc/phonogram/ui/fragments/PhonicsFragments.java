@@ -120,7 +120,7 @@ public class PhonicsFragments extends BaseFragment {
                 mStrokeTitle.setText(mClassInfo.getTitle());
                 mTvOriPrice.setText("原价" + mGoodInfo.getPrice() + "元");
                 mTvOriPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                mTvNewPrice.setText(Html.fromHtml("迎新年特价<font color='#FD0000'><big><big>"+mGoodInfo.getReal_price()+"</big></big></font>元"));
+                mTvNewPrice.setText(Html.fromHtml("年中大特价<font color='#FD0000'><big><big>"+mGoodInfo.getReal_price()+"</big></big></font>元"));
                 mTvPhDesp.setText(mClassInfo.getDesp());
             }
         }

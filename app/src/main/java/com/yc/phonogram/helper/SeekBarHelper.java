@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.yc.phonogram.ui.views.MainBgView;
 
 import java.util.concurrent.TimeUnit;
 

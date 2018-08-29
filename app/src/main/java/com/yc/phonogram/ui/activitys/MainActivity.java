@@ -114,13 +114,13 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1:
-                        MobclickAgent.onEvent(MainActivity.this,"xueyinbiao_click","学音标");
+                        MobclickAgent.onEvent(MainActivity.this, "xueyinbiao_click", "学音标");
                         break;
                     case 2:
-                        MobclickAgent.onEvent(MainActivity.this,"genwoxue_click","跟我学");
+                        MobclickAgent.onEvent(MainActivity.this, "genwoxue_click", "跟我学");
                         break;
                     case 3:
-                        MobclickAgent.onEvent(MainActivity.this,"quwei_click","趣味音标课");
+                        MobclickAgent.onEvent(MainActivity.this, "quwei_click", "趣味音标课");
                         break;
                     default:
                         break;
@@ -413,7 +413,15 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     }
 
     public boolean isSuperVip() {
-        return isVip(Config.SUPER_VIP + "");
+        return isVip(Config.SUPER_VIP + "") || isCorrectPromiss() || isCorrectPronunciation();
+    }
+
+    public boolean isCorrectPronunciation() {
+        return isVip(Config.CORRECTPRONUNCIATION_VIP + "");
+    }
+
+    public boolean isCorrectPromiss() {
+        return isVip(Config.CORRECTPRONUNCIATIONPROMISS_VIP + "");
     }
 
 

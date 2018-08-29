@@ -3,18 +3,12 @@ package com.yc.phonogram.ui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jakewharton.rxbinding.view.RxView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.helper.SeekBarHelper;
-
-import java.util.concurrent.TimeUnit;
-
-import rx.functions.Action1;
 
 /**
  * Created by zhangkai on 2017/12/18.

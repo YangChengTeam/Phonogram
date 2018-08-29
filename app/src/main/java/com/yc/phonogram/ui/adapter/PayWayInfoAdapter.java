@@ -2,12 +2,15 @@ package com.yc.phonogram.ui.adapter;
 
 import android.text.TextUtils;
 import android.util.SparseArray;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.ui.activitys.MainActivity;
 
@@ -36,9 +39,10 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
 
         final ImageView imageView = helper.getView(R.id.iv_select);
+        final LinearLayout price = helper.getView(R.id.ll_price);
         int position = mData.indexOf(item);
         sparseArray.put(position, imageView);
-        setIvState(imageView, position);
+        setIvState(imageView, price, position, item);
     }
 
 
@@ -47,31 +51,40 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
     }
 
 
-    private void setIvState(ImageView imageView, int position) {
-        if (MainActivity.getMainActivity().isSuperVip()) {
+    private void setIvState(ImageView imageView, LinearLayout layout, int position, GoodInfo item) {
+        if ( MainActivity.getMainActivity().isSuperVip()) {
             imageView.setImageResource(R.mipmap.pay_selected);
+            layout.setVisibility(View.GONE);
             imageView.setTag(true);
             return;
         }
 
+
         if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
-            imageView.setImageResource(R.mipmap.pay_selected);
-            imageView.setTag(true);
-            if (position == 0) {
+            imageView.setImageResource(R.mipmap.pay_select_normal);
+            if (item.getId()==Config.SUPER_VIP){
                 imageView.setImageResource(R.mipmap.pay_select_press);
-                imageView.setTag(false);
+            }
+            layout.setVisibility(View.VISIBLE);
+            imageView.setTag(false);
+            if (item.getId() == Config.PHONICS_VIP || item.getId() == Config.PHONOGRAM_VIP || item.getId() == Config.PHONOGRAMORPHONICS_VIP) {
+                imageView.setImageResource(R.mipmap.pay_selected);
+                layout.setVisibility(View.GONE);
+                imageView.setTag(true);
             }
             return;
         }
 
         if (MainActivity.getMainActivity().isPhonicsVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (position == 0) {
+            if (item.getId()==Config.PHONOGRAM_VIP) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
-            if (position == 2) {
+            layout.setVisibility(View.VISIBLE);
+            if (item.getId()==Config.PHONICS_VIP) {
                 imageView.setImageResource(R.mipmap.pay_selected);
+                layout.setVisibility(View.GONE);
                 imageView.setTag(true);
             }
             return;
@@ -79,12 +92,14 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         if (MainActivity.getMainActivity().isPhonogramVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (position == 0) {
+            if (item.getId()==Config.PHONICS_VIP) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
-            if (position == mData.size() - 1) {
+            layout.setVisibility(View.VISIBLE);
+            if (item.getId()==Config.PHONOGRAM_VIP) {
                 imageView.setImageResource(R.mipmap.pay_selected);
+                layout.setVisibility(View.GONE);
                 imageView.setTag(true);
             }
             return;
