@@ -27,6 +27,11 @@
                 android:textColor="#FFC84900"
                 android:textSize="15dp"
                 />
+            <ImageView
+                android:id="@+id/iv_gif_show"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="right|bottom"/>
         </FrameLayout>
     </com.yc.phonogram.ui.views.MainBgView>
 </RelativeLayout>
