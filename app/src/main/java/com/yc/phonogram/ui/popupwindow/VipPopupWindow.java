@@ -77,12 +77,12 @@ public class VipPopupWindow extends BasePopupWindow {
         vipShowInfo1.setVipTitle("微课");
         vipShowInfo1.setVipContent("12节原创音标课利用趣味的英语三字经、绕口令郎朗上口的韵律，连贯的语义帮助记忆及巩固音标发音，同时帮助记忆单词拼写及意思。");
 
-
-        VipShowInfo vipShowInfo2 = new VipShowInfo();
-        vipShowInfo2.setVipTitle("小班辅导纠音");
-        vipShowInfo2.setVipContent("1.  4-6人精品小班；\n" +
-                "2. 每周2次在线辅导纠音教学；\n" +
-                "3. 课程内容包括音标纠音、单词拼读。");
+//
+//        VipShowInfo vipShowInfo2 = new VipShowInfo();
+//        vipShowInfo2.setVipTitle("小班辅导纠音");
+//        vipShowInfo2.setVipContent("1.  4-6人精品小班；\n" +
+//                "2. 每周2次在线辅导纠音教学；\n" +
+//                "3. 课程内容包括音标纠音、单词拼读。");
 
 
         VipShowInfo vipShowInfo3 = new VipShowInfo();
@@ -93,7 +93,9 @@ public class VipPopupWindow extends BasePopupWindow {
 
         list.add(vipShowInfo);
         list.add(vipShowInfo1);
+
         //list.add(vipShowInfo2);
+
         list.add(vipShowInfo3);
 
         recyclerView = (RecyclerView) getView(R.id.recyclerView);
