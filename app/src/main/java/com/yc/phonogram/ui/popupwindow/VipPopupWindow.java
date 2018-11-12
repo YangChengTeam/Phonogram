@@ -93,7 +93,7 @@ public class VipPopupWindow extends BasePopupWindow {
 
         list.add(vipShowInfo);
         list.add(vipShowInfo1);
-        list.add(vipShowInfo2);
+        //list.add(vipShowInfo2);
         list.add(vipShowInfo3);
 
         recyclerView = (RecyclerView) getView(R.id.recyclerView);

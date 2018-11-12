@@ -19,6 +19,7 @@ import com.ksyun.media.player.KSYHardwareDecodeWhiteList;
 import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.engin.LoginEngin;
@@ -74,16 +75,9 @@ public class App extends MultiDexApplication {
         }
         HttpConfig.setDefaultParams(params);
 
-        //动态设置渠道信息
-        String appId_agentId = context.getResources().getString(R.string.app_name) + "-渠道id" + agent_id;
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(context,
-                "5a332ce6a40fa3151800009f", appId_agentId));
+        //友盟初始化
+        UMConfigure.init(context, "5a332ce6a40fa3151800009f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,null);
 
-        //友盟统计
-        UMGameAgent.setDebugMode(Config.DEBUG);
-        UMGameAgent.init(context);
-        UMGameAgent.setPlayerLevel(1);
-        MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
         KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);

@@ -8,8 +8,8 @@ android {
         applicationId "com.yc.phonogram"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 19
-        versionName "1.2.1"
+        versionCode 23
+        versionName "1.2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -62,10 +62,8 @@ dependencies {
     implementation project(':pay')
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
-    compile 'com.umeng.analytics:analytics:latest.integration'
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
-    implementation 'com.umeng.analytics:analytics:latest.integration'
     implementation 'com.jakewharton.rxbinding:rxbinding:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'
@@ -75,4 +73,8 @@ dependencies {
     implementation 'com.danikula:videocache:2.7.0'
     implementation project(':video-player')
     implementation project(':share')
+    implementation 'com.liulishuo.filedownloader:library:1.7.5'
+
+    compile  'com.umeng.umsdk:analytics:7.5.4'
+    compile  'com.umeng.umsdk:common:1.5.4'
 }
