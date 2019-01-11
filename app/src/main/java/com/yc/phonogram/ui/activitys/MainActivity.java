@@ -195,6 +195,26 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         });
 
         requestPermission();
+
+        App.getApp().getLoginInfo(new Runnable() {
+            @Override
+            public void run() {
+                LogUtil.msg("初始化数据完成--->");
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void stop() {
@@ -307,7 +327,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         new PhonogramEngin(this).getPhonogramList().subscribe(new Action1<ResultInfo<PhonogramListInfo>>() {
             @Override
             public void call(final ResultInfo<PhonogramListInfo> phonogramListInfoResultInfo) {
-                if (phonogramListInfoResultInfo.code == HttpConfig.STATUS_OK && phonogramListInfoResultInfo.data !=
+                if (phonogramListInfoResultInfo != null && phonogramListInfoResultInfo.code == HttpConfig.STATUS_OK && phonogramListInfoResultInfo.data !=
                         null && phonogramListInfoResultInfo.data.getPhonogramInfos() != null &&
                         phonogramListInfoResultInfo.data.getPhonogramInfos().size() > 0) {
                     showInfo(phonogramListInfoResultInfo.data);

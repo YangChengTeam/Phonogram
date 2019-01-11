@@ -2,6 +2,7 @@ package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
@@ -24,7 +25,7 @@ public class SplashActivity extends BaseActivity {
     private Subscription subscription = null;
     private MediaPlayer mediaPlayer;
     public static SplashActivity INSTANCE;
-
+    Handler handler=new Handler();
     @Override
     public int getLayoutId() {
         return R.layout.activity_splash;
@@ -48,19 +49,22 @@ public class SplashActivity extends BaseActivity {
         mediaPlayer = Mp3Utils.playMp3(this, "splash.mp3", new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                App.getApp().getLoginInfo(new Runnable() {
 
+                if (subscription != null && !subscription.isUnsubscribed()) {
+                    subscription.unsubscribe();
+                    subscription = null;
+                }
+
+                handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (subscription != null && !subscription.isUnsubscribed()) {
-                            subscription.unsubscribe();
-                            subscription = null;
-                        }
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     }
-                });
+                },500);
+
             }
         });
+
     }
 
     @Override

@@ -56,7 +56,7 @@ public class IWXH5PayImpl extends IPayImpl {
                         (AndroidSchedulers.mainThread()).subscribe(new Action1<ResultInfo<String>>() {
             @Override
             public void call(ResultInfo<String> resultInfo) {
-                if (resultInfo.code == HttpConfig.STATUS_OK) {
+                if (resultInfo !=null && resultInfo.code == HttpConfig.STATUS_OK) {
                     try {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
