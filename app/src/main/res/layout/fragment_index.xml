@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="35dp"
-                android:visibility="gone"
                 android:src="@mipmap/index_english_down" />
         </FrameLayout>
 

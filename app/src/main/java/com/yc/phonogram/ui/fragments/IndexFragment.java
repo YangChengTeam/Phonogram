@@ -84,7 +84,7 @@ public class IndexFragment extends BaseFragment {
     }
 
     public void toHuaWei() {
-        String appPkg = "com.yc.phonogram";
+        String appPkg = "com.yc.english";
         String marketPkg = "com.huawei.appmarket";
         try {
 
