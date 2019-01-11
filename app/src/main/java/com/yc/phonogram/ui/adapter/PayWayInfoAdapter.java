@@ -1,12 +1,14 @@
 package com.yc.phonogram.ui.adapter;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yc.phonogram.R;
@@ -38,6 +40,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
                 .setVisible(R.id.tv_sub_title, !TextUtils.isEmpty(item.getSub_title()));
         Glide.with(mContext).load(item.getIcon()).into((ImageView) helper.getView(R.id.iv_num));
 
+
         final ImageView imageView = helper.getView(R.id.iv_select);
         final LinearLayout price = helper.getView(R.id.ll_price);
         int position = mData.indexOf(item);
@@ -52,7 +55,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
 
     private void setIvState(ImageView imageView, LinearLayout layout, int position, GoodInfo item) {
-        if ( MainActivity.getMainActivity().isSuperVip()) {
+        if (MainActivity.getMainActivity().isSuperVip()) {
             imageView.setImageResource(R.mipmap.pay_selected);
             layout.setVisibility(View.GONE);
             imageView.setTag(true);
@@ -62,7 +65,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId()==Config.SUPER_VIP){
+            if (item.getId() == Config.SUPER_VIP) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             layout.setVisibility(View.VISIBLE);
@@ -77,12 +80,12 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         if (MainActivity.getMainActivity().isPhonicsVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId()==Config.PHONOGRAM_VIP) {
+            if (item.getId() == Config.PHONOGRAM_VIP) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
             layout.setVisibility(View.VISIBLE);
-            if (item.getId()==Config.PHONICS_VIP) {
+            if (item.getId() == Config.PHONICS_VIP) {
                 imageView.setImageResource(R.mipmap.pay_selected);
                 layout.setVisibility(View.GONE);
                 imageView.setTag(true);
@@ -92,12 +95,12 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         if (MainActivity.getMainActivity().isPhonogramVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId()==Config.PHONICS_VIP) {
+            if (item.getId() == Config.PHONICS_VIP) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
             layout.setVisibility(View.VISIBLE);
-            if (item.getId()==Config.PHONOGRAM_VIP) {
+            if (item.getId() == Config.PHONOGRAM_VIP) {
                 imageView.setImageResource(R.mipmap.pay_selected);
                 layout.setVisibility(View.GONE);
                 imageView.setTag(true);

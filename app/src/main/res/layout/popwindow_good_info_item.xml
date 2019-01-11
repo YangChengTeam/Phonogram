@@ -21,8 +21,7 @@
                 android:id="@+id/iv_num"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/good_info_num1" />
+                android:layout_centerVertical="true" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -46,9 +45,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="每天十分钟,十天就会读单词！"
-                    android:typeface="sans"
                     android:textColor="#A7A7A7"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:typeface="sans" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,8 +74,8 @@
                     android:layout_height="wrap_content"
                     android:text="原价 ¥ 59元"
                     android:textColor="#A7A7A7"
-                    android:typeface="sans"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:typeface="sans" />
             </LinearLayout>
         </RelativeLayout>
 
