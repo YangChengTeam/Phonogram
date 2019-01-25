@@ -28,6 +28,10 @@ public class Config {
     public static final String MCLASS_LIST_URL = getBaseUrl() + "index/phonetic_class" + APPID;
 
     public static final String UPLOAD_PHONE_URL = getBaseUrl() + "index/user_edit" + APPID;
+    public static final String AV_APPID = "1108023815";
+    public static final String AV_SPLASH_ID = "3020958021271852";
+
+    public static final String ADV_INFO = getBaseUrl() + "index/menu_adv" + APPID;
 
 
     public static String getBaseUrl() {

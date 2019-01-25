@@ -17,6 +17,10 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />    <!-- 如果需要精确定位的话请加上此权限 -->
+
     <application
         android:name="com.yc.phonogram.App"
         android:allowBackup="true"
@@ -30,8 +34,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/Splash"
-            >
+            android:theme="@style/Splash">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,8 +49,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="sensorLandscape"
-            ></activity>
+            android:screenOrientation="sensorLandscape"></activity>
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -67,6 +69,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" />
+
+        <activity
+            android:name="com.qq.e.ads.ADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".ui.activitys.AdvInfoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

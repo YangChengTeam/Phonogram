@@ -8,8 +8,8 @@ android {
         applicationId "com.yc.phonogram"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 24
-        versionName "1.2.6"
+        versionCode 26
+        versionName "1.2.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -74,7 +74,7 @@ dependencies {
     implementation project(':video-player')
     implementation project(':share')
     implementation 'com.liulishuo.filedownloader:library:1.7.5'
-
-    compile  'com.umeng.umsdk:analytics:7.5.4'
-    compile  'com.umeng.umsdk:common:1.5.4'
+    compile 'com.umeng.umsdk:analytics:7.5.4'
+    compile 'com.umeng.umsdk:common:1.5.4'
+    implementation files('libs/GDTUnionSDK.4.19.574.min.jar')
 }

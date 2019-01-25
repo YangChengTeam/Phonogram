@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
+import com.kk.securityhttp.domain.ResultInfo;
+import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -18,9 +20,10 @@ import com.liulishuo.filedownloader.FileDownloader;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.AdvInfoWrapper;
 import com.yc.phonogram.domain.LoginDataInfo;
-import com.yc.phonogram.ui.activitys.MainActivity;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
+import com.yc.phonogram.engin.AdvEngine;
+import com.yc.phonogram.ui.activitys.AdvInfoActivity;
 import com.yc.phonogram.ui.popupwindow.VipPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
 import com.yc.phonogram.utils.LPUtils;
@@ -28,6 +31,7 @@ import com.yc.phonogram.utils.LPUtils;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import rx.Subscriber;
 import rx.functions.Action1;
 
 /**
@@ -72,8 +76,10 @@ public class IndexFragment extends BaseFragment {
             @Override
             public void call(Void aVoid) {
                 MobclickAgent.onEvent(getActivity(), "down_english", "说说英语下载");
-                //downEnglishFile();
-                toHuaWei();
+//                downEnglishFile();
+//                toMarket("");
+                toWebView();
+//                openWebsite();
             }
         });
     }
@@ -83,15 +89,25 @@ public class IndexFragment extends BaseFragment {
 
     }
 
-    public void toHuaWei() {
+    private void toWebView(){
+        Intent intent = new Intent(getActivity(), AdvInfoActivity.class);
+        startActivity(intent);
+    }
+
+
+    /**
+     * @param market 华为 com.huawei.appmarket
+     *               小米 http://app.mi.com/
+     */
+    public void toMarket(String market) {
         String appPkg = "com.yc.english";
-        String marketPkg = "com.huawei.appmarket";
+//        String marketPkg = "com.huawei.appmarket";
         try {
 
             Uri uri = Uri.parse("market://details?id=" + appPkg);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            if (!TextUtils.isEmpty(marketPkg)) {
-                intent.setPackage(marketPkg);
+            if (!TextUtils.isEmpty(market)) {
+                intent.setPackage(market);
             }
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
@@ -173,5 +189,7 @@ public class IndexFragment extends BaseFragment {
         }
         startActivity(intent);
     }
+
+
 
 }

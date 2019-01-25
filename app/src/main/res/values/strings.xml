@@ -40,4 +40,5 @@
     <string name="pref_key_iat_show">iat_show</string>
     <string name="pref_title_iat_show">显示听写界面</string>
     <string name="input_phone">请输入您的手机号</string>
+    <string name="click_to_skip"> 点击跳过 %d</string>
 </resources>

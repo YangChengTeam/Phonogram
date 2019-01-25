@@ -15,6 +15,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.domain.ShareInfo;
 
 import java.util.ArrayList;
@@ -35,7 +36,9 @@ public class SharePopupWindow extends BasePopupWindow {
     public SharePopupWindow(Activity context) {
         super(context);
         loadingDialog = new LoadingDialog(context);
-        mShareInfo = App.getApp().getLoginDataInfo().getShareInfo();
+        LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
+        if (loginDataInfo != null)
+            mShareInfo = loginDataInfo.getShareInfo();
     }
 
     @Override
