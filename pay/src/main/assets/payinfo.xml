@@ -16,6 +16,7 @@
     <payinfo>
         <payway>wxpay</payway>
         <class>com.kk.pay.IWXPay1Impl</class>
+
     </payinfo>
     <payinfo>
         <payway>ipaynowh5</payway>
@@ -42,6 +43,7 @@
         <payway>dunxingyun_alipay</payway>
         <class>com.kk.pay.IDunXingH5PayImpl</class>
         <type>1</type>
+
     </payinfo>
     <payinfo>
         <payway>jiuyi_wxpay</payway>

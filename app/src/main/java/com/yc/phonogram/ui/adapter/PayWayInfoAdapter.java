@@ -55,7 +55,7 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
 
     private void setIvState(ImageView imageView, LinearLayout layout, int position, GoodInfo item) {
-        if (MainActivity.getMainActivity().isSuperVip()) {
+        if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
             imageView.setImageResource(R.mipmap.pay_selected);
             layout.setVisibility(View.GONE);
             imageView.setTag(true);
@@ -63,24 +63,27 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
         }
 
 
-        if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
-            imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId() == Config.SUPER_VIP) {
-                imageView.setImageResource(R.mipmap.pay_select_press);
-            }
-            layout.setVisibility(View.VISIBLE);
-            imageView.setTag(false);
-            if (item.getId() == Config.PHONICS_VIP || item.getId() == Config.PHONOGRAM_VIP || item.getId() == Config.PHONOGRAMORPHONICS_VIP) {
-                imageView.setImageResource(R.mipmap.pay_selected);
-                layout.setVisibility(View.GONE);
-                imageView.setTag(true);
-            }
-            return;
-        }
+//        if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip() || (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip())) {
+//            imageView.setImageResource(R.mipmap.pay_select_normal);
+//            if (item.getId() == Config.SUPER_VIP) {
+//                imageView.setImageResource(R.mipmap.pay_select_press);
+//            }
+//            layout.setVisibility(View.VISIBLE);
+//            imageView.setTag(false);
+//            if (item.getId() == Config.PHONICS_VIP || item.getId() == Config.PHONOGRAM_VIP || item.getId() == Config.PHONOGRAMORPHONICS_VIP) {
+//                imageView.setImageResource(R.mipmap.pay_selected);
+//                layout.setVisibility(View.GONE);
+//                imageView.setTag(true);
+//            }
+//            return;
+//        }
 
         if (MainActivity.getMainActivity().isPhonicsVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId() == Config.PHONOGRAM_VIP) {
+//            if (item.getId() == Config.PHONOGRAM_VIP) {
+//                imageView.setImageResource(R.mipmap.pay_select_press);
+//            }
+            if (position == 0) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);
@@ -95,7 +98,10 @@ public class PayWayInfoAdapter extends BaseQuickAdapter<GoodInfo, BaseViewHolder
 
         if (MainActivity.getMainActivity().isPhonogramVip()) {
             imageView.setImageResource(R.mipmap.pay_select_normal);
-            if (item.getId() == Config.PHONICS_VIP) {
+//            if (item.getId() == Config.PHONICS_VIP) {
+//                imageView.setImageResource(R.mipmap.pay_select_press);
+//            }
+            if (position == 0) {
                 imageView.setImageResource(R.mipmap.pay_select_press);
             }
             imageView.setTag(false);

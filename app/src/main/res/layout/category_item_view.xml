@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_category_icon"
+        android:layout_width="49dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/category1" />
+    <ImageView
+        android:id="@+id/iv_category_vip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/category_vip"/>
+
+</FrameLayout>

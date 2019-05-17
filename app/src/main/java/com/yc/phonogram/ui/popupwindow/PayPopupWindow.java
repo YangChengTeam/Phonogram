@@ -32,6 +32,7 @@ import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.GoodListInfo;
 import com.yc.phonogram.engin.GoodEngin;
+import com.yc.phonogram.helper.ObservManager;
 import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
 
@@ -176,7 +177,7 @@ public class PayPopupWindow extends BasePopupWindow {
         RxView.clicks(mIvPayCharge).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if (MainActivity.getMainActivity().isSuperVip()) {
+                if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
                     createRewardDialog();
                     return;
                 }
@@ -196,6 +197,7 @@ public class PayPopupWindow extends BasePopupWindow {
                                 paySuccessTintPopWindow = new PaySuccessTintPopWindow(getContext());
                             if (!paySuccessTintPopWindow.isShowing())
                                 paySuccessTintPopWindow.show();
+                            ObservManager.get().notifyMyObserver("pay success");
 
                         }
 
@@ -265,9 +267,13 @@ public class PayPopupWindow extends BasePopupWindow {
         GoodInfo goodInfo = null;
         if (goodInfoList != null && goodInfoList.size() > 0) {
             goodInfo = goodInfoList.get(getPositon());
-            if (MainActivity.getMainActivity().isSuperVip() || MainActivity.getMainActivity().isCorrectPronunciation() || MainActivity.getMainActivity().isCorrectPromiss()) {
+            if (MainActivity.getMainActivity().isPhonogramOrPhonicsVip()){
                 goodInfo = null;
             }
+
+//            if (MainActivity.getMainActivity().isSuperVip() || MainActivity.getMainActivity().isCorrectPronunciation() || MainActivity.getMainActivity().isCorrectPromiss()) {
+//                goodInfo = null;
+//            }
 //            if (MainActivity.getMainActivity().isPhonogramVip()) {
 //                goodInfo = goodInfoList.get(1);
 //            }
@@ -287,12 +293,12 @@ public class PayPopupWindow extends BasePopupWindow {
 
     private int getPositon() {
         int pos = 0;
-        if (MainActivity.getMainActivity().isPhonogramVip()) {
-            pos = 1;
-        }
-        if (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip() || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
-            pos = 3;
-        }
+//        if (MainActivity.getMainActivity().isPhonogramVip()) {
+//            pos = 1;
+//        }
+//        if (MainActivity.getMainActivity().isPhonicsVip() && MainActivity.getMainActivity().isPhonogramVip() || MainActivity.getMainActivity().isPhonogramOrPhonicsVip()) {
+//            pos = 3;
+//        }
 
         return pos;
     }

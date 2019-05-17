@@ -23,6 +23,7 @@ public class AdvInfo {
     private String add_time;
     private String app_title;
     private String apk_id;
+    private String button_txt;
 
     public String getId() {
         return id;
@@ -80,5 +81,11 @@ public class AdvInfo {
         this.apk_id = apk_id;
     }
 
+    public String getButton_txt() {
+        return button_txt;
+    }
 
+    public void setButton_txt(String button_txt) {
+        this.button_txt = button_txt;
+    }
 }

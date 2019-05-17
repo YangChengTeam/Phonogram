@@ -33,6 +33,12 @@ public class Config {
 
     public static final String ADV_INFO = getBaseUrl() + "index/menu_adv" + APPID;
 
+    public static final String CATEGORY_LIST_INDEX = getBaseUrl() + "weike/index" + APPID;
+
+    public static final String CATEGORY_DETAIL = getBaseUrl() + "weike/detail" + APPID;
+
+
+    public static final String CATEGORY_INFO = "category_info";
 
     public static String getBaseUrl() {
         String baseUrl = "http://tic.upkao.com/api/";

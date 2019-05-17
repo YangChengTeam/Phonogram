@@ -1,6 +1,8 @@
 package com.yc.phonogram.ui.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
@@ -10,8 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.kk.utils.LogUtil;
 import com.kk.utils.ToastUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -20,9 +20,7 @@ import com.liulishuo.filedownloader.FileDownloader;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
-import com.yc.phonogram.domain.AdvInfoWrapper;
 import com.yc.phonogram.domain.LoginDataInfo;
-import com.yc.phonogram.engin.AdvEngine;
 import com.yc.phonogram.ui.activitys.AdvInfoActivity;
 import com.yc.phonogram.ui.popupwindow.VipPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
@@ -31,7 +29,6 @@ import com.yc.phonogram.utils.LPUtils;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import rx.Subscriber;
 import rx.functions.Action1;
 
 /**
@@ -43,6 +40,7 @@ public class IndexFragment extends BaseFragment {
     private ImageView ivGifShow;
 
     private ImageView ivDownEnglish;
+    public static final String index_dialog = "index_dialog";
 
     @Override
     public int getLayoutId() {
@@ -54,6 +52,11 @@ public class IndexFragment extends BaseFragment {
 
         FileDownloader.setup(getActivity());
 
+        if (!getBoolean(index_dialog)) {
+            IndexDialogFragment indexDialogFragment = new IndexDialogFragment();
+            indexDialogFragment.show(getChildFragmentManager(), "");
+            putBoolean(index_dialog, true);
+        }
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         mainBgView.showInnerBg();
         ivGifShow = (ImageView) getView(R.id.iv_gif_show);
@@ -89,9 +92,30 @@ public class IndexFragment extends BaseFragment {
 
     }
 
-    private void toWebView(){
+    private void toWebView() {
         Intent intent = new Intent(getActivity(), AdvInfoActivity.class);
         startActivity(intent);
+    }
+
+
+    private SharedPreferences get() {
+        return getActivity().getSharedPreferences("phonogram", Context.MODE_PRIVATE);
+    }
+
+    private void putString(String key, String value) {
+        get().edit().putString(key, value).apply();
+    }
+
+    private String getString(String key, String defaultValue) {
+        return get().getString(key, defaultValue);
+    }
+
+    private void putBoolean(String key, boolean b) {
+        get().edit().putBoolean(key, b).apply();
+    }
+
+    private boolean getBoolean(String key) {
+        return get().getBoolean(key, false);
     }
 
 
@@ -189,7 +213,6 @@ public class IndexFragment extends BaseFragment {
         }
         startActivity(intent);
     }
-
 
 
 }

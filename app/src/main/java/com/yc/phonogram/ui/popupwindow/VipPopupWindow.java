@@ -69,13 +69,14 @@ public class VipPopupWindow extends BasePopupWindow {
         List<VipShowInfo> list = new ArrayList<>();
         VipShowInfo vipShowInfo = new VipShowInfo();
         vipShowInfo.setVipTitle("音标点读");
-        vipShowInfo.setVipContent("1. 外教双机位示范发音，点击视频或音标图片即可学习标准发音；\n" +
+        vipShowInfo.setVipContent("1.  外教双机位示范发音，点击视频或音标图片即可学习标准发音；\n" +
                 "2. 点击右下方单词获取读音，边学发音边记单词；\n" +
                 "3. 点击“跟我读”,将你的声音与外教发音原声进行对比,找出不足,提高发音的准确性。");
 
         VipShowInfo vipShowInfo1 = new VipShowInfo();
-        vipShowInfo1.setVipTitle("微课");
-        vipShowInfo1.setVipContent("12节原创音标课利用趣味的英语三字经、绕口令郎朗上口的韵律，连贯的语义帮助记忆及巩固音标发音，同时帮助记忆单词拼写及意思。");
+        vipShowInfo1.setVipTitle("微课学习");
+        vipShowInfo1.setVipContent("1.  12节原创音标课利用趣味的英语三字经、绕口令郎朗上口的韵律，连贯的语义帮助记忆及巩固音标发音，同时帮助记忆单词拼写及意思。\n"+
+        "2.  12节自然拼读课程系统讲解字母发音规则，拼读规则，让你做到见词会读、听音会写！");
 
 //
 //        VipShowInfo vipShowInfo2 = new VipShowInfo();
@@ -96,7 +97,7 @@ public class VipPopupWindow extends BasePopupWindow {
 
         //list.add(vipShowInfo2);
 
-        list.add(vipShowInfo3);
+//        list.add(vipShowInfo3);
 
         recyclerView = (RecyclerView) getView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));

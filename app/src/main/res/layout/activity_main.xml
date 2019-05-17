@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:id="@+id/iv_center"
@@ -22,7 +20,7 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/base_tran_ripple_bg"
             android:clickable="true"
-            android:src="@mipmap/main_center"/>
+            android:src="@mipmap/main_center" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,10 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_index_selector"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <View
-                android:layout_width="15dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"></View>
 
             <ImageView
@@ -46,10 +44,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_learn_selector"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <View
-                android:layout_width="15dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"></View>
 
             <ImageView
@@ -57,10 +55,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_read_to_me_selector"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <View
-                android:layout_width="15dp"
+                android:layout_width="8dp"
                 android:layout_height="match_parent"></View>
 
             <ImageView
@@ -68,7 +66,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_phonics_selector"
-                android:clickable="true"/>
+                android:clickable="true" />
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent"></View>
+
+            <RelativeLayout
+                android:id="@+id/rl_h5page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/main_h5page">
+
+                <TextView
+                    android:id="@+id/tv_h5page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="音标点读"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -78,14 +96,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/main_share_selector"
-           />
+            android:background="@drawable/main_share_selector" />
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 </LinearLayout>

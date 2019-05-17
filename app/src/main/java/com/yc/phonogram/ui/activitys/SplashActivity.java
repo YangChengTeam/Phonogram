@@ -31,7 +31,7 @@ import yc.com.tencent_adv.OnAdvStateListener;
  * Created by zhangkai on 2017/12/15.
  */
 
-public class SplashActivity extends BaseActivity implements  OnAdvStateListener {
+public class SplashActivity extends BaseActivity implements OnAdvStateListener {
     private Subscription subscription = null;
     private MediaPlayer mediaPlayer;
     public static SplashActivity INSTANCE;
@@ -78,12 +78,12 @@ public class SplashActivity extends BaseActivity implements  OnAdvStateListener 
                     subscription = null;
                 }
 
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                    }
-                }, 500);
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    }
+//                }, 500);
 
             }
         });
@@ -160,6 +160,7 @@ public class SplashActivity extends BaseActivity implements  OnAdvStateListener 
     @Override
     public void onShow() {
         relativeLayout.setVisibility(View.GONE); // 广告展示后一定要把预设的开屏图片隐藏起来
+        skipView.setVisibility(View.VISIBLE);
     }
 
     @Override

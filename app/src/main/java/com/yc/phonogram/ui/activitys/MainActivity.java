@@ -10,8 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -26,11 +29,14 @@ import com.umeng.socialize.UMShareAPI;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.AdvInfo;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.domain.VipInfo;
 import com.yc.phonogram.engin.PhonogramEngin;
+import com.yc.phonogram.ui.fragments.CategoryFragment;
+import com.yc.phonogram.ui.fragments.CategoryMainFragment;
 import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
 import com.yc.phonogram.ui.fragments.PhonicsFragments;
@@ -83,9 +89,12 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @Override
     public void init() {
+
         if (SplashActivity.getInstance() != null) {
             SplashActivity.getInstance().finish();
         }
+
+
         INSTANSE = this;
         mViewPager = findViewById(R.id.viewpager);
         ImageView mCenterBtn = findViewById(R.id.iv_center);
@@ -94,6 +103,14 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         mReadTomeBtn = findViewById(R.id.iv_read_to_me);
         mPhonicsBtn = findViewById(R.id.iv_phonics);
         mShareBtn = findViewById(R.id.iv_share);
+        TextView tvH5page = findViewById(R.id.tv_h5page);
+        RelativeLayout rlH5page = findViewById(R.id.rl_h5page);
+        String str = PreferenceUtil.getImpl(this).getString(Config.ADV_INFO, "");
+        final AdvInfo advInfo = JSON.parseObject(str, AdvInfo.class);
+        if (null != advInfo && !TextUtils.isEmpty(advInfo.getButton_txt())) {
+            tvH5page.setText(advInfo.getButton_txt());
+        }
+
         FragmentAdapter mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(4);
@@ -169,6 +186,18 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             @Override
             public void call(Void aVoid) {
                 mViewPager.setCurrentItem(3);
+            }
+        });
+
+        RxView.clicks(rlH5page).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                if (null != advInfo) {
+                    Intent intent = new Intent(MainActivity.this, AdvInfoActivity.class);
+                    intent.putExtra("url", advInfo.getUrl());
+                    intent.putExtra("title", advInfo.getButton_txt());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -251,7 +280,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private IndexFragment mIndexFragment;
     private LearnPhonogramFragment mLearnPhonogramFragment;
     private ReadToMeFragment mReadToMeFragment;
-    private PhonicsFragments mPhonicsFragments;
+    //    private PhonicsFragments mPhonicsFragments;
+    private CategoryMainFragment mPhonicsFragments;
 
 
     class FragmentAdapter extends FragmentStatePagerAdapter {
@@ -278,7 +308,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                 return mReadToMeFragment;
             } else if (position == 3) {
                 if (mPhonicsFragments == null) {
-                    mPhonicsFragments = new PhonicsFragments();
+                    mPhonicsFragments = new CategoryMainFragment();
                 }
                 return mPhonicsFragments;
             }
@@ -420,16 +450,32 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         return flag;
     }
 
+    /**
+     * 点读会员
+     *
+     * @return
+     */
+
     public boolean isPhonogramVip() {
         return isVip(Config.PHONOGRAM_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
+    /**
+     * 微课会员
+     *
+     * @return
+     */
     public boolean isPhonicsVip() {
         return isVip(Config.PHONICS_VIP + "") || isPhonogramOrPhonicsVip() || isSuperVip();
     }
 
+    /**
+     * 点读加微课会员
+     *
+     * @return
+     */
     public boolean isPhonogramOrPhonicsVip() {
-        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip();
+        return isVip(Config.PHONOGRAMORPHONICS_VIP + "") || isSuperVip() || (isVip(Config.PHONOGRAM_VIP + "") && isVip(Config.PHONICS_VIP + ""));
     }
 
     public boolean isSuperVip() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.danikula.videocache.HttpProxyCacheServer;
@@ -20,8 +21,11 @@ import com.tencent.bugly.Bugly;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.game.UMGameAgent;
 import com.umeng.commonsdk.UMConfigure;
+import com.yc.phonogram.domain.AdvInfo;
+import com.yc.phonogram.domain.AdvInfoWrapper;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
+import com.yc.phonogram.engin.AdvEngine;
 import com.yc.phonogram.engin.LoginEngin;
 import com.yc.phonogram.utils.LPUtils;
 
@@ -29,6 +33,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -43,6 +48,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         initGoagal(getApplicationContext());
+        getAdvInfo();
         INSTANSE = this;
     }
 
@@ -76,7 +82,7 @@ public class App extends MultiDexApplication {
         HttpConfig.setDefaultParams(params);
 
         //友盟初始化
-        UMConfigure.init(context, "5a332ce6a40fa3151800009f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,null);
+        UMConfigure.init(context, "5a332ce6a40fa3151800009f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
 
         KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
@@ -160,6 +166,7 @@ public class App extends MultiDexApplication {
 
 
     private HttpProxyCacheServer proxy;
+
     public static HttpProxyCacheServer getProxy() {
         App app = (App) INSTANSE.getApplicationContext();
         return app.proxy == null ? (app.proxy = app.newProxy()) : app.proxy;
@@ -167,13 +174,14 @@ public class App extends MultiDexApplication {
 
     /**
      * 构造100M大小的缓存池
+     *
      * @return
      */
     private HttpProxyCacheServer newProxy() {
         int cacheSize = 100 * 1024 * 1024;
         String videoCacheDir = LPUtils.getInstance().getVideoCacheDir(getApplicationContext());
         //如果SD卡已挂载并且可读写
-        if(null==videoCacheDir){
+        if (null == videoCacheDir) {
             return null;
         }
         //优先使用内部缓存
@@ -190,5 +198,30 @@ public class App extends MultiDexApplication {
         MultiDex.install(this);
     }
 
+    private AdvEngine advEngine;
+
+    private void getAdvInfo() {
+        if (advEngine == null)
+            advEngine = new AdvEngine(this);
+        advEngine.getAdvInfo().subscribe(new Subscriber<ResultInfo<AdvInfoWrapper>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ResultInfo<AdvInfoWrapper> advInfoWrapperResultInfo) {
+                if (advInfoWrapperResultInfo != null && advInfoWrapperResultInfo.code == HttpConfig.STATUS_OK && advInfoWrapperResultInfo.data != null) {
+                    AdvInfo h5page = advInfoWrapperResultInfo.data.getH5page();
+                    PreferenceUtil.getImpl(App.this).putString(Config.ADV_INFO, JSON.toJSONString(h5page));
+                }
+            }
+        });
+    }
 
 }

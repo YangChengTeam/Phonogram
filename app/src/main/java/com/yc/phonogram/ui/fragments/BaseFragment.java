@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.ui.IView;
 
@@ -17,6 +18,9 @@ import com.yc.phonogram.ui.IView;
 
 public abstract class BaseFragment extends Fragment implements IView {
     protected View mRootView;
+    protected boolean isViewInitiated;
+    protected boolean isVisibleToUser;
+    protected boolean isDataInitiated;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +46,14 @@ public abstract class BaseFragment extends Fragment implements IView {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        isViewInitiated = true;
+//        Log.e(TAG, "onActivityCreated: ");
+        prepareFetchData();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onPageStart(this.getClass().getSimpleName());
@@ -54,10 +66,30 @@ public abstract class BaseFragment extends Fragment implements IView {
         MobclickAgent.onPageEnd(this.getClass().getSimpleName());
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+//        LogUtil.msg("TAG ： " + getClass().getName() + "  isVisibleToUser   " + isVisibleToUser + "  isDataInitiated  " + isDataInitiated + "  isViewInitiated  " + isViewInitiated);
+        prepareFetchData();
+//        Log.e(TAG, "setUserVisibleHint: ");
     }
 
+    public void fetchData() {
+    }
+
+    public boolean prepareFetchData() {
+        return prepareFetchData(false);
+    }
+
+    public boolean prepareFetchData(boolean forceUpdate) {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+            fetchData();
+            isDataInitiated = true;
+            return true;
+        }
+        return false;
+    }
 
 }
