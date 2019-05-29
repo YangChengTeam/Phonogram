@@ -94,7 +94,7 @@ public class CategoryFragment extends BaseFragment implements Observer {
         topItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CategoryInfo categoryInfo = topItemAdapter.getItem(position);
+
 
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, topCategoryInfos);
@@ -107,7 +107,7 @@ public class CategoryFragment extends BaseFragment implements Observer {
         bottomItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CategoryInfo categoryInfo = bottomItemAdapter.getItem(position);
+
 
                 if (onItemClickListener != null) {
                     onItemClickListener.onItemClick(position, bottomCategoryInfos);

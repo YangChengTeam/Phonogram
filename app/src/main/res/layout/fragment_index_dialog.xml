@@ -20,7 +20,8 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="8dp"
             android:text="更多详情请点击福利通知"
-            android:textColor="@color/black333" />
+            android:textColor="@color/black333"
+            android:visibility="gone" />
     </FrameLayout>
 
     <ImageView
