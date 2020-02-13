@@ -1,17 +1,20 @@
 package com.yc.phonogram.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.ExampleInfo;
 import com.yc.phonogram.listener.PerfectClickListener;
 import com.yc.phonogram.ui.views.holder.LearnRecyclerHolder;
 import com.yc.phonogram.utils.LPUtils;
+
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * TinyHung@Outlook.com

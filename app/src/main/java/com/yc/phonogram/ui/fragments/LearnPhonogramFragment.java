@@ -1,10 +1,9 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.PhonogramInfo;
@@ -14,10 +13,14 @@ import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.pager.LearnVideoPager;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by zhangkai on 2017/12/15.

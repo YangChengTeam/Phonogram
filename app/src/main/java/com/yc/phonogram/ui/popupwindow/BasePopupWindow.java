@@ -4,7 +4,6 @@ package com.yc.phonogram.ui.popupwindow;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.IdRes;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -13,9 +12,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+
 import com.yc.phonogram.ui.IView;
 import com.yc.phonogram.utils.NavgationBarUtils;
 import com.yc.phonogram.utils.UIUtils;
+
+import androidx.annotation.IdRes;
 
 
 /**

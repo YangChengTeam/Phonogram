@@ -3,8 +3,6 @@ package com.yc.phonogram.ui.fragments;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +32,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;

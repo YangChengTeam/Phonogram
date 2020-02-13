@@ -1,13 +1,12 @@
 package com.yc.phonogram.ui.fragments;
 
 import android.graphics.Paint;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.kk.securityhttp.domain.ResultInfo;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.yc.phonogram.R;
@@ -21,9 +20,13 @@ import com.yc.phonogram.ui.pager.PhonicsVideoPager;
 import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.views.PhoniceSeekBarView;
 import com.yc.phonogram.ui.widget.StrokeTextView;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 

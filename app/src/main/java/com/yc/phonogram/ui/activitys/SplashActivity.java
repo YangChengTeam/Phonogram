@@ -3,7 +3,6 @@ package com.yc.phonogram.ui.activitys;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -11,27 +10,31 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.utils.Mp3Utils;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.ContextCompat;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import yc.com.tencent_adv.AdvDispatchManager;
-import yc.com.tencent_adv.AdvType;
 import yc.com.tencent_adv.OnAdvStateListener;
+import yc.com.toutiao_adv.TTAdDispatchManager;
+import yc.com.toutiao_adv.TTAdType;
 
 /**
  * Created by zhangkai on 2017/12/15.
  */
 
-public class SplashActivity extends BaseActivity implements OnAdvStateListener {
+public class SplashActivity extends BaseActivity implements OnAdvStateListener, yc.com.toutiao_adv.OnAdvStateListener {
     private Subscription subscription = null;
     private MediaPlayer mediaPlayer;
     public static SplashActivity INSTANCE;
@@ -56,7 +59,9 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener {
         skipView = findViewById(R.id.skip_view);
         relativeLayout = findViewById(R.id.retry_layout);
 
-        AdvDispatchManager.getManager().init(this, AdvType.SPLASH, container, skipView, Config.AV_APPID, Config.AV_SPLASH_ID, this);
+//        AdvDispatchManager.getManager().init(this, AdvType.SPLASH, container, skipView, Config.AV_APPID, Config.AV_SPLASH_ID, this);
+
+        TTAdDispatchManager.getManager().init(this, TTAdType.SPLASH, container, Config.TOUTIAO_SPLASH_ID, 0, null, 0, null, 0, this);
 
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
@@ -124,7 +129,8 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener {
     protected void onPause() {
         super.onPause();
 //        canJump = false;
-        AdvDispatchManager.getManager().onPause();
+//        AdvDispatchManager.getManager().onPause();
+        TTAdDispatchManager.getManager().onStop();
         if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
@@ -133,7 +139,8 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener {
     @Override
     protected void onResume() {
         super.onResume();
-        AdvDispatchManager.getManager().onResume();
+//        AdvDispatchManager.getManager().onResume();
+        TTAdDispatchManager.getManager().onResume();
 
     }
 
@@ -187,4 +194,23 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener {
     }
 
 
+    @Override
+    public void loadSuccess() {
+        switchMain(0);
+    }
+
+    @Override
+    public void loadFailed() {
+        switchMain(0);
+    }
+
+    @Override
+    public void clickAD() {
+        switchMain(0);
+    }
+
+    @Override
+    public void onTTNativeExpressed(List<TTNativeExpressAd> ads) {
+
+    }
 }

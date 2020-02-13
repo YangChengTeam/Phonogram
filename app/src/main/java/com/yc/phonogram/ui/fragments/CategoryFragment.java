@@ -1,13 +1,7 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.kk.securityhttp.domain.ResultInfo;
 import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.CategoryInfo;
@@ -15,16 +9,15 @@ import com.yc.phonogram.domain.CategoryInfoWrapperWrapper;
 import com.yc.phonogram.engin.CategoryEngine;
 import com.yc.phonogram.helper.CategoryInfoHelper;
 import com.yc.phonogram.helper.ObservManager;
-import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.CategoryItemAdapter;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.utils.ItemDecorationHelper;
 
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import rx.functions.Action1;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by wanglin  on 2019/5/15 09:05.
@@ -91,53 +84,43 @@ public class CategoryFragment extends BaseFragment implements Observer {
     }
 
     private void initListener() {
-        topItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        topItemAdapter.setOnItemClickListener((adapter, view, position) -> {
 
-
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, topCategoryInfos);
-                }
-
-
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position, topCategoryInfos);
             }
+
+
         });
 
-        bottomItemAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        bottomItemAdapter.setOnItemClickListener((adapter, view, position) -> {
 
 
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(position, bottomCategoryInfos);
-                }
-
-
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(position, bottomCategoryInfos);
             }
+
+
         });
     }
 
 
     private void getData() {
 
-        new CategoryEngine(getActivity()).getCategorys().subscribe(new Action1<ResultInfo<CategoryInfoWrapperWrapper>>() {
-            @Override
-            public void call(ResultInfo<CategoryInfoWrapperWrapper> categoryInfoWrapperWrapperResultInfo) {
+        new CategoryEngine(getActivity()).getCategorys().subscribe(categoryInfoWrapperWrapperResultInfo -> {
 
-                if (categoryInfoWrapperWrapperResultInfo != null && categoryInfoWrapperWrapperResultInfo.code == HttpConfig.STATUS_OK
-                        && categoryInfoWrapperWrapperResultInfo.data != null) {
+            if (categoryInfoWrapperWrapperResultInfo != null && categoryInfoWrapperWrapperResultInfo.code == HttpConfig.STATUS_OK
+                    && categoryInfoWrapperWrapperResultInfo.data != null) {
 
-                    CategoryInfoHelper.setInfoWrapperWrapper(categoryInfoWrapperWrapperResultInfo.data);
-                    CategoryInfoWrapperWrapper infoWrapperWrapper = categoryInfoWrapperWrapperResultInfo.data;
-                    if (infoWrapperWrapper.getYinbiao() != null) {
-                        bottomCategoryInfos = infoWrapperWrapper.getYinbiao().getDetail();
-                        bottomItemAdapter.setNewData(bottomCategoryInfos);
-                    }
-                    if (infoWrapperWrapper.getPindu() != null) {
-                        topCategoryInfos = infoWrapperWrapper.getPindu().getDetail();
-                        topItemAdapter.setNewData(topCategoryInfos);
-                    }
+                CategoryInfoHelper.setInfoWrapperWrapper(categoryInfoWrapperWrapperResultInfo.data);
+                CategoryInfoWrapperWrapper infoWrapperWrapper = categoryInfoWrapperWrapperResultInfo.data;
+                if (infoWrapperWrapper.getYinbiao() != null) {
+                    bottomCategoryInfos = infoWrapperWrapper.getYinbiao().getDetail();
+                    bottomItemAdapter.setNewData(bottomCategoryInfos);
+                }
+                if (infoWrapperWrapper.getPindu() != null) {
+                    topCategoryInfos = infoWrapperWrapper.getPindu().getDetail();
+                    topItemAdapter.setNewData(topCategoryInfos);
                 }
             }
         });

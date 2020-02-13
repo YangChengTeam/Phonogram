@@ -1,7 +1,6 @@
 package com.yc.phonogram.adapter;
 
 import android.app.Activity;
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +11,8 @@ import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.utils.EmptyUtils;
 
 import java.util.List;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 
 /**

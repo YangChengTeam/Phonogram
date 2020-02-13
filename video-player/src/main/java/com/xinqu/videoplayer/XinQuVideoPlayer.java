@@ -10,7 +10,6 @@ import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.provider.Settings;
-import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.xinqu.videoplayer.listener.PerfectClickListener;
 import com.xinqu.videoplayer.manager.XinQuMediaManager;
 import com.xinqu.videoplayer.manager.XinQuVideoPlayerManager;
@@ -36,9 +36,8 @@ import java.lang.reflect.Constructor;
 import java.util.LinkedHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Logger;
 
-import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR;
+import androidx.appcompat.app.ActionBar;
 
 
 /**

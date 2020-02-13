@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,6 +20,9 @@ import android.widget.TextView;
 import com.kk.utils.ToastUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.ui.widget.CommonWebView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by wanglin  on 2019/1/25 10:05.

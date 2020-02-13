@@ -1,21 +1,18 @@
 package com.yc.phonogram.ui.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.View;
 
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.CategoryInfo;
-import com.yc.phonogram.ui.activitys.MainActivity;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by wanglin  on 2019/5/15 11:47.
@@ -48,12 +45,9 @@ public class CategoryPagerFragment extends BaseFragment {
                 bundle.putParcelable("category", categoryInfos.get(i));
                 categoryDetailFragment.setArguments(bundle);
 
-                categoryDetailFragment.setOnBackListener(new CategoryDetailFragment.onBackListener() {
-                    @Override
-                    public void onBack() {
-                        if (onBackListener != null) {
-                            onBackListener.onBack();
-                        }
+                categoryDetailFragment.setOnBackListener(() -> {
+                    if (onBackListener != null) {
+                        onBackListener.onBack();
                     }
                 });
                 fragmentList.add(categoryDetailFragment);

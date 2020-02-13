@@ -12,6 +12,8 @@ import com.xinqu.videoplayer.util.XinQuUtils;
 
 import java.util.Timer;
 
+import androidx.appcompat.app.AlertDialog;
+
 /**
  * TinyHung@outlook.com
  * 2017/11/9
@@ -150,7 +152,7 @@ public class XinQuMusicPlayerStandard extends WindowVideoPlayer {
         super.showWifiDialog(action);
         if(!isWifiTips) return;
         try{
-            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setMessage(getResources().getString(R.string.tips_not_wifi));
             builder.setPositiveButton(getResources().getString(R.string.tips_not_wifi_confirm), new DialogInterface.OnClickListener() {
                 @Override

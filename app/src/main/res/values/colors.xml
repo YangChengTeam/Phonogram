@@ -16,4 +16,6 @@
     <color name="vip_title_color">#b05739</color>
     <color name="vip_content_color">#555555</color>
     <color name="orange_603e16">#603E16</color>
+    <color name="gray_eee">#EEEEEE</color>
+    <color name="orange_fbc927">#FBC927</color>
 </resources>

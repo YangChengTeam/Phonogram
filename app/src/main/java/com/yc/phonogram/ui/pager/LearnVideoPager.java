@@ -3,8 +3,6 @@ package com.yc.phonogram.ui.pager;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -12,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,8 +29,12 @@ import com.yc.phonogram.domain.PhonogramInfo;
 import com.yc.phonogram.listener.PerfectClickListener;
 import com.yc.phonogram.ui.views.holder.LearnRecyclerHolder;
 import com.yc.phonogram.ui.views.layout.NoScrollingGridLayoutManager;
+
 import java.io.IOException;
 import java.util.List;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * TinyHung@Outlook.com
@@ -76,7 +79,7 @@ public class LearnVideoPager  extends BasePager{
         mVidepPlayer.widthRatio=16;
         mVidepPlayer.heightRatio=9;
         RecyclerView recyclerView = (RecyclerView) getView(R.id.recyclerView);
-        recyclerView.setLayoutManager(new NoScrollingGridLayoutManager(getActivity(),2,GridLayoutManager.VERTICAL,false));
+        recyclerView.setLayoutManager(new NoScrollingGridLayoutManager(getActivity(),2, GridLayoutManager.VERTICAL,false));
         recyclerView.setHasFixedSize(true);
         recyclerView.setNestedScrollingEnabled(false);
         mReContentListAdapter = new RecyclerViewLPContentListAdapter(getActivity());

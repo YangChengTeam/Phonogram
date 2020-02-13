@@ -1,11 +1,8 @@
 package com.yc.phonogram.ui.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +17,9 @@ import com.liulishuo.filedownloader.FileDownloader;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.App;
 import com.yc.phonogram.R;
+import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
+import com.yc.phonogram.helper.SharePreferenceUtils;
 import com.yc.phonogram.ui.activitys.AdvInfoActivity;
 import com.yc.phonogram.ui.popupwindow.VipPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
@@ -29,6 +28,7 @@ import com.yc.phonogram.utils.LPUtils;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import androidx.core.content.FileProvider;
 import rx.functions.Action1;
 
 /**
@@ -40,7 +40,7 @@ public class IndexFragment extends BaseFragment {
     private ImageView ivGifShow;
 
     private ImageView ivDownEnglish;
-    public static final String index_dialog = "index_dialog";
+
 
     @Override
     public int getLayoutId() {
@@ -50,12 +50,13 @@ public class IndexFragment extends BaseFragment {
     @Override
     public void init() {
 
+
         FileDownloader.setup(getActivity());
 
-        if (!getBoolean(index_dialog)) {
+        if (!SharePreferenceUtils.getInstance().getBoolean(Config.index_dialog)) {
             IndexDialogFragment indexDialogFragment = new IndexDialogFragment();
             indexDialogFragment.show(getChildFragmentManager(), "");
-            putBoolean(index_dialog, true);
+
         }
         mainBgView = (MainBgView) getView(R.id.mainBgView);
         mainBgView.showInnerBg();
@@ -95,27 +96,6 @@ public class IndexFragment extends BaseFragment {
     private void toWebView() {
         Intent intent = new Intent(getActivity(), AdvInfoActivity.class);
         startActivity(intent);
-    }
-
-
-    private SharedPreferences get() {
-        return getActivity().getSharedPreferences("phonogram", Context.MODE_PRIVATE);
-    }
-
-    private void putString(String key, String value) {
-        get().edit().putString(key, value).apply();
-    }
-
-    private String getString(String key, String defaultValue) {
-        return get().getString(key, defaultValue);
-    }
-
-    private void putBoolean(String key, boolean b) {
-        get().edit().putBoolean(key, b).apply();
-    }
-
-    private boolean getBoolean(String key) {
-        return get().getBoolean(key, false);
     }
 
 

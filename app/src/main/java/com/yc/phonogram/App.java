@@ -2,8 +2,6 @@ package com.yc.phonogram;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
@@ -18,8 +16,6 @@ import com.kk.utils.PreferenceUtil;
 import com.kk.utils.TaskUtil;
 import com.ksyun.media.player.KSYHardwareDecodeWhiteList;
 import com.tencent.bugly.Bugly;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.analytics.game.UMGameAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.yc.phonogram.domain.AdvInfo;
 import com.yc.phonogram.domain.AdvInfoWrapper;
@@ -33,9 +29,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import yc.com.toutiao_adv.TTAdManagerHolder;
 
 /**
  * Created by zhangkai on 2017/10/17.
@@ -50,6 +49,7 @@ public class App extends MultiDexApplication {
         initGoagal(getApplicationContext());
         getAdvInfo();
         INSTANSE = this;
+        TTAdManagerHolder.init(this,Config.TOUTIAO_AD_ID);
     }
 
     public static App getApp() {

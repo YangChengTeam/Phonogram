@@ -2,16 +2,15 @@ package com.yc.phonogram.ui.fragments;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.R;
-import com.yc.phonogram.domain.CategoryInfo;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Created by wanglin  on 2019/5/15 10:47.
@@ -32,29 +31,20 @@ public class CategoryMainFragment extends BaseFragment {
         final CategoryFragment categoryFragment = new CategoryFragment();
 
 
-        categoryFragment.setOnItemClickListener(new CategoryFragment.onItemClickListener() {
+        categoryFragment.setOnItemClickListener((position, categoryInfos) -> {
+            CategoryPagerFragment categoryPagerFragment = new CategoryPagerFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("categoryInfos", (ArrayList<? extends Parcelable>) categoryInfos);
+            bundle.putInt("position", position);
+            categoryPagerFragment.setArguments(bundle);
 
-
-            @Override
-            public void onItemClick(int position, List<CategoryInfo> categoryInfos) {
-                CategoryPagerFragment categoryPagerFragment = new CategoryPagerFragment();
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList("categoryInfos", (ArrayList<? extends Parcelable>) categoryInfos);
-                bundle.putInt("position", position);
-                categoryPagerFragment.setArguments(bundle);
-
-                categoryPagerFragment.setOnBackListener(new CategoryPagerFragment.onBackListener() {
-                    @Override
-                    public void onBack() {
-                        if (getActivity() != null) {
-                            getActivity().getSupportFragmentManager().popBackStack();
-                            XinQuVideoPlayerStandard.releaseAllVideos();
-                        }
-                    }
-                });
-                addFragment(categoryPagerFragment, categoryPagerFragment.getClass().getName());
-            }
-
+            categoryPagerFragment.setOnBackListener(() -> {
+                if (getActivity() != null) {
+                    getActivity().getSupportFragmentManager().popBackStack();
+                    XinQuVideoPlayerStandard.releaseAllVideos();
+                }
+            });
+            addFragment(categoryPagerFragment, categoryPagerFragment.getClass().getName());
         });
 
         addFragment(categoryFragment, categoryFragment.getClass().getName());

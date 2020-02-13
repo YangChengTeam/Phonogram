@@ -1,0 +1,53 @@
+<payinfos>
+    <payinfo>
+        <payway>alipay</payway>
+        <class>com.yc.phonogram.pay.IAliPay1Impl</class>
+    </payinfo>
+    <payinfo>
+        <payway>ipaynow_wxpay</payway>
+        <class>com.yc.phonogram.pay.INowPayImpl</class>
+        <type>13</type>
+    </payinfo>
+    <payinfo>
+        <payway>ipaynow_wxpay</payway>
+        <class>com.yc.phonogram.pay.INowPayImpl</class>
+        <type>11</type>
+    </payinfo>
+    <payinfo>
+        <payway>wxpay</payway>
+        <class>com.yc.phonogram.pay.IWXPay1Impl</class>
+
+    </payinfo>
+    <payinfo>
+        <payway>ipaynowh5</payway>
+        <class>com.yc.phonogram.pay.IWXH5PayImpl</class>
+    </payinfo>
+    <payinfo>
+        <payway>xxpay</payway>
+        <class>com.yc.phonogram.pay.IXxPayImpl</class>
+    </payinfo>
+    <payinfo>
+        <payway>spwxpay</payway>
+        <class>com.yc.phonogram.pay.IShiftPassWxPayImpl</class>
+    </payinfo>
+    <payinfo>
+        <payway>spalipay</payway>
+        <class>com.yc.phonogram.pay.IShiftPassAliPayImpl</class>
+    </payinfo>
+    <payinfo>
+        <payway>dunxingyun_wxpay</payway>
+        <class>com.yc.phonogram.pay.IDunXingH5PayImpl</class>
+        <type>0</type>
+    </payinfo>
+    <payinfo>
+        <payway>dunxingyun_alipay</payway>
+        <class>com.yc.phonogram.pay.IDunXingH5PayImpl</class>
+        <type>1</type>
+
+    </payinfo>
+    <payinfo>
+        <payway>jiuyi_wxpay</payway>
+        <class>com.yc.phonogram.pay.IDunXingH5PayImpl</class>
+        <type>0</type>
+    </payinfo>
+</payinfos>

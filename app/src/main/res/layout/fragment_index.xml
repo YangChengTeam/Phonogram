@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="用户ID:666"
+                android:text="用户ID:"
                 android:textColor="#FFC84900"
                 android:textSize="15dp" />
 

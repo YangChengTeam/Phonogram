@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.yc.phonogram.ui.views.MainBgView
         android:id="@+id/mainBgView"
@@ -32,7 +32,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/read_progress_text"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <com.yc.phonogram.ui.widget.StrokeTextView
                         android:id="@+id/tv_current_number"
@@ -41,21 +41,21 @@
                         android:layout_marginLeft="4dp"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <com.yc.phonogram.ui.widget.StrokeTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="/"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <com.yc.phonogram.ui.widget.StrokeTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +73,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="@string/count_down_text"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
 
                     <ProgressBar
                         android:id="@+id/progress_bar"
@@ -87,7 +87,7 @@
                         android:indeterminateOnly="false"
                         android:minHeight="14dp"
                         android:progress="100"
-                        android:progressDrawable="@drawable/progressbar"/>
+                        android:progressDrawable="@drawable/progressbar" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -108,15 +108,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:src="@mipmap/splash_bg1"/>
+                        android:src="@mipmap/splash_bg1" />
 
                     <ImageView
                         android:id="@+id/iv_user_tape"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:visibility="gone"
-                        android:src="@mipmap/user_tape_icon"/>
+                        android:src="@mipmap/user_tape_icon"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -126,12 +126,11 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <android.support.v4.view.ViewPager
+                    <androidx.viewpager.widget.ViewPager
                         android:id="@+id/view_pager"
                         android:layout_width="232dp"
                         android:layout_height="132dp"
-                        android:layout_gravity="center">
-                    </android.support.v4.view.ViewPager>
+                        android:layout_gravity="center"></androidx.viewpager.widget.ViewPager>
 
                     <ImageView
                         android:id="@+id/iv_read_play"
@@ -139,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="12dp"
-                        android:src="@drawable/read_stop_selector"/>
+                        android:src="@drawable/read_stop_selector" />
                 </LinearLayout>
             </LinearLayout>
 

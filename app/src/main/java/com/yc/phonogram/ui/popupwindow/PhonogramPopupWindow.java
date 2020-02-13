@@ -1,8 +1,6 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,6 +11,9 @@ import com.yc.phonogram.ui.activitys.MainActivity;
 import com.yc.phonogram.ui.adapter.PhonogrameAdapter;
 
 import java.util.concurrent.TimeUnit;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import rx.functions.Action1;
 
 /**

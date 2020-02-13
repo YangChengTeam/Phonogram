@@ -1,7 +1,8 @@
 package com.yc.phonogram.ui.views.layout;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 /**
  * TinyHung@Outlook.com

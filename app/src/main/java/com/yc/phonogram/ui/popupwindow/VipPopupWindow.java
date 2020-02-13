@@ -1,46 +1,22 @@
 package com.yc.phonogram.ui.popupwindow;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.graphics.Rect;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.alibaba.fastjson.JSON;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.pay.I1PayAbs;
-import com.kk.pay.IPayAbs;
-import com.kk.pay.IPayCallback;
-import com.kk.pay.OrderInfo;
-import com.kk.pay.OrderParamsInfo;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
-import com.kk.utils.PreferenceUtil;
 import com.kk.utils.ScreenUtil;
-import com.kk.utils.TaskUtil;
-import com.kk.utils.ToastUtil;
-import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.R;
-import com.yc.phonogram.domain.Config;
-import com.yc.phonogram.domain.GoodInfo;
-import com.yc.phonogram.domain.GoodListInfo;
 import com.yc.phonogram.domain.VipShowInfo;
-import com.yc.phonogram.engin.GoodEngin;
-import com.yc.phonogram.ui.activitys.MainActivity;
-import com.yc.phonogram.ui.adapter.PayWayInfoAdapter;
 import com.yc.phonogram.ui.adapter.VipInfoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import rx.functions.Action1;
 
 /**

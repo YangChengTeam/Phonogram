@@ -39,4 +39,13 @@ public class SharePreferenceUtils {
         return sp.getString(key, defaultValue);
     }
 
+    public void putBoolean(String key, boolean b) {
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(key, b).apply();
+    }
+
+    public boolean getBoolean(String key) {
+        return sp.getBoolean(key, false);
+    }
+
 }
