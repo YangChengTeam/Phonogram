@@ -132,7 +132,11 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
 //        AdvDispatchManager.getManager().onPause();
         TTAdDispatchManager.getManager().onStop();
         if (mediaPlayer != null) {
-            mediaPlayer.stop();
+            if (mediaPlayer.isPlaying())
+                mediaPlayer.stop();
+            mediaPlayer.reset();
+
+            mediaPlayer = null;
         }
     }
 

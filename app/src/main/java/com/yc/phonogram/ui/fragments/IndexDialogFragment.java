@@ -103,10 +103,10 @@ public class IndexDialogFragment extends DialogFragment {
             if (mChecked) {
 
                 SharePreferenceUtils.getInstance().putBoolean(Config.index_dialog, true);
-//                PromotionDialogFragment promotionDialogFragment= new PromotionDialogFragment();
-//                if (getActivity()!=null){
-//                    promotionDialogFragment.show(getActivity().getSupportFragmentManager(),"");
-//                }
+                PromotionDialogFragment promotionDialogFragment= new PromotionDialogFragment();
+                if (getActivity()!=null){
+                    promotionDialogFragment.show(getActivity().getSupportFragmentManager(),"");
+                }
 
                 dismiss();
             } else {
