@@ -1,0 +1,27 @@
+
+k
+java:S3008"PRename this field "DEBUG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îéÒ¡ÿÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(Óùÿ¿
+[
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(©Ùİ˜
+t	java:S115+"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(÷ÿ¬Ûùÿÿÿÿ
+[
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(îŒí
+l
+java:S1104"QMake DEBUG a static final constant or non-public and provide accessors if needed.(îéÒ¡ÿÿÿÿÿ
+[
+java:S1124
+"EReorder the modifiers to comply with the Java Language Specification.(«ö¤à
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(ìğâŒşÿÿÿÿ
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(•Ş¶üÿÿÿÿ
+F
+java:S1444"+Make this "public static DEBUG" field final(îéÒ¡ÿÿÿÿÿ
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(İÑŸËøÿÿÿÿ
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(åÿÀşüÿÿÿÿ
+[
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Ûüˆ±

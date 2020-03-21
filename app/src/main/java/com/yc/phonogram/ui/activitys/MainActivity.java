@@ -47,6 +47,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import rx.functions.Action1;
@@ -487,6 +488,8 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     public boolean isCorrectPromiss() {
         return isVip(Config.CORRECTPRONUNCIATIONPROMISS_VIP + "");
     }
+
+
 
 
     private static final int WRITE = 100;

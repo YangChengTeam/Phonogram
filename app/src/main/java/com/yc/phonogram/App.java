@@ -31,9 +31,12 @@ import java.util.Map;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
+
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import yc.com.toutiao_adv.TTAdManagerHolder;
 
 /**
@@ -46,8 +49,14 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        initGoagal(getApplicationContext());
-        getAdvInfo();
+        Observable.just("").subscribeOn(Schedulers.io()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                initGoagal(getApplicationContext());
+                getAdvInfo();
+            }
+        }) ;
+
         INSTANSE = this;
         TTAdManagerHolder.init(this,Config.TOUTIAO_AD_ID);
     }
@@ -87,6 +96,7 @@ public class App extends MultiDexApplication {
         KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);
+
 
         //友盟分享
         UMShareImpl.Builder builder = new UMShareImpl.Builder();

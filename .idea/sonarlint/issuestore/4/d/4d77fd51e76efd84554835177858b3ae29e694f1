@@ -1,0 +1,35 @@
+
+n
+java:S14500"XRemove the "container" field and declare it as a local variable in the relevant methods.(¹Şˆ
+C
+java:S1604J"(Make this anonymous inner class a lambda(—‰Ò¶şÿÿÿÿ
+o
+java:S1104-"TMake INSTANCE a static final constant or non-public and provide accessors if needed.(ı€¡¡üÿÿÿÿ
+¤
+java:S1186Ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Û˜ÁÉûÿÿÿÿ8Âö‰õŠ.
+¤
+java:S1186æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(õí±Öÿÿÿÿÿ8Âö‰õŠ.
+Q	java:S125C"<This block of commented-out lines of code should be removed.( ›ò¡
+^	java:S125Ÿ"<This block of commented-out lines of code should be removed.(µáˆÿÿÿÿÿ8Âö‰õŠ.
+
+java:S1186Ì"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(İ¦’q8Âö‰õŠ.
+W	java:S110*"=This class has 10 parents which is greater than 5 authorized.(àøÖÜøÿÿÿÿ
+I
+java:S1444-".Make this "public static INSTANCE" field final(ı€¡¡üÿÿÿÿ
+C
+java:S1604P"(Make this anonymous inner class a lambda(¾ì¯†üÿÿÿÿ
+V	java:S125["<This block of commented-out lines of code should be removed.(áíüÈùÿÿÿÿ
+P	java:S125Y"<This block of commented-out lines of code should be removed.(âì¾\
+n
+java:S3008-"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı€¡¡üÿÿÿÿ
+]
+java:S1128"";Remove this unused import 'yc.com.toutiao_adv.BuildConfig'.(çñ±ùÿÿÿÿ8 „ŒõŠ.
+E
+java:S1604"(Make this anonymous inner class a lambda(†£°î8Âö‰õŠ.
+Ÿ
+java:S1186Ç"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ŸÖµ¸8Âö‰õŠ.
+Q
+java:S2696="6Make the enclosing method "static" or remove this set.(Æ‰©’ûÿÿÿÿ
+Y
+java:S2696§"6Make the enclosing method "static" or remove this set.(¿¸¥¹ûÿÿÿÿ8Âö‰õŠ.
+Y	java:S125"<This block of commented-out lines of code should be removed.(å™±•8Âö‰õŠ.

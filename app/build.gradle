@@ -8,8 +8,8 @@ android {
         applicationId "com.yc.phonogram"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 44
-        versionName "2.0.0"
+        versionCode 45
+        versionName "2.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -74,8 +74,8 @@ dependencies {
 
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
-    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+
+
     implementation 'com.jakewharton.rxbinding:rxbinding:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:+'
     implementation 'com.jakewharton.rxbinding:rxbinding-design:+'

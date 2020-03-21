@@ -1,0 +1,52 @@
+
+L
+java:S2696a"6Make the enclosing method "static" or remove this set.(à÷õæ
+Ÿ
+java:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¶ˆû8ŸûŠ.
+=
+java:S1068:"'Remove this unused "TAG" private field.(Ö—ÈÚ
+D
+java:S1604Í"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+f
+java:S1874Ÿ"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(Şå İûÿÿÿÿ
+?
+java:S1604ª"(Make this anonymous inner class a lambda(ÿ¨¤ó
+D
+java:S1604ä"(Make this anonymous inner class a lambda(á¥ö±ùÿÿÿÿ
+?
+java:S1604£"(Make this anonymous inner class a lambda(ëÙ×…
+>
+java:S1604±"(Make this anonymous inner class a lambda(ÛÀş8
+D
+java:S1604Ë"(Make this anonymous inner class a lambda(íÎ¨æÿÿÿÿÿ
+K
+java:S1604"(Make this anonymous inner class a lambda(î°›€ÿÿÿÿÿ8ëéİŠ.
+?
+java:S1604Ù"(Make this anonymous inner class a lambda(Œ²Ü
+=	java:S131ÿ""Add a default case to this switch.(øãş•ÿÿÿÿÿ
+a
+java:S1155é">Use isEmpty() to check whether the collection is empty or not.(–Ïáşÿÿÿÿ8ëéİŠ.
+¤
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(›Ò­àşÿÿÿÿ8ŸûŠ.
+D
+java:S1604ë"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+h
+java:S3776Z"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.( Üó
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™Î«şÿÿÿÿ
+W
+java:S1874 "ARemove this use of "FragmentStatePagerAdapter"; it is deprecated.(‘í›\
+?
+java:S1604¿"(Make this anonymous inner class a lambda(½§Ë—
+i
+java:S3008B"SRename this field "INSTANSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì£Ø¬
+?
+java:S1604Ö"(Make this anonymous inner class a lambda(“¸ò
+R	java:S125š"<This block of commented-out lines of code should be removed.(†¿Èº
+i
+java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(œï²’
+Y	java:S1108"=This class has 10 parents which is greater than 5 authorized.(Ùë ÿ8ëéİŠ.
+?
+java:S1604ã"(Make this anonymous inner class a lambda(ÉËÑˆ
+D
+java:S1604¸"(Make this anonymous inner class a lambda(ŞŒãøÿÿÿÿ

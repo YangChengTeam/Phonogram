@@ -1,0 +1,233 @@
+
+a
+java:S1117§"ERename "dataSourceObjects" which hides the field declared at line 89.(øÃÏãûÿÿÿÿ
+?
+java:S1148Ã"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+s
+java:S1104N"XMake currentState a static final constant or non-public and provide accessors if needed.(Ù‹¼ûÿÿÿÿ
+n
+java:S1104W"XMake topContainer a static final constant or non-public and provide accessors if needed.(³«¼„
+I
+java:S1135Œ"2Complete the task associated to this TODO comment.(ğŠø‰
+H
+java:S1135"2Complete the task associated to this TODO comment.(ş«Ì:
+M
+java:S2696É	"6Make the enclosing method "static" or remove this set.(¬¶¹ö
+R	java:S125»"<This block of commented-out lines of code should be removed.(óŸÛ’
+t
+java:S1104O"YMake currentScreen a static final constant or non-public and provide accessors if needed.(”ÏÈûÿÿÿÿ
+x
+java:S1104J"bMake lastAutoFullscreenTime a static final constant or non-public and provide accessors if needed.(‘ö—ÿ
+R	java:S125›"<This block of commented-out lines of code should be removed.(šË–
+R
+java:S2696Ë"6Make the enclosing method "static" or remove this set.(Ñ©æïúÿÿÿÿ
+\
+java:S2184 "@Cast one of the operands of this integer division to a "double".(ÎÍ°äşÿÿÿÿ
+W	java:S125¦"<This block of commented-out lines of code should be removed.(ÚÓ¡·üÿÿÿÿ
+8	java:S131ó""Add a default case to this switch.(ş™ÅŞ
+h
+java:S3776£"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(Œ©ïV
+s
+java:S3008G"XRename this field "SAVE_PROGRESS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ÜÔÖûÿÿÿÿ
+M
+java:S2696å"6Make the enclosing method "static" or remove this set.(‡İÆª
+?
+java:S1148†"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?
+java:S1148ç"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+R	java:S125Ï"<This block of commented-out lines of code should be removed.(ı¾’¶
+?
+java:S1148†"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+n
+java:S1104P"SMake objects a static final constant or non-public and provide accessors if needed.(ĞûÅˆÿÿÿÿÿ
+M
+java:S2696Á"6Make the enclosing method "static" or remove this set.(¡Š³Ñ
+?
+java:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+R	java:S125Ä"<This block of commented-out lines of code should be removed.(ı¾’¶
+R	java:S125Ö"<This block of commented-out lines of code should be removed.(ı¾’¶
+K
+java:S1066ï"/Merge this if statement with the enclosing one.(ŠåÒ„ûÿÿÿÿ
+X
+java:S1117”"ARename "mAudioManager" which hides the field declared at line 95.(œÙ°
+p
+java:S1104["ZMake positionInList a static final constant or non-public and provide accessors if needed.(¥Ã÷Ä
+W	java:S125à"<This block of commented-out lines of code should be removed.(¥Î¦ãùÿÿÿÿ
+K
+java:S1066î"/Merge this if statement with the enclosing one.(³á¯šüÿÿÿÿ
+M
+java:S2696Ì"6Make the enclosing method "static" or remove this set.(ôıÉ„
+s
+java:S1104Ø"WMake heightRatio a static final constant or non-public and provide accessors if needed.(‡ö¸Ñıÿÿÿÿ
+M
+java:S2696	"6Make the enclosing method "static" or remove this set.(¬¶¹ö
+L
+java:S1854Â	"5Remove this useless assignment to local variable "z".(í§Áˆ
+?
+java:S1148„"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+s
+java:S3008K"XRename this field "JZ_USER_EVENT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œşËûÿÿÿÿ
+K
+java:S1066Å	"/Merge this if statement with the enclosing one.(©İ¾™øÿÿÿÿ
+t
+java:S1104G"YMake SAVE_PROGRESS a static final constant or non-public and provide accessors if needed.(²ÜÔÖûÿÿÿÿ
+W
+java:S1444E"<Make this "public static FULLSCREEN_ORIENTATION" field final(ŠËòçşÿÿÿÿ
+z
+java:S1104H"dMake VIDEO_IMAGE_DISPLAY_TYPE a static final constant or non-public and provide accessors if needed.(Š‘çÁ
+w
+java:S1104T"\Make fullscreenButton a static final constant or non-public and provide accessors if needed.(´Á½¢üÿÿÿÿ
+R	java:S125ğ"<This block of commented-out lines of code should be removed.(ı¾’¶
+?
+java:S1148”"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+|
+java:S3008E"aRename this field "FULLSCREEN_ORIENTATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠËòçşÿÿÿÿ
+N
+java:S1444G"3Make this "public static SAVE_PROGRESS" field final(²ÜÔÖûÿÿÿÿ
+y
+java:S3008H"cRename this field "VIDEO_IMAGE_DISPLAY_TYPE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š‘çÁ
+=	java:S131¡""Add a default case to this switch.(Ç¡Œªşÿÿÿÿ
+J
+java:S1659U"/Declare "totalTimeTextView" on a separate line.(ò“ìÌûÿÿÿÿ
+t
+java:S1104\"YMake videoRotation a static final constant or non-public and provide accessors if needed.(ƒß¸Äÿÿÿÿÿ
+p
+java:S1104D"ZMake TOOL_BAR_EXIST a static final constant or non-public and provide accessors if needed.(Áº¬©
+J
+java:S1874À	".Remove this use of "DATA_X"; it is deprecated.(»Ôğûÿÿÿÿ
+R
+java:S2696"6Make the enclosing method "static" or remove this set.(†©ìüÿÿÿÿÿ
+W	java:S125ˆ"<This block of commented-out lines of code should be removed.(–¨ìñÿÿÿÿÿ
+=
+java:S1481Â	"&Remove this unused "z" local variable.(í§Áˆ
+˜
+java:S1186Ï	"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ĞŠß±
+S
+java:S1444F"8Make this "public static NORMAL_ORIENTATION" field final(„´µ…ûÿÿÿÿ
+R	java:S125Ó"<This block of commented-out lines of code should be removed.(–¯âä
+f
+java:S1104X"PMake loop a static final constant or non-public and provide accessors if needed.(÷èÚÀ
+C
+java:S1659W"-Declare "bottomContainer" on a separate line.(³«¼„
+D	java:S108»")Either remove or fill this block of code.(–³ˆåüÿÿÿÿ
+u
+java:S3008L"`Rename this field "UPDATE_PROGRESS_TIMER" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æğˆ
+I
+java:S1144Ú"2Remove this unused private "moveToViewTop" method.(§¾¿‡
+J
+java:S1444D"4Make this "public static TOOL_BAR_EXIST" field final(Áº¬©
+=	java:S131Ü""Add a default case to this switch.(ãÁğ™øÿÿÿÿ
+E
+java:S1874Â	".Remove this use of "DATA_Z"; it is deprecated.(í§Áˆ
+T
+java:S1444H">Make this "public static VIDEO_IMAGE_DISPLAY_TYPE" field final(Š‘çÁ
+?
+java:S1148Á"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+
+java:S1104÷	"eMake mOnPlayCompletionListener a static final constant or non-public and provide accessors if needed.(à™Û½øÿÿÿÿ
+K
+java:S1066¿"/Merge this if statement with the enclosing one.(²Ö±Úøÿÿÿÿ
+K
+java:S1066ù"/Merge this if statement with the enclosing one.(°ä¾¤úÿÿÿÿ
+y
+java:S1104F"^Make NORMAL_ORIENTATION a static final constant or non-public and provide accessors if needed.(„´µ…ûÿÿÿÿ
+n
+java:S3776×"RRefactor this method to reduce its Cognitive Complexity from 86 to the 15 allowed.(Óı°ûÿÿÿÿ
+m
+java:S1104S"WMake progressBar a static final constant or non-public and provide accessors if needed.(©²±£
+P
+java:S1874×"9Remove this use of "requestAudioFocus"; it is deprecated.(£âïæ
+?
+java:S1148¢"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?
+java:S1148Á"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+H
+java:S1135	"2Complete the task associated to this TODO comment.(¥¹ÿ"
+v
+java:S1104V"`Make textureViewContainer a static final constant or non-public and provide accessors if needed.(ÕÂªÀ
+W	java:S125³"<This block of commented-out lines of code should be removed.(œ²µ»øÿÿÿÿ
+R
+java:S2696œ"6Make the enclosing method "static" or remove this set.(œÕĞçùÿÿÿÿ
+m	java:S116l"XRename this field "tmp_test_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦¯ÜÀ
+p
+java:S3252Ñ"YUse static access with "com.xinqu.videoplayer.XinQuUserAction" for "ON_CLICK_START_ICON".(ß¹—ó
+m
+java:S1104R"WMake startButton a static final constant or non-public and provide accessors if needed.(“£’¤
+Q
+java:S1444C"6Make this "public static ACTION_BAR_EXIST" field final(‹óŸÂûÿÿÿÿ
+@
+java:S1444X"*Make this "public static loop" field final(÷èÚÀ
+M
+java:S2696è"6Make the enclosing method "static" or remove this set.(ÓöŠ
+J
+java:S1874Á	".Remove this use of "DATA_Y"; it is deprecated.(ÂŞ˜úÿÿÿÿ
+y
+java:S1104Z"^Make currentUrlMapIndex a static final constant or non-public and provide accessors if needed.(ÖÁÕ“øÿÿÿÿ
+?
+java:S1148¿"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+M
+java:S2696±"6Make the enclosing method "static" or remove this set.(øó
+R	java:S125÷"<This block of commented-out lines of code should be removed.(†Ñ»¡
+{
+java:S1104u"fMake onAudioFocusChangeListener a static final constant or non-public and provide accessors if needed.(ù£ß
+R
+java:S2696ï"6Make the enclosing method "static" or remove this set.(åúı´ıÿÿÿÿ
+V
+java:S1444I"@Make this "public static CLICK_QUIT_FULLSCREEN_TIME" field final(ğ°ÕÔ
+R	java:S125”"<This block of commented-out lines of code should be removed.(ı¾’¶
+B
+java:S1172»"&Remove these unused method parameters.(úóÚøÿÿÿÿ
+<
+java:S1172£"&Remove these unused method parameters.(Œ©ïV
+W	java:S125"<This block of commented-out lines of code should be removed.(îÛûúúÿÿÿÿ
+v
+java:S1104Q"[Make seekToInAdvance a static final constant or non-public and provide accessors if needed.(Ğ™ƒ•ûÿÿÿÿ
+<	java:S131x""Add a default case to this switch.(¿ˆçøÿÿÿÿ
+L
+java:S2209Á"5Change this instance-reference to a static reference.(¡Š³Ñ
+R
+java:S2696½"6Make the enclosing method "static" or remove this set.(†©ìüÿÿÿÿÿ
+|
+java:S1104I"fMake CLICK_QUIT_FULLSCREEN_TIME a static final constant or non-public and provide accessors if needed.(ğ°ÕÔ
+R
+java:S1444J"<Make this "public static lastAutoFullscreenTime" field final(‘ö—ÿ
+o
+java:S3008D"YRename this field "TOOL_BAR_EXIST" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áº¬©
+g	java:S117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äœ¬
+x
+java:S1104U"]Make totalTimeTextView a static final constant or non-public and provide accessors if needed.(ò“ìÌûÿÿÿÿ
+v
+java:S3008C"[Rename this field "ACTION_BAR_EXIST" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹óŸÂûÿÿÿÿ
+]
+java:S2147…"FCombine this catch with the one at line 1027, which has the same body.(”ı¾
+U
+java:S1444u"@Make this "public static onAudioFocusChangeListener" field final(ù£ß
+r
+java:S1104×"VMake widthRatio a static final constant or non-public and provide accessors if needed.(¦³ˆøûÿÿÿÿ
+l	java:S117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Úæ¾Æÿÿÿÿÿ
+p
+java:S1215ú"TDon't try to be smarter than the JVM, remove this call to run the garbage collector.(‚êİ§şÿÿÿÿ
+W	java:S125"<This block of commented-out lines of code should be removed.(Ç•Ñşùÿÿÿÿ
+R	java:S125Í"<This block of commented-out lines of code should be removed.(–¯âä
+w
+java:S1104C"\Make ACTION_BAR_EXIST a static final constant or non-public and provide accessors if needed.(‹óŸÂûÿÿÿÿ
+]
+java:S2147À"FCombine this catch with the one at line 1086, which has the same body.(”ı¾
+U
+java:S1874•"9Remove this use of "abandonAudioFocus"; it is deprecated.(äÍãõùÿÿÿÿ
+x
+java:S1104Y"]Make dataSourceObjects a static final constant or non-public and provide accessors if needed.(ÊÔ±øûÿÿÿÿ
+z
+java:S1104U"_Make currentTimeTextView a static final constant or non-public and provide accessors if needed.(ò“ìÌûÿÿÿÿ
+\
+java:S2147Â"ECombine this catch with the one at line 192, which has the same body.(”ı¾
+X
+java:S1117Ö"ARename "mAudioManager" which hides the field declared at line 95.(œÙ°
+x
+java:S3008F"]Rename this field "NORMAL_ORIENTATION" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„´µ…ûÿÿÿÿ
+}
+java:S1104E"bMake FULLSCREEN_ORIENTATION a static final constant or non-public and provide accessors if needed.(ŠËòçşÿÿÿÿ
+q
+java:S1104W"[Make bottomContainer a static final constant or non-public and provide accessors if needed.(³«¼„
+{
+java:S3008I"eRename this field "CLICK_QUIT_FULLSCREEN_TIME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ°ÕÔ

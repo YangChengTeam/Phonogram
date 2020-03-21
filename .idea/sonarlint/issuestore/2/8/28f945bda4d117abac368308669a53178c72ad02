@@ -1,0 +1,26 @@
+
+g
+java:S3776z"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(˜ã˜
+C
+java:S1604~"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+f	java:S117L"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ûçì
+>
+java:S16044"(Make this anonymous inner class a lambda(ÄùÆÓ
+L
+java:S2696<"6Make the enclosing method "static" or remove this set.(à÷õæ
+n
+java:S3008/"SRename this field "INSTANSE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë¼Œæÿÿÿÿÿ
+
+java:S1186Ú"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(åí›®ÿÿÿÿÿ
+D
+java:S1604•"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+I
+java:S1874Y"3Remove this use of "versionCode"; it is deprecated.(šÿÌğ
+D
+java:S1604‘"(Make this anonymous inner class a lambda(ĞÓ©üÿÿÿÿ
+
+java:S1186ß"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸ÜÒÄøÿÿÿÿ
+D
+java:S1604¢"(Make this anonymous inner class a lambda(é£Šıÿÿÿÿ
+J
+java:S1121¶".Extract the assignment out of this expression.(Šêœÿÿÿÿÿ

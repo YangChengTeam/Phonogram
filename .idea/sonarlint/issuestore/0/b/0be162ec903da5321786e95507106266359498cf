@@ -1,0 +1,8 @@
+
+T
+java:S2168"9Remove this dangerous instance of double-checked locking.(Éà©£üÿÿÿÿ
+n
+java:S1450"XRemove the "mActivity" field and declare it as a local variable in the relevant methods.(ïÐÔ’
+C
+java:S1068"-Remove this unused "mActivity" private field.(ïÐÔ’
+R	java:S107"=Method has 10 parameters, which is greater than 7 authorized.(þµ¹‹

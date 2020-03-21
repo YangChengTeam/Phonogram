@@ -2,7 +2,9 @@ package com.yc.phonogram.ui.activitys;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,18 +17,21 @@ import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.utils.Mp3Utils;
+import com.yc.phonogram.utils.VipUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.ContextCompat;
+
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.OnAdvStateListener;
+import yc.com.toutiao_adv.BuildConfig;
 import yc.com.toutiao_adv.TTAdDispatchManager;
 import yc.com.toutiao_adv.TTAdType;
 
@@ -61,8 +66,6 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
 
 //        AdvDispatchManager.getManager().init(this, AdvType.SPLASH, container, skipView, Config.AV_APPID, Config.AV_SPLASH_ID, this);
 
-        TTAdDispatchManager.getManager().init(this, TTAdType.SPLASH, container, Config.TOUTIAO_SPLASH_ID, 0, null, 0, null, 0, this);
-
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
         subscription = Observable.interval(300, TimeUnit.MILLISECONDS).observeOn
@@ -92,6 +95,16 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
 
             }
         });
+
+        String brand = Build.BRAND.toLowerCase();
+        if (VipUtils.getInstance(this).isVip()|| TextUtils.equals("huawei",brand)||TextUtils.equals("honor",brand)) {
+
+            container.setVisibility(View.GONE);
+            switchMain(minSplashTimeWhenNoAD);
+        } else {
+            container.setVisibility(View.VISIBLE);
+            TTAdDispatchManager.getManager().init(this, TTAdType.SPLASH, container, Config.TOUTIAO_SPLASH_ID, 0, null, 0, null, 0, this);
+        }
 
     }
 

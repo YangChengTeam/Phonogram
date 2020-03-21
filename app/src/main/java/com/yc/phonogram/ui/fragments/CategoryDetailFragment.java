@@ -93,7 +93,8 @@ public class CategoryDetailFragment extends BaseFragment {
                     proxyUrl = proxy.getProxyUrl(categoryDetailInfo.getUrl());
                 }
                 videoPlayer.setUp(proxyUrl, XinQuVideoPlayer.SCREEN_WINDOW_LIST, false, null == categoryDetailInfo.getTitle() ? "" : categoryDetailInfo.getTitle());
-                Glide.with(CategoryDetailFragment.this).load(categoryDetailInfo.getImg()).apply(new RequestOptions()
+
+                Glide.with(getActivity()).load(categoryDetailInfo.getImg()).apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_player_error)
                         .error(R.mipmap.ic_player_error)
                         .diskCacheStrategy(DiskCacheStrategy.DATA)//缓存源资源和转换后的资源

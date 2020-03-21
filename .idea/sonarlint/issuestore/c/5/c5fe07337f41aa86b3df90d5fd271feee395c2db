@@ -1,0 +1,12 @@
+
+Q
+java:S1874U"<Remove this use of "FragmentPagerAdapter"; it is deprecated.(‘í›\
+œ
+java:S1186A"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ø´´øÿÿÿÿ
+_
+java:S1874T"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(†Ë´J
+œ
+java:S1186K"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™Î«şÿÿÿÿ
+m
+java:S3252G"WUse static access with "com.xinqu.videoplayer.XinQuVideoPlayer" for "releaseAllVideos".(€™ã
+k	java:S114i"QRename this interface name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÛŸè‰ıÿÿÿÿ
