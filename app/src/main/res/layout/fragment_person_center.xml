@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yc.phonogram.ui.views.MainBgView
+        android:id="@+id/mainBgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.yc.phonogram.ui.views.BaseUserView
+                android:id="@+id/user_info_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_weight="1"
+                app:icon="@mipmap/icon_information"
+                app:name="个人信息" />
+
+            <com.yc.phonogram.ui.views.BaseUserView
+                android:id="@+id/vip_info_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_weight="1"
+                app:icon="@mipmap/icon_member"
+                app:name="开通会员" />
+
+            <com.yc.phonogram.ui.views.BaseUserView
+                android:id="@+id/order_info_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_weight="1"
+                app:icon="@mipmap/icon_order"
+                app:name="我的订单" />
+
+            <com.yc.phonogram.ui.views.BaseUserView
+                android:id="@+id/setting_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_weight="1"
+                app:icon="@mipmap/icon_set"
+                app:name="系统设置" />
+
+            <com.yc.phonogram.ui.views.BaseUserView
+                android:id="@+id/privacy_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:layout_weight="1"
+                app:icon="@mipmap/icon_secret"
+                app:name="隐私政策" />
+        </LinearLayout>
+    </com.yc.phonogram.ui.views.MainBgView>
+</RelativeLayout>

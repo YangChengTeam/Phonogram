@@ -1,4 +1,4 @@
-
+include ':rthttplibrary'
 include ':app', ':video-player', ':share', ':toutiao-adv'
 
 

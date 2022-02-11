@@ -1,18 +1,8 @@
 package com.yc.phonogram.pay;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 
-
-import com.kk.loading.LoadingDialog;
-import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.kk.utils.LogUtil;
-import com.kk.utils.ToastUtil;
-import com.switfpass.pay.thread.Executable;
 import com.switfpass.pay.thread.NetHelper;
-import com.switfpass.pay.thread.NotifyListener;
-import com.switfpass.pay.thread.ThreadHelper;
 import com.switfpass.pay.utils.MD5;
 import com.switfpass.pay.utils.SignUtils;
 import com.switfpass.pay.utils.XmlUtils;
@@ -21,6 +11,9 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by zhangkai on 2017/6/26.
@@ -37,7 +30,7 @@ public class IShiftPassWxPayImpl extends IPayImpl {
     @Override
     public void pay(final OrderInfo orderInfo, final IPayCallback iPayCallback) {
         if (orderInfo == null || orderInfo.getPayInfo() == null) {
-            ToastUtil.toast2(mContext, "支付失败");
+            ToastUtil.toast(mContext, "支付失败");
             return;
         }
 
@@ -64,43 +57,40 @@ public class IShiftPassWxPayImpl extends IPayImpl {
         String sign = MD5.md5s(buf.toString() + "&key=" + payInfo.getKey()).toUpperCase();
         params.put("sign", sign);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LogUtil.msg("params  " + XmlUtils.toXml(params));
-                String result = NetHelper.getInstance().HttpPost(payInfo.getReturn_url(), XmlUtils.toXml(params));
-                final HashMap mapResult = XmlUtils.parse(result);
-                LogUtil.msg("result  " + result);
-                if (mapResult != null && "0".equals(mapResult.get("status")) && "0".equals(mapResult.get("result_code"))) {
-                    mContext.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                WebPopupWindow webPopupWindow = new WebPopupWindow(mContext, mapResult.get
-                                        ("pay_info").toString(), orderInfo.getPayInfo().getIsOverrideUrl() == 1);
-                                webPopupWindow.show(mContext.getWindow().getDecorView().getRootView());
-                                IPayImpl.uiPayCallback = iPayCallback;
-                                IPayImpl.uOrderInfo = orderInfo;
-                                isGen = true;
-                            } catch (Exception e) {
-                                mContext.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ToastUtil.toast2(mContext, "支付渠道出错,请联系客服");
-                                    }
-                                });
-                                LogUtil.msg("Exception  " + e.getMessage());
-                            }
+        new Thread(() -> {
+            LogUtil.msg("params  " + XmlUtils.toXml(params));
+            String result = NetHelper.getInstance().HttpPost(payInfo.getReturn_url(), XmlUtils.toXml(params));
+            final HashMap mapResult = XmlUtils.parse(result);
+            LogUtil.msg("result  " + result);
+            if ("0".equals(mapResult.get("status")) && "0".equals(mapResult.get("result_code"))) {
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            WebPopupWindow webPopupWindow = new WebPopupWindow(mContext, mapResult.get
+                                    ("pay_info").toString(), orderInfo.getPayInfo().getIsOverrideUrl() == 1);
+                            webPopupWindow.show(mContext.getWindow().getDecorView().getRootView());
+                            IPayImpl.uiPayCallback = iPayCallback;
+                            IPayImpl.uOrderInfo = orderInfo;
+                            isGen = true;
+                        } catch (Exception e) {
+                            mContext.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.toast(mContext, "支付渠道出错,请联系客服");
+                                }
+                            });
+                            LogUtil.msg("Exception  " + e.getMessage());
                         }
-                    });
-                } else {
-                    mContext.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.toast2(mContext, "支付渠道出错,请联系客服");
-                        }
-                    });
-                }
+                    }
+                });
+            } else {
+                mContext.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.toast(mContext, "支付渠道出错,请联系客服");
+                    }
+                });
             }
         }).start();
 

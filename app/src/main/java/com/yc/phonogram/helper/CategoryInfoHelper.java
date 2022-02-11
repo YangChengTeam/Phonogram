@@ -1,9 +1,10 @@
 package com.yc.phonogram.helper;
 
 import com.alibaba.fastjson.JSON;
-import com.kk.utils.LogUtil;
 import com.yc.phonogram.domain.CategoryInfoWrapperWrapper;
 import com.yc.phonogram.domain.Config;
+
+import yc.com.rthttplibrary.util.LogUtil;
 
 /**
  * Created by wanglin  on 2019/5/17 09:49.

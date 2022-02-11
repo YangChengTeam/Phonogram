@@ -17,12 +17,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.kk.utils.ToastUtil;
+
 import com.yc.phonogram.R;
 import com.yc.phonogram.ui.widget.CommonWebView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by wanglin  on 2019/1/25 10:05.
@@ -132,7 +133,7 @@ public class AdvInfoActivity extends AppCompatActivity {
                 startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                ToastUtil.toast2(AdvInfoActivity.this, "你手机安装的应用市场没有上线该应用，请前往其他应用市场进行点评");
+                ToastUtil.toast(AdvInfoActivity.this, "你手机安装的应用市场没有上线该应用，请前往其他应用市场进行点评");
             }
         }
     }

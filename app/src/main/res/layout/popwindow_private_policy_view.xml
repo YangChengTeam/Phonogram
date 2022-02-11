@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <RelativeLayout
+            android:layout_width="530dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <RelativeLayout
+                android:id="@+id/rl_pay"
+                android:layout_width="507dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/privacy_bg"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="@dimen/dp_30">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/dp_30"
+                        android:paddingRight="@dimen/dp_30">
+
+                        <TextView
+                            android:id="@+id/webView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="@dimen/dimen_5"
+                            android:text="@string/privacy_statement"
+                            android:textColor="#7a5b3c" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/iv_pay_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/pay_delete" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

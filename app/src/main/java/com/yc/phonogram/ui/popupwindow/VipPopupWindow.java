@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.ScreenUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.VipShowInfo;
 import com.yc.phonogram.ui.adapter.VipInfoAdapter;
@@ -18,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rx.functions.Action1;
+import yc.com.rthttplibrary.util.ScreenUtil;
 
 /**
  * Created by zhangkai on 2017/12/15.

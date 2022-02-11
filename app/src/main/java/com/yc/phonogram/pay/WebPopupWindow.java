@@ -25,10 +25,10 @@ import android.widget.PopupWindow;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kk.loading.LoadingDialog;
-import com.kk.utils.ToastUtil;
 import com.yc.phonogram.R;
 
 import androidx.annotation.NonNull;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 
 /**
@@ -137,7 +137,7 @@ public class WebPopupWindow extends PopupWindow {
                 mContext.startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                ToastUtil.toast2(mContext, "支付异常，请重试");
+                ToastUtil.toast(mContext, "支付异常，请重试");
             }
             dismiss();
             return true;
@@ -158,7 +158,7 @@ public class WebPopupWindow extends PopupWindow {
                 mContext.startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                ToastUtil.toast2(mContext, "支付异常，请重试");
+                ToastUtil.toast(mContext, "支付异常，请重试");
             }
             dismiss();
             return true;

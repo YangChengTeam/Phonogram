@@ -1,5 +1,6 @@
 package com.yc.phonogram.ui.popupwindow;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Rect;
@@ -9,21 +10,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
-import com.kk.utils.PreferenceUtil;
-import com.kk.utils.ScreenUtil;
-import com.kk.utils.TaskUtil;
-import com.kk.utils.ToastUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.GoodInfo;
 import com.yc.phonogram.domain.GoodListInfo;
-import com.yc.phonogram.engin.GoodEngin;
+import com.yc.phonogram.engin.GoodEngine;
 import com.yc.phonogram.helper.ObservManager;
 import com.yc.phonogram.pay.I1PayAbs;
 import com.yc.phonogram.pay.IPayAbs;
@@ -40,6 +33,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rx.functions.Action1;
+import yc.com.rthttplibrary.config.HttpConfig;
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.PreferenceUtil;
+import yc.com.rthttplibrary.util.ScreenUtil;
+import yc.com.rthttplibrary.util.TaskUtil;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by zhangkai on 2017/12/15.
@@ -58,7 +57,7 @@ public class PayPopupWindow extends BasePopupWindow {
     private final String WX_PAY = "wxpay";
     private final String ALI_PAY = "alipay";
     private String payway = WX_PAY;
-    private GoodEngin goodEngin;
+    private GoodEngine goodEngin;
 
     private GoodInfo goodInfo;
     private PaySuccessTintPopWindow paySuccessTintPopWindow;
@@ -78,7 +77,7 @@ public class PayPopupWindow extends BasePopupWindow {
         MobclickAgent.onEvent(mContext, "open_pay_click", "打开付费界面");
 
 
-        goodEngin = new GoodEngin(mContext);
+        goodEngin = new GoodEngine(mContext);
         setAnimationStyle(R.style.popwindow_style);
         initData();
         mIvPayCharge = (ImageButton) getView(R.id.iv_pay_charge);
@@ -99,6 +98,7 @@ public class PayPopupWindow extends BasePopupWindow {
 
     }
 
+    @SuppressLint("CheckResult")
     private void initData() {
 
         TaskUtil.getImpl().runTask(new Runnable() {
@@ -129,23 +129,19 @@ public class PayPopupWindow extends BasePopupWindow {
                 }
             }
         });
-        goodEngin.getGoodList().subscribe(new Action1<ResultInfo<GoodListInfo>>() {
-            @Override
-            public void call(final ResultInfo<GoodListInfo> goodListInfoResultInfo) {
-                if (goodListInfoResultInfo != null && goodListInfoResultInfo.code == HttpConfig.STATUS_OK
-                        && goodListInfoResultInfo.data != null && goodListInfoResultInfo.data.getGoodInfoList() != null) {
-                    payWayInfoAdapter.setNewData(goodListInfoResultInfo.data.getGoodInfoList());
-                    goodInfo = getGoodInfo(goodListInfoResultInfo.data.getGoodInfoList());
-                }
-                TaskUtil.getImpl().runTask(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (goodListInfoResultInfo != null)
-                            PreferenceUtil.getImpl(mContext).putString(Config.VIP_LIST_URL, JSON.toJSONString(goodListInfoResultInfo.data));
-                    }
-                });
+
+        goodEngin.getGoodList().subscribe(goodListInfoResultInfo -> {
+            if (goodListInfoResultInfo != null && goodListInfoResultInfo.code == HttpConfig.STATUS_OK
+                    && goodListInfoResultInfo.data != null && goodListInfoResultInfo.data.getGoodInfoList() != null) {
+                payWayInfoAdapter.setNewData(goodListInfoResultInfo.data.getGoodInfoList());
+                goodInfo = getGoodInfo(goodListInfoResultInfo.data.getGoodInfoList());
             }
+            TaskUtil.getImpl().runTask(() -> {
+                if (goodListInfoResultInfo != null)
+                    PreferenceUtil.getImpl(mContext).putString(Config.VIP_LIST_URL, JSON.toJSONString(goodListInfoResultInfo.data));
+            });
         });
+
     }
 
 
@@ -185,7 +181,7 @@ public class PayPopupWindow extends BasePopupWindow {
                 MobclickAgent.onEvent(mContext, "pay_click", "点击充值按钮");
 
                 if (goodInfo != null) {
-                    OrderParamsInfo orderParamsInfo = new OrderParamsInfo(Config.ORDER_URL, String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
+                    OrderParamsInfo orderParamsInfo = new OrderParamsInfo( String.valueOf(goodInfo.getId()), "0", Float.parseFloat(goodInfo.getReal_price()), goodInfo.getTitle());
                     orderParamsInfo.setPayway_name(payway);
 
                     iPayAbs.pay(orderParamsInfo, new IPayCallback() {
@@ -212,25 +208,22 @@ public class PayPopupWindow extends BasePopupWindow {
             }
         });
 
-        payWayInfoAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ImageView mIvSelect = payWayInfoAdapter.getIv(position);
-                boolean isBuy = (boolean) mIvSelect.getTag();
-                if (isBuy) {
-                    return;
-                }
-
-                if (preImagView == null)
-                    preImagView = payWayInfoAdapter.getIv(getPositon());
-
-                if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
-                    preImagView.setImageResource(R.mipmap.pay_select_normal);
-                }
-                mIvSelect.setImageResource(R.mipmap.pay_select_press);
-                preImagView = mIvSelect;
-                goodInfo = payWayInfoAdapter.getItem(position);
+        payWayInfoAdapter.setOnItemClickListener((adapter, view, position) -> {
+            ImageView mIvSelect = payWayInfoAdapter.getIv(position);
+            boolean isBuy = (boolean) mIvSelect.getTag();
+            if (isBuy) {
+                return;
             }
+
+            if (preImagView == null)
+                preImagView = payWayInfoAdapter.getIv(getPositon());
+
+            if (preImagView != mIvSelect && !((boolean) preImagView.getTag())) {
+                preImagView.setImageResource(R.mipmap.pay_select_normal);
+            }
+            mIvSelect.setImageResource(R.mipmap.pay_select_press);
+            preImagView = mIvSelect;
+            goodInfo = payWayInfoAdapter.getItem(position);
         });
 
     }

@@ -51,6 +51,12 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
         setContentView(mRootView);
         setOutsideTouchable(false);
         UIUtils.invoke(mContext.getWindow().getDecorView().getRootView());
+//        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+//        setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
+        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+//        setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         init();
     }
 
@@ -81,19 +87,15 @@ public abstract class BasePopupWindow extends PopupWindow implements IView {
             setTouchable(true);
             contentView.setFocusable(true);
             contentView.setFocusableInTouchMode(true);
-            contentView.setOnKeyListener(new View.OnKeyListener() {
-
-                @Override
-                public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    switch (keyCode) {
-                        case KeyEvent.KEYCODE_BACK:
-                            dismiss();
-                            return true;
-                        default:
-                            break;
-                    }
-                    return false;
+            contentView.setOnKeyListener((v, keyCode, event) -> {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_BACK:
+                        dismiss();
+                        return true;
+                    default:
+                        break;
                 }
+                return false;
             });
         }
     }

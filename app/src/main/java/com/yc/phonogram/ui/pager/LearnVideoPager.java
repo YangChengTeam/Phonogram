@@ -3,6 +3,7 @@ package com.yc.phonogram.ui.pager;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -15,9 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.danikula.videocache.HttpProxyCacheServer;
-import com.kk.utils.ToastUtil;
-import com.ksyun.media.player.IMediaPlayer;
-import com.ksyun.media.player.KSYMediaPlayer;
+
 import com.xinqu.videoplayer.XinQuVideoPlayer;
 import com.xinqu.videoplayer.XinQuVideoPlayerStandard;
 import com.yc.phonogram.App;
@@ -35,6 +34,7 @@ import java.util.List;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * TinyHung@Outlook.com
@@ -48,7 +48,7 @@ public class LearnVideoPager  extends BasePager{
     private ImageView mIvLpLogo;
     private TextView mTvLpTipsContent;
     private XinQuVideoPlayerStandard mVidepPlayer;
-    private KSYMediaPlayer mKsyMediaPlayer;
+    private MediaPlayer mKsyMediaPlayer;
     private Animation mScaleAnimation;
     private AnimationDrawable mAnimationDrawable;
     private RecyclerViewLPContentListAdapter mReContentListAdapter;
@@ -144,12 +144,12 @@ public class LearnVideoPager  extends BasePager{
         }
         if(TextUtils.isEmpty(musicUrl)) return;
         if(null==mKsyMediaPlayer){
-            mKsyMediaPlayer = new KSYMediaPlayer.Builder(getActivity()).build();
+            mKsyMediaPlayer = new MediaPlayer();
             mKsyMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         }
-        mKsyMediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
+        mKsyMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void onPrepared(IMediaPlayer mp) {
+            public void onPrepared(MediaPlayer mp) {
                 if(isListPlay){
                     cleanLoadingAnimation();//清除和隐藏加载进度条
                 }
@@ -169,11 +169,11 @@ public class LearnVideoPager  extends BasePager{
                 mp.start();
             }
         });
-        mKsyMediaPlayer.setOnErrorListener(new IMediaPlayer.OnErrorListener() {
+        mKsyMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
-            public boolean onError(IMediaPlayer mp, int what, int extra) {
+            public boolean onError(MediaPlayer mp, int what, int extra) {
                 cleanLoadingAnimation();//清除和隐藏加载进度条
-                ToastUtil.toast2(getActivity(),"单词播放失败！");
+                ToastUtil.toast(getActivity(),"单词播放失败！");
                 return true;
             }
         });
@@ -211,9 +211,10 @@ public class LearnVideoPager  extends BasePager{
             if(mKsyMediaPlayer.isPlaying()){
                 mKsyMediaPlayer.stop();
             }
-            mKsyMediaPlayer.release();
+//            mKsyMediaPlayer.release();
             mKsyMediaPlayer.reset();
-            mKsyMediaPlayer.resetListeners();
+//            mKsyMediaPlayer.resetListeners();
+
             mKsyMediaPlayer=null;
         }
         cleanLoadingAnimation();

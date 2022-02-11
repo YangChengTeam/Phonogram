@@ -2,38 +2,51 @@ package com.yc.phonogram;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.danikula.videocache.HttpProxyCacheServer;
-import com.kk.securityhttp.domain.GoagalInfo;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
+
 import com.kk.share.UMShareImpl;
-import com.kk.utils.FileUtil;
-import com.kk.utils.LogUtil;
-import com.kk.utils.PreferenceUtil;
-import com.kk.utils.TaskUtil;
-import com.ksyun.media.player.KSYHardwareDecodeWhiteList;
+
+
 import com.tencent.bugly.Bugly;
 import com.umeng.commonsdk.UMConfigure;
 import com.yc.phonogram.domain.AdvInfo;
 import com.yc.phonogram.domain.AdvInfoWrapper;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
+import com.yc.phonogram.domain.UserInfo;
+import com.yc.phonogram.domain.UserInfoWrapper;
+import com.yc.phonogram.domain.VipInfo;
 import com.yc.phonogram.engin.AdvEngine;
-import com.yc.phonogram.engin.LoginEngin;
+import com.yc.phonogram.engin.LoginEngine;
+import com.yc.phonogram.engin.PhoneLoginEngine;
+import com.yc.phonogram.helper.UserInfoHelper;
+import com.yc.phonogram.utils.AssetsUtil;
 import com.yc.phonogram.utils.LPUtils;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import rx.Observable;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+import yc.com.rthttplibrary.bean.ResultInfo;
+import yc.com.rthttplibrary.config.GoagalInfo;
+import yc.com.rthttplibrary.config.HttpConfig;
+import yc.com.rthttplibrary.converter.FastJsonConverterFactory;
+import yc.com.rthttplibrary.request.RetrofitHttpRequest;
+import yc.com.rthttplibrary.util.FileUtil;
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.PreferenceUtil;
+import yc.com.rthttplibrary.util.TaskUtil;
 import yc.com.toutiao_adv.TTAdManagerHolder;
 
 /**
@@ -42,14 +55,23 @@ import yc.com.toutiao_adv.TTAdManagerHolder;
 
 public class App extends MultiDexApplication {
     private static App INSTANSE;
+    public static String privacyPolicy;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initGoagal(getApplicationContext());
-        getAdvInfo();
+        Observable.just("").subscribeOn(Schedulers.io()).subscribe(new Action1<String>() {
+            @Override
+            public void call(String s) {
+                initGoagal(getApplicationContext());
+                getAdvInfo();
+                login();
+            }
+        });
+
         INSTANSE = this;
-        TTAdManagerHolder.init(this,Config.TOUTIAO_AD_ID);
+//        TTAdManagerHolder.init(this, Config.TOUTIAO_AD_ID);
+        privacyPolicy = AssetsUtil.readAsset(this, "privacy_policy.txt");
     }
 
     public static App getApp() {
@@ -81,12 +103,32 @@ public class App extends MultiDexApplication {
         }
         HttpConfig.setDefaultParams(params);
 
+        HttpConfig.setPublickey("-----BEGIN PUBLIC KEY-----\n" +
+                "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA1zQ4FOFmngBVc05sg7X5\n" +
+                "Z/e3GrhG4rRAiGciUCsrd/n4wpQcKNoOeiRahxKT1FVcC6thJ/95OgBN8jaDzKdd\n" +
+                "cMUti9gGzBDpGSS8MyuCOBXc6KCOYzL6Q4qnlGW2d09blZSpFUluDBBwB86yvOxk\n" +
+                "5oEtnf6WPw2wiWtm7JR1JrE1k+adYfy+Cx9ifJX3wKZ5X3n+CdDXbUCPBD63eMBn\n" +
+                "dy1RYOgI1Sc67bQlQGoFtrhXOGrJ8vVoRNHczaGeBOev96/V0AiEY2f5Kw5PAWhw\n" +
+                "NrAF94DOLu/4OyTVUg9rDC7M97itzBSTwvJ4X5JA9TyiXL6c/77lThXvX+8m/VLi\n" +
+                "mLR7PNq4e0gUCGmHCQcbfkxZVLsa4CDg2oklrT4iHvkK4ZtbNJ2M9q8lt5vgsMkb\n" +
+                "bLLqe9IuTJ9O7Pemp5Ezf8++6FOeUXBQTwSHXuxBNBmZAonNZO1jACfOzm83zEE2\n" +
+                "+Libcn3EBgxPnOB07bDGuvx9AoSzLjFk/T4ScuvXKEhk1xqApSvtPADrRSskV0aE\n" +
+                "G5F8PfBF//krOnUsgqAgujF9unKaxMJXslAJ7kQm5xnDwn2COGd7QEnOkFwqMJxr\n" +
+                "DmcluwXXaZXt78mwkSNtgorAhN6fXMiwRFtwywqoC3jYXlKvbh3WpsajsCsbTiCa\n" +
+                "SBq4HbSs5+QTQvmgUTPwQikCAwEAAQ==\n" +
+                "-----END PUBLIC KEY-----");
+
+        new RetrofitHttpRequest.Builder()
+                .url(Config.getBaseUrl())
+                .convert(FastJsonConverterFactory.create());
+
         //友盟初始化
         UMConfigure.init(context, "5a332ce6a40fa3151800009f", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, null);
 
-        KSYHardwareDecodeWhiteList.getInstance().init(context);
+//        KSYHardwareDecodeWhiteList.getInstance().init(context);
         //腾迅自动更新
         Bugly.init(context, context.getString(R.string.bugly_id), false);
+
 
         //友盟分享
         UMShareImpl.Builder builder = new UMShareImpl.Builder();
@@ -107,61 +149,92 @@ public class App extends MultiDexApplication {
         return loginDataInfo;
     }
 
-    private LoginEngin loginEngin;
+    private LoginEngine loginEngin;
 
     public void getLoginInfo(final Runnable task) {
         if (loginEngin == null) {
-            loginEngin = new LoginEngin(this);
+            loginEngin = new LoginEngine(this);
         }
-        TaskUtil.getImpl().runTask(new Runnable() {
-            @Override
-            public void run() {
-                String data = PreferenceUtil.getImpl(getApplicationContext()).getString(Config.INIT_URL, "");
-                if (!data.isEmpty()) {
-                    try {
-                        final LoginDataInfo resultInfo = JSON.parseObject(data, new TypeReference<LoginDataInfo>() {
-                        }.getType());
-                        if (resultInfo != null) {
-                            loginDataInfo = resultInfo;
-                        }
-
-                    } catch (Exception e) {
-                        LogUtil.msg("getLoginInfo本地缓存" + e);
+        TaskUtil.getImpl().runTask(() -> {
+            String data = PreferenceUtil.getImpl(getApplicationContext()).getString(Config.INIT_URL, "");
+            if (!data.isEmpty()) {
+                try {
+                    final LoginDataInfo resultInfo = JSON.parseObject(data, new TypeReference<LoginDataInfo>() {
+                    }.getType());
+                    if (resultInfo != null) {
+                        loginDataInfo = resultInfo;
                     }
+
+                } catch (Exception e) {
+                    LogUtil.msg("getLoginInfo本地缓存" + e);
                 }
             }
         });
-        loginEngin.rxGetInfo().observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<ResultInfo<LoginDataInfo>>() {
-                    @Override
-                    public void call(final ResultInfo<LoginDataInfo> resultInfo) {
-                        if (resultInfo != null && resultInfo.code == HttpConfig.STATUS_OK && resultInfo.data != null) {
-                            TaskUtil.getImpl().runTask(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PreferenceUtil.getImpl(getApplicationContext()).putString(Config.INIT_URL, JSON.toJSONString
-                                            (resultInfo.data));
-                                    loginDataInfo = resultInfo.data;
-                                    if (task != null) {
-                                        task.run();
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        if (loginDataInfo == null) {
-                            getLoginInfo(task);
-                            return;
-                        }
 
-                        if (task != null) {
-                            task.run();
-                        }
+        loginEngin.rxGetInfo().subscribe(resultInfo -> {
+            if (resultInfo != null && resultInfo.code == HttpConfig.STATUS_OK && resultInfo.data != null) {
+                TaskUtil.getImpl().runTask(() -> {
+                    PreferenceUtil.getImpl(getApplicationContext()).putString(Config.INIT_URL, JSON.toJSONString
+                            (resultInfo.data));
+                    loginDataInfo = resultInfo.data;
+                    if (task != null) {
+                        task.run();
                     }
                 });
+            }
+        }, throwable -> {
+            if (loginDataInfo == null) {
+                getLoginInfo(task);
+                return;
+            }
+            if (task != null) {
+                task.run();
+            }
+        });
+
+    }
+
+
+    private PhoneLoginEngine phoneLoginEngine;
+
+    private void login() {
+        if (phoneLoginEngine == null) {
+            phoneLoginEngine = new PhoneLoginEngine(this);
+        }
+        UserInfo userInfo = UserInfoHelper.getUser();
+        if (userInfo != null) {
+            String phone = userInfo.getMobile();
+            String pwd = userInfo.getPwd();
+            if (!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pwd))
+                phoneLoginEngine.login(phone, pwd).subscribe(new DisposableObserver<ResultInfo<UserInfoWrapper>>() {
+
+                    @Override
+                    public void onNext(ResultInfo<UserInfoWrapper> userInfoWrapperResultInfo) {
+                        if (userInfoWrapperResultInfo != null && userInfoWrapperResultInfo.code == HttpConfig.STATUS_OK
+                                && userInfoWrapperResultInfo.data != null) {
+                            UserInfo info = userInfoWrapperResultInfo.data.getUserInfo();
+                            List<VipInfo> vipList = userInfoWrapperResultInfo.data.getVipList();
+                            if (info != null) {
+                                info.setPwd(pwd);
+                            }
+                            UserInfoHelper.saveUser(userInfo);
+                            UserInfoHelper.saveVipList(vipList);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                });
+        }
+
     }
 
 
@@ -203,10 +276,15 @@ public class App extends MultiDexApplication {
     private void getAdvInfo() {
         if (advEngine == null)
             advEngine = new AdvEngine(this);
-        advEngine.getAdvInfo().subscribe(new Subscriber<ResultInfo<AdvInfoWrapper>>() {
-            @Override
-            public void onCompleted() {
+        advEngine.getAdvInfo().subscribe(new DisposableObserver<yc.com.rthttplibrary.bean.ResultInfo<AdvInfoWrapper>>() {
 
+
+            @Override
+            public void onNext(yc.com.rthttplibrary.bean.ResultInfo<AdvInfoWrapper> advInfoWrapperResultInfo) {
+                if (advInfoWrapperResultInfo != null && advInfoWrapperResultInfo.code == HttpConfig.STATUS_OK && advInfoWrapperResultInfo.data != null) {
+                    AdvInfo h5page = advInfoWrapperResultInfo.data.getH5page();
+                    PreferenceUtil.getImpl(App.this).putString(Config.ADV_INFO, JSON.toJSONString(h5page));
+                }
             }
 
             @Override
@@ -215,13 +293,15 @@ public class App extends MultiDexApplication {
             }
 
             @Override
-            public void onNext(ResultInfo<AdvInfoWrapper> advInfoWrapperResultInfo) {
-                if (advInfoWrapperResultInfo != null && advInfoWrapperResultInfo.code == HttpConfig.STATUS_OK && advInfoWrapperResultInfo.data != null) {
-                    AdvInfo h5page = advInfoWrapperResultInfo.data.getH5page();
-                    PreferenceUtil.getImpl(App.this).putString(Config.ADV_INFO, JSON.toJSONString(h5page));
-                }
+            public void onComplete() {
+
             }
+
+
         });
     }
+
+
+
 
 }

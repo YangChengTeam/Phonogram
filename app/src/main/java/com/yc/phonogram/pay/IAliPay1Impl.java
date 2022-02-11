@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.alipay.sdk.app.PayTask;
-import com.kk.securityhttp.domain.GoagalInfo;
-import com.kk.utils.SignUtils;
-import com.kk.utils.ToastUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -18,6 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import yc.com.rthttplibrary.config.GoagalInfo;
+import yc.com.rthttplibrary.util.SignUtils;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by zhangkai on 2017/3/18.

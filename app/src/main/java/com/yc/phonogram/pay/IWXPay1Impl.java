@@ -2,11 +2,11 @@ package com.yc.phonogram.pay;
 
 import android.app.Activity;
 
-
-import com.kk.utils.ToastUtil;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by zhangkai on 2017/4/19.
@@ -26,7 +26,7 @@ public class IWXPay1Impl extends IPayImpl {
     @Override
     public void pay(final OrderInfo orderInfo, IPayCallback iPayCallback) {
         if (orderInfo == null || orderInfo.getPayInfo() == null) {
-            ToastUtil.toast2(mContext, "支付失败");
+            ToastUtil.toast(mContext, "支付失败");
             return;
         }
 
@@ -36,7 +36,7 @@ public class IWXPay1Impl extends IPayImpl {
             uiPayCallback = iPayCallback;
             wxpay(payInfo);
         } else {
-            ToastUtil.toast2(mContext, "预下订单请求失败");
+            ToastUtil.toast(mContext, "预下订单请求失败");
         }
     }
 

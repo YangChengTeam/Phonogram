@@ -25,7 +25,7 @@ public class LPUtils {
         synchronized (LPUtils.class) {
             if (null == mUtilsWeakReference || null == mUtilsWeakReference.get()) {
                 LPUtils utils = new LPUtils();
-                mUtilsWeakReference = new WeakReference<LPUtils>(utils);
+                mUtilsWeakReference = new WeakReference<>(utils);
             }
         }
         return mUtilsWeakReference.get();
@@ -75,15 +75,16 @@ public class LPUtils {
         Log.d(TAG, "内部缓存");
         if (null == cachePath) {
             if (EasyPermissions.hasPermissions(context, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/.Phonogram/Cache/Video/");
-                    if (!file.exists()) {
-                        file.mkdirs();
-                    }
-                    cachePath = file.getAbsolutePath();
-                    //使用外部缓存
-                    Log.d(TAG, "SD卡缓存");
+//                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+
+                File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath() + "/.Phonogram/Cache/Video/");
+                if (!file.exists()) {
+                    file.mkdirs();
                 }
+                cachePath = file.getAbsolutePath();
+                //使用外部缓存
+                Log.d(TAG, "SD卡缓存");
+//                }
             }
         }
         return cachePath;
@@ -171,15 +172,11 @@ public class LPUtils {
             }
 
             if (appCacheDir == null) {// 有些手机需要通过自定义目录
-                appCacheDir = new File(Environment.getExternalStorageDirectory(), "Android/data/" + context.getPackageName() + "/cache/" + type);
+                appCacheDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_MUSIC), "Android/data/" + context.getPackageName() + "/cache/" + type);
             }
 
-            if (appCacheDir == null) {
-                Log.e("getExternalDirectory", "getExternalDirectory fail ,the reason is sdCard unknown exception !");
-            } else {
-                if (!appCacheDir.exists() && !appCacheDir.mkdirs()) {
-                    Log.e("getExternalDirectory", "getExternalDirectory fail ,the reason is make directory fail !");
-                }
+            if (!appCacheDir.exists() && !appCacheDir.mkdirs()) {
+                Log.e("getExternalDirectory", "getExternalDirectory fail ,the reason is make directory fail !");
             }
         } else {
             Log.e("getExternalDirectory", "getExternalDirectory fail ,the reason is sdCard nonexistence or sdCard mount fail !");
@@ -209,14 +206,6 @@ public class LPUtils {
         return appCacheDir;
     }
 
-    public static String getSDPath() {
-        File sdDir = null;
-        boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
-        if (sdCardExist) {
-            sdDir = Environment.getExternalStorageDirectory();//获取跟目录
-        }
-        return sdDir.toString();
-    }
+
 
 }

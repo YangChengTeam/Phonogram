@@ -12,6 +12,8 @@ import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import rx.subscriptions.Subscriptions;
+
 
 /**
  * Created by zhangkai on 2017/7/21.

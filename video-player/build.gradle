@@ -37,5 +37,5 @@ dependencies {
 //    compile 'com.ksyun.media:libksyplayer-java:2.1.0'
 //    compile 'com.ksyun.media:libksyplayer-armv7a:2.1.0'
 //    compile 'com.ksyun.media:libksyplayer-arm64:2.1.0'
-    implementation files('libs/libksyplayer.jar')
+//    implementation files('libs/libksyplayer.jar')
 }

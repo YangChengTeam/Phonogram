@@ -3,37 +3,23 @@ package com.yc.phonogram.engin;
 
 import android.content.Context;
 
-import com.alibaba.fastjson.TypeReference;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.engin.BaseEngin;
-import com.kk.securityhttp.engin.HttpCoreEngin;
-import com.switfpass.pay.bean.MchBean;
-import com.yc.phonogram.R;
-import com.yc.phonogram.domain.CategoryInfo;
 import com.yc.phonogram.domain.CategoryInfoWrapperWrapper;
-import com.yc.phonogram.domain.Config;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import yc.com.rthttplibrary.bean.ResultInfo;
 
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by wanglin  on 2019/5/15 10:02.
  */
-public class CategoryEngine extends BaseEngin {
+public class CategoryEngine extends BaseEngine {
     public CategoryEngine(Context context) {
         super(context);
     }
 
-    @Override
-    public String getUrl() {
-        return Config.CATEGORY_LIST_INDEX;
-    }
+
 
 //    public Observable<List<CategoryInfo>> getCategoryInfos() {
 //
@@ -62,7 +48,7 @@ public class CategoryEngine extends BaseEngin {
 //    }
 
     public Observable<ResultInfo<CategoryInfoWrapperWrapper>> getCategorys() {
-        return rxpost(new TypeReference<ResultInfo<CategoryInfoWrapperWrapper>>() {
-        }.getType(), null, true, true, true);
+
+        return request.getCategorys(appId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

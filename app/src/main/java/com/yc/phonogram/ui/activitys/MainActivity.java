@@ -1,10 +1,13 @@
 package com.yc.phonogram.ui.activitys;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,11 +15,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.securityhttp.net.contains.HttpConfig;
-import com.kk.utils.LogUtil;
-import com.kk.utils.PreferenceUtil;
-import com.kk.utils.TaskUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.xinqu.videoplayer.XinQuVideoPlayer;
@@ -24,16 +22,16 @@ import com.yc.phonogram.App;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.AdvInfo;
 import com.yc.phonogram.domain.Config;
-import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.domain.PhonogramListInfo;
 import com.yc.phonogram.domain.VipInfo;
-import com.yc.phonogram.engin.PhonogramEngin;
+import com.yc.phonogram.engin.PhonographEngine;
+import com.yc.phonogram.helper.UserInfoHelper;
 import com.yc.phonogram.ui.fragments.CategoryMainFragment;
 import com.yc.phonogram.ui.fragments.IndexFragment;
 import com.yc.phonogram.ui.fragments.LearnPhonogramFragment;
+import com.yc.phonogram.ui.fragments.PersonCenterFragment;
 import com.yc.phonogram.ui.fragments.ReadToMeFragment;
 import com.yc.phonogram.ui.popupwindow.LogoutPopupWindow;
-import com.yc.phonogram.ui.popupwindow.PayPopupWindow;
 import com.yc.phonogram.ui.popupwindow.PhonogramPopupWindow;
 import com.yc.phonogram.ui.popupwindow.SharePopupWindow;
 
@@ -46,10 +44,15 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import rx.functions.Action1;
+import yc.com.rthttplibrary.config.HttpConfig;
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.PreferenceUtil;
+import yc.com.rthttplibrary.util.TaskUtil;
 
 
 public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
@@ -63,6 +66,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private ImageView mPhonicsBtn;
     private ImageView mShareBtn;
     private static MainActivity INSTANSE;
+    private FrameLayout mainContainer;
 
     private int mCurrentIndex = -1;
 
@@ -103,6 +107,9 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         mShareBtn = findViewById(R.id.iv_share);
         TextView tvH5page = findViewById(R.id.tv_h5page);
         RelativeLayout rlH5page = findViewById(R.id.rl_h5page);
+        mainContainer = findViewById(R.id.main_container);
+        PersonCenterFragment centerFragment = new PersonCenterFragment();
+        switchFragment(centerFragment, centerFragment.getClass().getName());
         String str = PreferenceUtil.getImpl(this).getString(Config.ADV_INFO, "");
         final AdvInfo advInfo = JSON.parseObject(str, AdvInfo.class);
         if (null != advInfo && !TextUtils.isEmpty(advInfo.getButton_txt())) {
@@ -162,28 +169,29 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         RxView.clicks(mIndexBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mViewPager.setCurrentItem(0);
+
+                setCurrent(0);
             }
         });
 
         RxView.clicks(mLearnBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mViewPager.setCurrentItem(1);
+                setCurrent(1);
             }
         });
 
         RxView.clicks(mReadTomeBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mViewPager.setCurrentItem(2);
+                setCurrent(2);
             }
         });
 
         RxView.clicks(mPhonicsBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                mViewPager.setCurrentItem(3);
+                setCurrent(3);
             }
         });
 
@@ -196,6 +204,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                     intent.putExtra("title", advInfo.getButton_txt());
                     startActivity(intent);
                 }
+
             }
         });
 
@@ -216,8 +225,10 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         RxView.clicks(mCenterBtn).throttleFirst(200, TimeUnit.MILLISECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.this);
-                payPopupWindow.show();
+                mViewPager.setVisibility(View.GONE);
+                mainContainer.setVisibility(View.VISIBLE);
+//                PayPopupWindow payPopupWindow = new PayPopupWindow(MainActivity.this);
+//                payPopupWindow.show();
             }
         });
 
@@ -230,6 +241,24 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             }
         });
 
+    }
+
+    public void switchFragment(Fragment fragment, String tag) {
+        FragmentTransaction bt = getSupportFragmentManager().beginTransaction();
+        bt.replace(R.id.main_container, fragment);
+
+        bt.addToBackStack(tag);
+        bt.commit();
+    }
+
+    public void popFragment() {
+        getSupportFragmentManager().popBackStack();
+    }
+
+    private void setCurrent(int index) {
+        mViewPager.setVisibility(View.VISIBLE);
+        mainContainer.setVisibility(View.GONE);
+        mViewPager.setCurrentItem(index);
     }
 
     @Override
@@ -325,6 +354,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         return phonogramListInfo;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadData() {
         super.loadData();
@@ -352,21 +382,13 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             }
         });
 
-        new PhonogramEngin(this).getPhonogramList().subscribe(new Action1<ResultInfo<PhonogramListInfo>>() {
-            @Override
-            public void call(final ResultInfo<PhonogramListInfo> phonogramListInfoResultInfo) {
-                if (phonogramListInfoResultInfo != null && phonogramListInfoResultInfo.code == HttpConfig.STATUS_OK && phonogramListInfoResultInfo.data !=
-                        null && phonogramListInfoResultInfo.data.getPhonogramInfos() != null &&
-                        phonogramListInfoResultInfo.data.getPhonogramInfos().size() > 0) {
-                    showInfo(phonogramListInfoResultInfo.data);
-                    TaskUtil.getImpl().runTask(new Runnable() {
-                        @Override
-                        public void run() {
-                            PreferenceUtil.getImpl(getApplicationContext()).putString(Config.PHONOGRAM_LIST_URL, JSON.toJSONString
-                                    (phonogramListInfoResultInfo.data));
-                        }
-                    });
-                }
+        new PhonographEngine(this).getPhonogramList().subscribe(phonogramListInfoResultInfo -> {
+            if (phonogramListInfoResultInfo != null && phonogramListInfoResultInfo.code == HttpConfig.STATUS_OK && phonogramListInfoResultInfo.data !=
+                    null && phonogramListInfoResultInfo.data.getPhonogramInfos() != null &&
+                    phonogramListInfoResultInfo.data.getPhonogramInfos().size() > 0) {
+                showInfo(phonogramListInfoResultInfo.data);
+                TaskUtil.getImpl().runTask(() -> PreferenceUtil.getImpl(getApplicationContext()).putString(Config.PHONOGRAM_LIST_URL, JSON.toJSONString
+                        (phonogramListInfoResultInfo.data)));
             }
         });
     }
@@ -432,18 +454,18 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         }
 
         if (!flag) {
-            LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
-            if (loginDataInfo != null) {
-                List<VipInfo> vipInfoList = loginDataInfo.getVipInfoList();
-                if (vipInfoList != null) {
-                    for (VipInfo vipInfo : vipInfoList) {
-                        if (vip.equals(vipInfo.getType() + "")) {
-                            flag = true;
-                            break;
-                        }
+//            LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
+//            if (loginDataInfo != null) {
+            List<VipInfo> vipInfoList = UserInfoHelper.getVipInfos();
+            if (vipInfoList != null) {
+                for (VipInfo vipInfo : vipInfoList) {
+                    if (vip.equals(vipInfo.getType() + "")) {
+                        flag = true;
+                        break;
                     }
                 }
             }
+//            }
         }
         return flag;
     }

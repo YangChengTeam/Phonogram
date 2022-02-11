@@ -1,5 +1,6 @@
 package com.yc.phonogram.utils;
 
+import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
@@ -36,7 +37,7 @@ public class AudioRecordFunc {
         return mInstance; 
     }
      
-    public int startRecordAndFile() {
+    public int startRecordAndFile(Context context) {
         //判断是否有外部存储设备sdcard
         if(AudioFileFunc.isSdcardExit())
         {
@@ -47,7 +48,7 @@ public class AudioRecordFunc {
             else
             {
                 if(audioRecord == null)
-                    creatAudioRecord();
+                    creatAudioRecord(context);
                  
                 audioRecord.startRecording();  
                 // 让录制状态为true  
@@ -87,9 +88,9 @@ public class AudioRecordFunc {
     }
      
      
-    private void creatAudioRecord() {  
+    private void creatAudioRecord(Context context) {
         // 获取音频文件路径
-        AudioName = AudioFileFunc.getRawFilePath();
+        AudioName = AudioFileFunc.getRawFilePath(context);
         NewAudioName = AudioFileFunc.getWavFilePath(); 
          
         // 获得缓冲区字节大小  

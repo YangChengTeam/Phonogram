@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
-import com.kk.utils.LogUtil;
-import com.kk.utils.ToastUtil;
+
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -20,6 +19,7 @@ import com.yc.phonogram.R;
 import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.domain.LoginDataInfo;
 import com.yc.phonogram.helper.SharePreferenceUtils;
+import com.yc.phonogram.helper.UserInfoHelper;
 import com.yc.phonogram.ui.activitys.AdvInfoActivity;
 import com.yc.phonogram.ui.popupwindow.VipPopupWindow;
 import com.yc.phonogram.ui.views.MainBgView;
@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.core.content.FileProvider;
 import rx.functions.Action1;
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by zhangkai on 2017/12/15.
@@ -64,8 +66,11 @@ public class IndexFragment extends BaseFragment {
         ivDownEnglish = (ImageView) getView(R.id.iv_down_english);
 
         LoginDataInfo loginDataInfo = App.getApp().getLoginDataInfo();
+
         if (loginDataInfo != null && loginDataInfo.getStatusInfo() != null) {
-            ((TextView) getView(R.id.tv_user)).setText("用户ID: SE" + loginDataInfo.getStatusInfo().getUid());
+            String uid = UserInfoHelper.getUid();
+            if (TextUtils.isEmpty(uid)) uid = loginDataInfo.getStatusInfo().getUid();
+            ((TextView) getView(R.id.tv_user)).setText("用户ID: SE" + uid);
         }
         Glide.with(getActivity()).load(R.mipmap.vip_show).into(ivGifShow);
 
@@ -120,60 +125,7 @@ public class IndexFragment extends BaseFragment {
         }
     }
 
-    public void downEnglishFile() {
 
-        String downDir = LPUtils.getInstance().getSDPath();
-
-        LogUtil.msg("down File path --->" + downDir);
-
-
-        //如果SD卡已挂载并且可读写
-        if (downDir != null) {
-            final String filePath = downDir + "/english.apk";
-            FileDownloader.getImpl().create("http://en.upkao.com/english1.8.2.apk")
-                    .setPath(filePath)
-                    .setListener(new FileDownloadListener() {
-                        @Override
-                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                            ToastUtil.toast(getActivity(), "正在下载说说英语");
-                        }
-
-                        @Override
-                        protected void connected(BaseDownloadTask task, String etag, boolean isContinue, int soFarBytes, int totalBytes) {
-                        }
-
-                        @Override
-                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        }
-
-                        @Override
-                        protected void blockComplete(BaseDownloadTask task) {
-                        }
-
-                        @Override
-                        protected void retry(final BaseDownloadTask task, final Throwable ex, final int retryingTimes, final int soFarBytes) {
-                        }
-
-                        @Override
-                        protected void completed(BaseDownloadTask task) {
-                            ToastUtil.toast(getActivity(), "下载完成");
-                            install(filePath);
-                        }
-
-                        @Override
-                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        }
-
-                        @Override
-                        protected void error(BaseDownloadTask task, Throwable e) {
-                        }
-
-                        @Override
-                        protected void warn(BaseDownloadTask task) {
-                        }
-                    }).start();
-        }
-    }
 
     private void install(String filePath) {
 

@@ -1,0 +1,56 @@
+
+K
+java:S1066¸"/Merge this if statement with the enclosing one.(„¸ÛÈşÿÿÿÿ
+p
+java:S1104"ZMake thumbImageView a static final constant or non-public and provide accessors if needed.(ùÖÂÜ
+>	java:S108t")Either remove or fill this block of code.(çÛ¸ñ
+=	java:S131ˆ""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+D
+java:S1185¿"(Remove this method to simply inherit it.(ğáæèûÿÿÿÿ
+?
+java:S1185Ä"(Remove this method to simply inherit it.(±¯£Ç
+=	java:S131×""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+j	java:S116!"URename this field "mBtn_start" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥õÚé
+
+java:S1192/"fDefine a constant instead of duplicating this literal "onClick ç‚¹å‡»å‰æ’­æ”¾çŠ¶æ€ï¼šerror" 3 times.(Ê¹ùÿÿÿÿ
+?
+java:S1185Ø"(Remove this method to simply inherit it.(µÑÉ
+k	java:S117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù•œÿÿÿÿÿÿ
+h
+java:S3776Y"RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(ã…©×
+?
+java:S1185Î"(Remove this method to simply inherit it.(˜ª¡ì
+?
+java:S1185Ó"(Remove this method to simply inherit it.(³šÑÄ
+?
+java:S1185İ"(Remove this method to simply inherit it.(‚Ä¨
+K
+java:S1066®"/Merge this if statement with the enclosing one.(„¸ÛÈşÿÿÿÿ
+=	java:S131Ç""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+=	java:S131è""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+2
+java:S3626˜"Remove this redundant jump.(ûÁİ…
+?
+java:S1185É"(Remove this method to simply inherit it.(¯†´¤
+ƒ
+java:S11929"hDefine a constant instead of duplicating this literal "onClick ç‚¹å‡»å‰æ’­æ”¾çŠ¶æ€ï¼šplaying" 3 times.(ï†¯ıÿÿÿÿ
+R
+java:S2696"6Make the enclosing method "static" or remove this set.(±àè‡şÿÿÿÿ
+D
+java:S1185¡"(Remove this method to simply inherit it.(ñ®çâùÿÿÿÿ
+=
+java:S1172§"&Remove these unused method parameters.(ªê‘
+D
+java:S1185â"(Remove this method to simply inherit it.(Å•İışÿÿÿÿ
+=	java:S131ù""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+?
+java:S1185¦"(Remove this method to simply inherit it.(‰ÁÕ–
+=	java:S131™""Add a default case to this switch.(áº‚Õüÿÿÿÿ
+|
+java:S11924"fDefine a constant instead of duplicating this literal "onClick ç‚¹å‡»å‰æ’­æ”¾çŠ¶æ€ï¼špause" 3 times.(ê¡Ôš
+s
+java:S1104 "XMake mRetryLayout a static final constant or non-public and provide accessors if needed.(ûºĞÏûÿÿÿÿ
+t
+java:S1104"^Make loadingProgressBar a static final constant or non-public and provide accessors if needed.(À¯’ˆ
+V
+java:S1161¿":Add the "@Override" annotation above this method signature(¨ŠÈ§øÿÿÿÿ

@@ -2,7 +2,6 @@ package com.yc.phonogram.ui.fragments;
 
 import android.text.TextUtils;
 
-import com.kk.securityhttp.net.contains.HttpConfig;
 import com.yc.phonogram.R;
 import com.yc.phonogram.domain.CategoryInfo;
 import com.yc.phonogram.domain.CategoryInfoWrapperWrapper;
@@ -18,6 +17,7 @@ import java.util.Observer;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import yc.com.rthttplibrary.config.HttpConfig;
 
 /**
  * Created by wanglin  on 2019/5/15 09:05.

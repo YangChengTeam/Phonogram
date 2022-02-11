@@ -8,10 +8,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.kk.loading.LoadingDialog;
-import com.kk.utils.LogUtil;
-import com.kk.utils.ToastUtil;
 
 import java.net.URLEncoder;
+
+import yc.com.rthttplibrary.util.LogUtil;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 
 /**
@@ -42,7 +43,7 @@ public class IDunXingH5PayImpl extends IPayImpl {
     @Override
     public void pay(final OrderInfo orderInfo, final IPayCallback iPayCallback) {
         if (orderInfo == null || orderInfo.getPayInfo() == null) {
-            ToastUtil.toast2(mContext, get(orderInfo.getMessage(), "支付失败"));
+            ToastUtil.toast(mContext, get(orderInfo.getMessage(), "支付失败"));
             return;
         }
         PayInfo payInfo = orderInfo.getPayInfo();
@@ -77,7 +78,7 @@ public class IDunXingH5PayImpl extends IPayImpl {
             IPayImpl.uOrderInfo = orderInfo;
             isGen = true;
         } catch (Exception e) {
-            ToastUtil.toast2(mContext, "支付渠道出错,请联系客服");
+            ToastUtil.toast(mContext, "支付渠道出错,请联系客服");
             LogUtil.msg("Exception  " + e.getMessage());
         }
 

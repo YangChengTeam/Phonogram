@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:layout_width="530dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <RelativeLayout
+                    android:id="@+id/rl_pay"
+                    android:layout_width="507dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@mipmap/registered_bg"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="30dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="68dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="@dimen/dp_30"
+                        android:paddingRight="@dimen/dp_30">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:background="@mipmap/order_bg"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/dp_15"
+                            android:paddingRight="@dimen/dp_15">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_login_phone" />
+
+
+                            <EditText
+                                android:imeOptions="flagNoExtractUi"
+                                android:id="@+id/et_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="8dp"
+                                android:background="@null"
+                                android:hint="请输入您的手机号"
+                                android:inputType="phone"
+                                android:maxLength="11"
+                                android:singleLine="true"
+                                android:textColor="#ffd6a0"
+                                android:textColorHint="#ffd6a0"
+                                android:textSize="17sp" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="55dp"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:background="@mipmap/order_bg"
+
+                            android:paddingLeft="@dimen/dp_15"
+                            android:paddingRight="@dimen/dp_15">
+
+                            <FrameLayout
+                                android:id="@+id/rl_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true">
+
+
+                                <ImageView
+                                    android:id="@+id/iv_get_code"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:src="@mipmap/button_code" />
+
+                                <TextView
+                                    android:id="@+id/tv_code"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+
+                                    android:textColor="#7a5b3c"
+                                    android:textSize="@dimen/sp_16"
+                                    android:visibility="gone" />
+                            </FrameLayout>
+
+                            <EditText
+                                android:imeOptions="flagNoExtractUi"
+                                android:id="@+id/et_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="@dimen/dp_15"
+                                android:layout_marginRight="@dimen/dp_15"
+                                android:layout_toStartOf="@id/rl_code"
+                                android:layout_toLeftOf="@id/rl_code"
+                                android:background="@null"
+                                android:textColor="#ffd6a0"
+                                android:textSize="17sp" />
+                        </RelativeLayout>
+
+
+                        <ImageView
+                            android:id="@+id/iv_login"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:src="@mipmap/button_registered" />
+
+                        <TextView
+                            android:id="@+id/tv_user_policy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="3dp"
+                            android:text="注册即代表同意《用户协议》"
+                            android:textColor="#7a5b3c"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_pay_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/pay_delete" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>

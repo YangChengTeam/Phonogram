@@ -4,8 +4,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.Surface;
-import com.ksyun.media.player.IMediaPlayer;
-import com.ksyun.media.player.KSYMediaPlayer;
+
 import com.xinqu.videoplayer.full.manager.WindowMediaManager;
 import com.xinqu.videoplayer.full.manager.WindowVideoPlayerManager;
 import java.lang.reflect.Method;
@@ -15,9 +14,9 @@ import java.util.Map;
  * Created by Nathen on 2017/11/8.
  * 实现系统的播放引擎
  */
-public class WindowMediaSystem extends WindowMediaInterface implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnVideoSizeChangedListener {
+public class WindowMediaSystem extends WindowMediaInterface implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnErrorListener, MediaPlayer.OnInfoListener, MediaPlayer.OnVideoSizeChangedListener {
 
-    public KSYMediaPlayer mKsyMdiaPlayer = null;
+    public MediaPlayer mKsyMdiaPlayer = null;
     public static boolean CURRENT_PLING_LOOP=false;
     private final int RELOAD_CONNECT_COUNT=3;//视频播放错误时候的最大重试次数
     private  int CUREEN_RELOAD_CONNECT_COUNT=0;
@@ -34,7 +33,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     public void prepare() {
         try {
             if(null!=mKsyMdiaPlayer) mKsyMdiaPlayer.release();
-            mKsyMdiaPlayer =  new KSYMediaPlayer.Builder(WindowVideoPlayer.getmContext()).build();
+            mKsyMdiaPlayer =  new MediaPlayer();
             mKsyMdiaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mKsyMdiaPlayer.setOnPreparedListener(WindowMediaSystem.this);
             mKsyMdiaPlayer.setOnCompletionListener(WindowMediaSystem.this);
@@ -45,7 +44,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
             mKsyMdiaPlayer.setOnInfoListener(WindowMediaSystem.this);
             mKsyMdiaPlayer.setOnVideoSizeChangedListener(WindowMediaSystem.this);
             mKsyMdiaPlayer.setLooping(CURRENT_PLING_LOOP);
-            Class<KSYMediaPlayer> clazz = KSYMediaPlayer.class;
+            Class<MediaPlayer> clazz = MediaPlayer.class;
             Method method = clazz.getDeclaredMethod("setDataSource", String.class, Map.class);
             if (dataSourceObjects.length > 2) {
                 method.invoke(mKsyMdiaPlayer, currentDataSource.toString(), dataSourceObjects[2]);
@@ -117,7 +116,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public void onPrepared(IMediaPlayer mediaPlayer) {
+    public void onPrepared(MediaPlayer mediaPlayer) {
         CUREEN_RELOAD_CONNECT_COUNT=0;
         mediaPlayer.start();
         if (currentDataSource.toString().toLowerCase().contains("mp3")) {
@@ -133,7 +132,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public void onCompletion(IMediaPlayer mediaPlayer) {
+    public void onCompletion(MediaPlayer mediaPlayer) {
         WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -145,7 +144,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public void onBufferingUpdate(IMediaPlayer mediaPlayer, final int percent) {
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, final int percent) {
         WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -157,7 +156,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public void onSeekComplete(IMediaPlayer mediaPlayer) {
+    public void onSeekComplete(MediaPlayer mediaPlayer) {
         WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -169,12 +168,12 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public boolean onError(IMediaPlayer mediaPlayer, final int what, final int extra) {
+    public boolean onError(MediaPlayer mediaPlayer, final int what, final int extra) {
 
         if(null!=mKsyMdiaPlayer&&null!=dataSourceObjects&&dataSourceObjects.length>2&&CUREEN_RELOAD_CONNECT_COUNT<RELOAD_CONNECT_COUNT){
             //播放失败，尝试重试5次
             CUREEN_RELOAD_CONNECT_COUNT++;
-            mKsyMdiaPlayer.reload(dataSourceObjects[2].toString(),false);
+//            mKsyMdiaPlayer.reload(dataSourceObjects[2].toString(),false);
             //达到错误重连次数之后，显示为失败状态
         }else{
             WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {
@@ -190,7 +189,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public boolean onInfo(IMediaPlayer mediaPlayer, final int what, final int extra) {
+    public boolean onInfo(MediaPlayer mediaPlayer, final int what, final int extra) {
         WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -207,7 +206,7 @@ public class WindowMediaSystem extends WindowMediaInterface implements IMediaPla
     }
 
     @Override
-    public void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int width, int height, int i2, int i3) {
+    public void onVideoSizeChanged(MediaPlayer iMediaPlayer, int width, int height) {
         WindowMediaManager.instance().currentVideoWidth = width;
         WindowMediaManager.instance().currentVideoHeight = height;
         WindowMediaManager.instance().mainThreadHandler.post(new Runnable() {

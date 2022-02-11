@@ -1,5 +1,9 @@
 package com.yc.phonogram.pay;
 
+import android.text.TextUtils;
+
+import com.yc.phonogram.helper.UserInfoHelper;
+
 import java.util.HashMap;
 
 /**
@@ -15,13 +19,13 @@ public class OrderParamsInfo {
     private String payway_name = ""; //支付方式
     private String is_payway_split = "1";  //支付方式 划分标识
 
-    private String md5signstr= ""; //现代支付 md5校验值
+    private String md5signstr = ""; //现代支付 md5校验值
 
-    private float price =  0f;
+    private float price = 0f;
     private String name = "";
 
-    public OrderParamsInfo(String pay_url, String goods_id, String type, float price , String name){
-        this.pay_url = pay_url;
+    public OrderParamsInfo( String goods_id, String type, float price, String name) {
+
         this.goods_id = goods_id;
         this.type = type;
         this.price = price;
@@ -116,10 +120,12 @@ public class OrderParamsInfo {
         params.put("goods_num", this.getGoods_num());
         params.put("is_payway_split", this.getIs_payway_split());
         params.put("payway_name", this.getPayway_name());
-        params.put("money", this.getPrice()+"");
-        params.put("ds_money", this.getDsMoney());
+        params.put("money", this.getPrice() + "");
+        if (!TextUtils.isEmpty(this.getDsMoney()))
+            params.put("ds_money", this.getDsMoney());
         params.put("type", this.getType());
-        if(md5signstr != null && !md5signstr.isEmpty() && !md5signstr.equalsIgnoreCase("null")) {
+        params.put("user_id", UserInfoHelper.getUid());
+        if (md5signstr != null && !md5signstr.isEmpty() && !md5signstr.equalsIgnoreCase("null")) {
             params.put("md5signstr", this.getMd5signstr());
         }
         return params;

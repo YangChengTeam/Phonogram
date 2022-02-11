@@ -3,10 +3,10 @@ package com.xinqu.videoplayer;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.view.Surface;
-import com.ksyun.media.player.IMediaPlayer;
-import com.ksyun.media.player.KSYMediaPlayer;
+
 import com.xinqu.videoplayer.manager.XinQuMediaManager;
 import com.xinqu.videoplayer.manager.XinQuVideoPlayerManager;
+
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -15,17 +15,18 @@ import java.util.Map;
  * 实现系统的播放引擎
  */
 
-public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlayer.OnPreparedListener, IMediaPlayer.OnCompletionListener, IMediaPlayer.OnBufferingUpdateListener, IMediaPlayer.OnSeekCompleteListener, IMediaPlayer.OnErrorListener, IMediaPlayer.OnInfoListener, IMediaPlayer.OnVideoSizeChangedListener {
+public class XinQuMediaSystem extends XinQuMediaInterface implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnSeekCompleteListener, MediaPlayer.OnErrorListener, MediaPlayer.OnInfoListener, MediaPlayer.OnVideoSizeChangedListener {
 
-    public KSYMediaPlayer mKsyMdiaPlayer = null;
+    //    public KSYMediaPlayer mKsyMdiaPlayer = null;
+    public MediaPlayer mKsyMdiaPlayer;
     public static boolean CURRENT_PLING_LOOP;
-    private final int RELOAD_CONNECT_COUNT=3;//视频播放错误时候的最大重试次数
-    private  int CUREEN_RELOAD_CONNECT_COUNT=0;
+    private final int RELOAD_CONNECT_COUNT = 3;//视频播放错误时候的最大重试次数
+    private int CUREEN_RELOAD_CONNECT_COUNT = 0;
 
 
     @Override
     public void start() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             mKsyMdiaPlayer.start();
         }
     }
@@ -33,8 +34,8 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     @Override
     public void prepare() {
         try {
-            if(null!=mKsyMdiaPlayer) mKsyMdiaPlayer.release();
-            mKsyMdiaPlayer =  new KSYMediaPlayer.Builder(XinQuVideoPlayer.getmContext()).build();
+            if (null != mKsyMdiaPlayer) mKsyMdiaPlayer.release();
+            mKsyMdiaPlayer = new MediaPlayer();
             mKsyMdiaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mKsyMdiaPlayer.setOnPreparedListener(XinQuMediaSystem.this);
             mKsyMdiaPlayer.setOnCompletionListener(XinQuMediaSystem.this);
@@ -45,9 +46,9 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
             mKsyMdiaPlayer.setOnInfoListener(XinQuMediaSystem.this);
             mKsyMdiaPlayer.setOnVideoSizeChangedListener(XinQuMediaSystem.this);
             mKsyMdiaPlayer.setLooping(CURRENT_PLING_LOOP);
-            Class<KSYMediaPlayer> clazz = KSYMediaPlayer.class;
+            Class<MediaPlayer> clazz = MediaPlayer.class;
             Method method = clazz.getDeclaredMethod("setDataSource", String.class, Map.class);
-            if (null!=dataSourceObjects&&dataSourceObjects.length > 2) {
+            if (null != dataSourceObjects && dataSourceObjects.length > 2) {
                 method.invoke(mKsyMdiaPlayer, currentDataSource.toString(), dataSourceObjects[2]);
             } else {
                 method.invoke(mKsyMdiaPlayer, currentDataSource.toString(), null);
@@ -60,14 +61,14 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
 
     @Override
     public void pause() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             mKsyMdiaPlayer.pause();
         }
     }
 
     @Override
     public boolean isPlaying() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             return mKsyMdiaPlayer.isPlaying();
         }
         return false;
@@ -75,21 +76,21 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
 
     @Override
     public void seekTo(long time) {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             mKsyMdiaPlayer.seekTo((int) time);
         }
     }
 
     @Override
     public void release() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             mKsyMdiaPlayer.release();
         }
     }
 
     @Override
     public long getCurrentPosition() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             return mKsyMdiaPlayer.getCurrentPosition();
         }
         return 0;
@@ -97,7 +98,7 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
 
     @Override
     public long getDuration() {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             return mKsyMdiaPlayer.getDuration();
         }
         return 0;
@@ -105,19 +106,19 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
 
     @Override
     public void setSurface(Surface surface) {
-        if(null!=mKsyMdiaPlayer){
+        if (null != mKsyMdiaPlayer) {
             mKsyMdiaPlayer.setSurface(surface);
         }
     }
 
     @Override
     public void setLoop(boolean flag) {
-        this.CURRENT_PLING_LOOP=flag;
+        this.CURRENT_PLING_LOOP = flag;
     }
 
     @Override
-    public void onPrepared(IMediaPlayer mediaPlayer) {
-        CUREEN_RELOAD_CONNECT_COUNT=0;
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        CUREEN_RELOAD_CONNECT_COUNT = 0;
         mediaPlayer.start();
         if (currentDataSource.toString().toLowerCase().contains("mp3")) {
             XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
@@ -132,7 +133,7 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     }
 
     @Override
-    public void onCompletion(IMediaPlayer mediaPlayer) {
+    public void onCompletion(MediaPlayer mediaPlayer) {
         XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -144,7 +145,7 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     }
 
     @Override
-    public void onBufferingUpdate(IMediaPlayer mediaPlayer, final int percent) {
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, final int percent) {
         XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -156,7 +157,7 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     }
 
     @Override
-    public void onSeekComplete(IMediaPlayer mediaPlayer) {
+    public void onSeekComplete(MediaPlayer mediaPlayer) {
         XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -168,13 +169,13 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     }
 
     @Override
-    public boolean onError(IMediaPlayer mediaPlayer, final int what, final int extra) {
-        if(null!=mKsyMdiaPlayer&&null!=dataSourceObjects&&dataSourceObjects.length>2&&CUREEN_RELOAD_CONNECT_COUNT<RELOAD_CONNECT_COUNT){
+    public boolean onError(MediaPlayer mediaPlayer, final int what, final int extra) {
+        if (null != mKsyMdiaPlayer && null != dataSourceObjects && dataSourceObjects.length > 2 && CUREEN_RELOAD_CONNECT_COUNT < RELOAD_CONNECT_COUNT) {
             //播放失败，尝试重试5次
             CUREEN_RELOAD_CONNECT_COUNT++;
-            mKsyMdiaPlayer.reload(dataSourceObjects[2].toString(),false);
+//            mKsyMdiaPlayer.reload(dataSourceObjects[2].toString(), false);
             //达到错误重连次数之后，显示为失败状态
-        }else{
+        } else {
             XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -188,7 +189,7 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
     }
 
     @Override
-    public boolean onInfo(IMediaPlayer mediaPlayer, final int what, final int extra) {
+    public boolean onInfo(MediaPlayer mediaPlayer, final int what, final int extra) {
         XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -204,8 +205,9 @@ public class XinQuMediaSystem extends XinQuMediaInterface implements IMediaPlaye
         return false;
     }
 
+
     @Override
-    public void onVideoSizeChanged(IMediaPlayer iMediaPlayer, int width, int height, int i2, int i3) {
+    public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
         XinQuMediaManager.instance().currentVideoWidth = width;
         XinQuMediaManager.instance().currentVideoHeight = height;
         XinQuMediaManager.instance().mainThreadHandler.post(new Runnable() {

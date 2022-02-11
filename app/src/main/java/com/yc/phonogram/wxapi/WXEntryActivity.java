@@ -1,8 +1,7 @@
 package com.yc.phonogram.wxapi;
 
-//import com.umeng.socialize.media.WBShareCallBackActivity;
 
-import com.umeng.weixin.callback.WXCallbackActivity;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 /**
  * Created by wangfei on 15/12/3.

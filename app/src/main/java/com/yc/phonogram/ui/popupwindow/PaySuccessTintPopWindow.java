@@ -8,8 +8,6 @@ import android.widget.ImageView;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.kk.loading.LoadingDialog;
-import com.kk.securityhttp.domain.ResultInfo;
-import com.kk.utils.ToastUtil;
 import com.yc.phonogram.R;
 import com.yc.phonogram.engin.PaySuccessEngine;
 import com.yc.phonogram.utils.PhoneUtils;
@@ -17,6 +15,7 @@ import com.yc.phonogram.utils.PhoneUtils;
 import java.util.concurrent.TimeUnit;
 
 import rx.functions.Action1;
+import yc.com.rthttplibrary.util.ToastUtil;
 
 /**
  * Created by wanglin  on 2018/5/15 14:40.
@@ -74,12 +73,9 @@ public class PaySuccessTintPopWindow extends BasePopupWindow {
                     return;
                 }
                 loadingDialog.show("正在上传手机号,请稍候...");
-                paySuccessEngine.uploadPhone(phone).subscribe(new Action1<ResultInfo<String>>() {
-                    @Override
-                    public void call(ResultInfo<String> stringResultInfo) {
-                        loadingDialog.dismiss();
-                        dismiss();
-                    }
+                paySuccessEngine.uploadPhone(phone).subscribe(stringResultInfo -> {
+                    loadingDialog.dismiss();
+                    dismiss();
                 });
             }
         });

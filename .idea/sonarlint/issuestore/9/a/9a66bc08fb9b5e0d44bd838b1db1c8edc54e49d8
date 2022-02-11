@@ -1,0 +1,44 @@
+
+T
+java:S1155Œ">Use isEmpty() to check whether the collection is empty or not.(‘ûòo
+C
+java:S1604p"(Make this anonymous inner class a lambda(ëøİÖøÿÿÿÿ
+C
+java:S1604h"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+D
+java:S1604Œ"(Make this anonymous inner class a lambda(øÆ©Àûÿÿÿÿ
+?
+java:S1604„"(Make this anonymous inner class a lambda(›©ÉØ
+?
+java:S1604›"(Make this anonymous inner class a lambda(ÎÅ…
+?
+java:S1604£"(Make this anonymous inner class a lambda(¬„êÏ
+?
+java:S1604«"(Make this anonymous inner class a lambda(´ü¨Î
+?
+java:S1604±"(Make this anonymous inner class a lambda(‚‹Íø
+D
+java:S1604×"(Make this anonymous inner class a lambda(Ì†•µşÿÿÿÿ
+?
+java:S1604ò"(Make this anonymous inner class a lambda(Ù—ÿù
+w
+java:S1488§"[Immediately return this expression instead of assigning it to the temporary variable "pos".(˜ÁÈÀıÿÿÿÿ
+v
+java:S14507"[Remove the "recyclerView" field and declare it as a local variable in the relevant methods.(¿á© ıÿÿÿÿ
+f	java:S116:"QRename this field "WX_PAY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…Ãî¬
+g	java:S116;"RRename this field "ALI_PAY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úÓò«
+7
+java:S1170:"!Make this final field static too.(…Ãî¬
+7
+java:S1170;"!Make this final field static too.(úÓò«
+h
+java:S3776f"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(§Ì©
+i
+java:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(ïÙ‘ 
+˜
+java:S1186Í"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±Ÿßœ
+X
+java:S1117‹"<Rename "goodInfo" which hides the field declared at line 63.(ù‹¬ˆıÿÿÿÿ
+R	java:S125’"<This block of commented-out lines of code should be removed.(‡áı‹
+R	java:S125œ"<This block of commented-out lines of code should be removed.(šæÒÌ
+W	java:S125¨"<This block of commented-out lines of code should be removed.(ËÕŞÔüÿÿÿÿ

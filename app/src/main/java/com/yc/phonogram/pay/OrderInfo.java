@@ -3,7 +3,9 @@ package com.yc.phonogram.pay;
 import android.content.Context;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.kk.utils.TimeUtil;
+
+import yc.com.rthttplibrary.util.TimeUtil;
+
 
 /**
  * Created by zhangkai on 2017/3/17.

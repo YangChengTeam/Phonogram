@@ -3,10 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Phonogram.iml" filepath="$PROJECT_DIR$/Phonogram.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
-      <module fileurl="file://$PROJECT_DIR$/toutiao-adv/toutiao-adv.iml" filepath="$PROJECT_DIR$/toutiao-adv/toutiao-adv.iml" />
-      <module fileurl="file://$PROJECT_DIR$/video-player/video-player.iml" filepath="$PROJECT_DIR$/video-player/video-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Phonogram.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Phonogram.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rthttplibrary/Phonogram.rthttplibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/rthttplibrary/Phonogram.rthttplibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/share/Phonogram.share.iml" filepath="$PROJECT_DIR$/.idea/modules/share/Phonogram.share.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/toutiao-adv/Phonogram.toutiao-adv.iml" filepath="$PROJECT_DIR$/.idea/modules/toutiao-adv/Phonogram.toutiao-adv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/video-player/Phonogram.video-player.iml" filepath="$PROJECT_DIR$/.idea/modules/video-player/Phonogram.video-player.iml" />
     </modules>
   </component>
 </project>

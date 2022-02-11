@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.yc.phonogram.R;
-import com.yc.phonogram.domain.Config;
 import com.yc.phonogram.utils.Mp3Utils;
 
 import java.util.List;
@@ -25,10 +24,7 @@ import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import yc.com.tencent_adv.AdvDispatchManager;
 import yc.com.tencent_adv.OnAdvStateListener;
-import yc.com.toutiao_adv.TTAdDispatchManager;
-import yc.com.toutiao_adv.TTAdType;
 
 /**
  * Created by zhangkai on 2017/12/15.
@@ -61,8 +57,6 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
 
 //        AdvDispatchManager.getManager().init(this, AdvType.SPLASH, container, skipView, Config.AV_APPID, Config.AV_SPLASH_ID, this);
 
-        TTAdDispatchManager.getManager().init(this, TTAdType.SPLASH, container, Config.TOUTIAO_SPLASH_ID, 0, null, 0, null, 0, this);
-
         final Integer[] bgIDs = new Integer[]{R.mipmap.splash_bg1, R.mipmap.splash_bg2, R.mipmap.splash_bg3, R.mipmap
                 .splash_bg4};
         subscription = Observable.interval(300, TimeUnit.MILLISECONDS).observeOn
@@ -74,14 +68,12 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
                         logoImageView.setImageDrawable(ContextCompat.getDrawable(SplashActivity.this, bgIDs[aLong.intValue() % 4]));
                     }
                 });
-        mediaPlayer = Mp3Utils.playMp3(this, "splash.mp3", new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
+        mediaPlayer = Mp3Utils.playMp3(this, "splash.mp3", mp -> {
 
-                if (subscription != null && !subscription.isUnsubscribed()) {
-                    subscription.unsubscribe();
-                    subscription = null;
-                }
+            if (subscription != null && !subscription.isUnsubscribed()) {
+                subscription.unsubscribe();
+                subscription = null;
+            }
 
 //                handler.postDelayed(new Runnable() {
 //                    @Override
@@ -90,8 +82,19 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
 //                    }
 //                }, 500);
 
-            }
+            switchMain(minSplashTimeWhenNoAD);
+
         });
+        mediaPlayer.start();
+//        String brand = Build.BRAND.toLowerCase();
+//        if (VipUtils.getInstance(this).isVip()|| TextUtils.equals("huawei",brand)||TextUtils.equals("honor",brand)) {
+//
+//            container.setVisibility(View.GONE);
+//            switchMain(minSplashTimeWhenNoAD);
+//        } else {
+//            container.setVisibility(View.VISIBLE);
+//            TTAdDispatchManager.getManager().init(this, TTAdType.SPLASH, container, Config.TOUTIAO_SPLASH_ID, 0, null, 0, null, 0, this);
+//        }
 
     }
 
@@ -100,7 +103,7 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        AdvDispatchManager.getManager().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
@@ -130,7 +133,7 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
         super.onPause();
 //        canJump = false;
 //        AdvDispatchManager.getManager().onPause();
-        TTAdDispatchManager.getManager().onStop();
+//        TTAdDispatchManager.getManager().onStop();
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying())
                 mediaPlayer.stop();
@@ -144,7 +147,7 @@ public class SplashActivity extends BaseActivity implements OnAdvStateListener, 
     protected void onResume() {
         super.onResume();
 //        AdvDispatchManager.getManager().onResume();
-        TTAdDispatchManager.getManager().onResume();
+//        TTAdDispatchManager.getManager().onResume();
 
     }
 
